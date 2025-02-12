@@ -23,15 +23,14 @@ Amennyiben hibát találsz az anyagban, vagy szeretnéd bővíteni, de nem áll 
 1. Az issues tabon a new issue gombbal hozz létre egy új issue-t.
     ![How to create new issue](assets/github-new-issue.png)
 2. Lásd el a megfelelő címkékkel
-    1. A labor típusa (`android` az androidos laboroknál)
-    2. A hiba típusa (`clarification`, `typo`, `illustration` vagy `notes`)
+    A hiba típusa (`clarification`, `typo`, `illustration` vagy `notes`)
 3. Írd le, hogy mit kéne tartalmaznia a javításnak
 
 !!! tip
 
-    Az címe legyen rövid és lényegretörő, pl.: `Megfogalmazás pontosítása a 4. laborban` vagy `A 6. laborban a leírt kód hibásan működik Android 12-n`
+    Az címe legyen rövid és lényegretörő, pl.: `Megfogalmazás pontosítása a 4. laborban` vagy `A 3. laborban a leírt kód hibásan működik Android 12-n`
 
-    A issue descriptionjében pedig fejtsd ki, hol található a hiányosság, illetve ha van rá ötleted, hogy lehetne orvosolni ezt.
+    Az issue descriptionjében pedig fejtsd ki, hol található a hiányosság, illetve ha van rá ötleted, hogy lehetne orvosolni ezt.
     Ha ezeken túl még screenshotot is tudsz mellékelni, az nagyban megsegíti a probléma mihamarabbi javítását.
 
 !!! warning
@@ -60,8 +59,7 @@ Amennyiben a hozzájárulásod meg tudod valósítani indíts pull requestet
     4. Ha kész vagy a laborok beadásához hasonlóan indíts egy pull requestet a `VIAUAC00/laborok` `master` branchére.
 
     5. Lásd el a megfelelő címkékkel
-        1. A labor típusa (`android` az androidos laboroknál és `web` a webes laboroknál)
-        2. A hiba típusa (`clarification`, `typo`, `illustration` vagy `notes`)
+        A hiba típusa (`clarification`, `typo`, `illustration` vagy `notes`)
     6. A leírásban részletezd változtatások okát.
         Ne felejtsd el beleírni a NEPTUN kódod a leírásba, mert így fogjuk tudni megadni a pontokat.
 
