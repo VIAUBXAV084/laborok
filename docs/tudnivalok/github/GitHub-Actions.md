@@ -16,9 +16,9 @@ Ezek közül egyet kiválasztva (pl. a legfelső mindig a legutolsó) láthatod 
 
 Minden zöld pipa egy-egy sikeres lépést jelent. Ezen lépések nem azonosak a feladatokokkal, hanem a kiértékelés folyamatának lépései lesznek. Ilyen lépés például a környezet előkészítése, pl. a .NET SDK telepítése (minden kiértékelés egy vadiúj környezetben indul, így mindent elő kell készíteni).
 
-Alapvetően a lépések mindig sikeresek, akkor is, ha a megoldásodban hiba van, mert a kiértékelés erre fel van készítve. Kivételt ez alól csak a `neptun.txt` hiánya ill. a C# kód lefordítása jelent. Előbbi feltétlenül szükséges, ezért semmilyen folyamatot nem hajtunk végre nélküle. Utóbbi esetében a C# kód fordítása szintén szükséges a továbblépéshez, ezért sikertelenség esetén leáll a folyamat.
+Alapvetően a lépések mindig sikeresek, akkor is, ha a megoldásodban hiba van, mert a kiértékelés erre fel van készítve. Kivételt ez alól csak a `neptun.txt` hiánya ill. a kód lefordítása jelent. Előbbi feltétlenül szükséges, ezért semmilyen folyamatot nem hajtunk végre nélküle. Utóbbi esetében a kód fordítása szintén szükséges a továbblépéshez, ezért sikertelenség esetén leáll a folyamat.
 
-Néha előfordulhat azonban tranziens, időszakos hiba is. Például a .NET környezet letöltése nem sikerül hálózati hiba miatt. Ilyen esetben a futtatást kézzel meg lehet ismételni. Ez persze csak akkor segít, ha tényleg átmeneti hibáról van szó, tehát pl. egy C# fordítási hibán nem fog segíteni. (Ezt a hibaüzenetből illetve a lépés nevéből tudod kideríteni, vagy legalább is megtippelni kellő bizonyossággal.)
+Néha előfordulhat azonban tranziens, időszakos hiba is. Ilyen esetben a futtatást kézzel meg lehet ismételni. Ez persze csak akkor segít, ha tényleg átmeneti hibáról van szó, tehát pl. egy fordítási hibán nem fog segíteni. (Ezt a hibaüzenetből illetve a lépés nevéből tudod kideríteni, vagy legalább is megtippelni kellő bizonyossággal.)
 
 ![GitHub Actions tranziens hiba és újra futtatás](assets/github-actions-rerun.png)
 
