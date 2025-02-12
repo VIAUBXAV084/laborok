@@ -22,8 +22,7 @@ Amennyiben hibát találsz az anyagban, vagy szeretnéd bővíteni, de nem áll 
     így mielőtt bármit tennél nézd meg valaki nem előzött-e meg
 1. Az issues tabon a new issue gombbal hozz létre egy új issue-t.
     ![How to create new issue](assets/github-new-issue.png)
-2. Lásd el a megfelelő címkékkel
-    A hiba típusa (`clarification`, `typo`, `illustration` vagy `notes`)
+2. Lásd el a megfelelő címkékkel: a hiba típusa (`clarification`, `typo`, `illustration` vagy `notes`)
 3. Írd le, hogy mit kéne tartalmaznia a javításnak
 
 !!! tip
@@ -58,8 +57,7 @@ Amennyiben a hozzájárulásod meg tudod valósítani indíts pull requestet
 
     4. Ha kész vagy a laborok beadásához hasonlóan indíts egy pull requestet a `VIAUAC00/laborok` `master` branchére.
 
-    5. Lásd el a megfelelő címkékkel
-        A hiba típusa (`clarification`, `typo`, `illustration` vagy `notes`)
+    5. Lásd el a megfelelő címkékkel: a hiba típusa (`clarification`, `typo`, `illustration` vagy `notes`)
     6. A leírásban részletezd változtatások okát.
         Ne felejtsd el beleírni a NEPTUN kódod a leírásba, mert így fogjuk tudni megadni a pontokat.
 
