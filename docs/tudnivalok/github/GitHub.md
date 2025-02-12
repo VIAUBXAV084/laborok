@@ -2,14 +2,11 @@
 
 A feladatok beadásához a GitHub platformot használjuk. Minden labor beadása egy-egy GitHub repository-ban történik, melyet a feladatleírásban található linken keresztül kapsz meg. A labor feladatainak megoldását ezen repository-ban kell elkészítened, és ide kell feltöltened. A kész megoldás beadása a repository-ba való feltöltés után egy un. _pull request_ formájában történik, amelyet a laborvezetődhöz rendelsz.
 
-!!! important "FONTOS"
-    Az itt leírt formai előírások betartása elvárás. A nem ilyen formában beadott megoldásokat nem értékeljük.
-
 ## Rövidített verzió
 
 Alább részletesen bemutatjuk a beadás menetét. Itt egy rövid összefoglaló az áttekintéshez, illetve a helyes beadás ellenőrzéséhez.
 
-1. A munkádat Moodle-ben található GitHub Classroom meghívó linken keresztül létrehozott GitHub repository-ban kell elkészítsd.
+1. A munkádat a Moodle-ben található GitHub Classroom meghívó linken keresztül létrehozott GitHub repository-ban kell elkészítsd.
 
 1. A megoldáshoz készíts egy külön ágat, ne a _master_-en dolgozz. Erre az ágra akárhány kommitot tehetsz. Mindenképpen pushold a megoldást.
 
@@ -67,24 +64,6 @@ Alább részletesen bemutatjuk a beadás menetét. Itt egy rövid összefoglaló
 
 1. Ezen a megoldás ágon dolgozva készítsd el a beadandókat. Akárhányszor kommitolhatsz és pusholhatsz. A megoldás része a forráskód és a feladatokban elvárt képernyőképek. Ha a feladat képernyőképet vár el, akkor azt a repository gyökerébe commitold az elvárt néven.
 
-    !!! note "Egyetemi laborban"
-        Laborgépeken mindig ellenőrízd, hogy a megfelelő névvel és email címmel kommitolsz-e. Ezt a következő command line paranccsal tudod megtenni.
-
-        ```bash
-        git config user.name
-        git config user.email
-        ```
-        
-        Ha ez nem megfelelő lenne, akkor add ki az alábbi parancsokat a git repository mappájában. Ezzel az adott repository-ra fogod beállítani a kívánt nevet és email címet. (Érdemes olyan email címet, megadni ami a github useretekhez van rendelve)
-        
-        ```bash
-        git config user.name "John Doe"
-        git config user.email "john@doe.org"
-        ```
-
-    !!! tip "Otthon"
-        Otthon a fentieket érdemes lehet a globálisan vizsgálni és felülírni a `--global` kapcsolóval.
-
     GitHub Desktop-ban így tudsz kommitolni. Mindig ellenőrizd, hogy jó ágon vagy-e. Első alkalommal a _megoldas_ ág csak helyben létezik, ezért publikálni kell: _Publish this branch_.
 
     ![GitHub Desktop push branch](./assets/github-desktop-commit-to-branch.png)
@@ -123,9 +102,6 @@ Alább részletesen bemutatjuk a beadás menetét. Itt egy rövid összefoglaló
 
 1. Ha tényleg kész vagy, akkor nyiss egy _pull request_-et.
 
-    !!! important "Minek a pull request?"
-        Ez a _pull request_ fogja össze a megoldásodat, és annak "végeredményét" mutatja. Így a laborvezetőnek nem az egyes kommitjaidat vagy fájljaidat kell néznie, hanem csak a releváns, változott részeket látja egyben. A _pull request_ jelenti a feladatod beadását is, így ez a lépés **nem hagyható ki**.
-
     A _pull request_ nyitásához a GitHub webes felületére kell menj. Itt, ha nem rég pusholtál, a GitHub fel is ajánlja a pull request létrehozását.
 
     ![GitHub create pull request](./assets/github-create-pull-request-1.png)
@@ -140,7 +116,7 @@ Alább részletesen bemutatjuk a beadás menetét. Itt egy rövid összefoglaló
 
 1. A _pull request_ hatására le fog futni egy értékelés. Ennek eredményét a pull request alatt kommentben fogod látni.
 
-    Ez az értékelés minden labor esetében más lesz. Egyes laboroknál a programodat lefuttatjuk, és előzetes pontszámot is kapsz. Más laboroknál csak "szintaktikai ellenőrzést" végzünk.
+    Ez az értékelés csak "szintaktikai ellenőrzés" és a neptun kód helyes megadásának ellenőrzése, a megoldást minden esetben a laborvezető fogja ténylegesen értékelni.
 
     ![GitHub create pull request](./assets/github-pull-request-eval-result.png)
 
@@ -158,7 +134,7 @@ Alább részletesen bemutatjuk a beadás menetét. Itt egy rövid összefoglaló
         ![GitHub create pull request](./assets/github-draft-pr-ready.png)
 
     !!! info "Maximum 5"
-        A maximum 5 alkalomba nem számoljuk bele az esetlegesen megszakadt, vagy tranziens hiba miatt sikertelen futtatásokat. Ha viszont figyelmetlenségből, vagy szándékosan túlléped az ötöt, akkor pontlevonással szankcionálunk. Arra kérünk, hogy beadás előtt **teszteld a megoldásod**, ne a GitHub platformot "dolgoztasd" magad helyett!
+        A maximum 5 alkalomba nem számoljuk bele az esetlegesen megszakadt, vagy tranziens hiba miatt sikertelen futtatásokat. Arra kérünk, hogy beadás előtt **teszteld a megoldásod**, ne a GitHub platformot "dolgoztasd" magad helyett!
 
 1. **VÉGEZETÜL**, ha kész vagy, a _pull request_-et rendeld a **laborvezetődhöz**. Ez a lépés feltétlenül fontos, ez jelzi a beadást.
 
@@ -173,8 +149,3 @@ Alább részletesen bemutatjuk a beadás menetét. Itt egy rövid összefoglaló
 ## Kapott eredménnyel kapcsolatban kérdés vagy reklamáció
 
 Ha a feladatok értékelésével vagy az eredménnyel kapcsolatban kérdést tennél fel, vagy reklamálnál, használd a Pull Request kommentelési lehetőségét erre. Annak érdekében, hogy a laborvezető biztosan értesüljön a kérdésről használd a `@név` [mention](https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax#mentioning-people-and-teams) funkciót a **laborvezetőd** megnevezéséhez. Erről automatikusan kapni fog egy email értesítést.
-
-![GitHub PR kérdés](./assets/github-question-in-pr.png)
-
-!!! warning "Reklamáció csak indoklással"
-    Ha nem értesz egyet az értékeléssel, a bizonyítás téged terhel, azaz alá kell támasztanod a reklamációd (pl. annak leírásával, hogyan tesztelted a megoldásod, és mi bizonyítja a helyességét).
