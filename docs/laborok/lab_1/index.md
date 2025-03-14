@@ -346,7 +346,7 @@ A _compose.desktop_ blokk a Jetpack Compose Desktop alkalmazások beállításai
 - A natív disztribúciós beállításokat (pl. .dmg, .msi, .deb fájlformátumokat a különböző operációs rendszerekhez).
 
 
-Vessünk egy pillantást a composeApp > gradle > libs.versions.toml fájlra is. Ez egy deklaratív módja a projektben használt függőségek és verziók áttekinhető kezelésének. Segítségével központilag kezelhetjük a verziókat, így könnyebb frissíteni azokat. A build.gradle.kts fájlok ezáltal tisztábbak és átláthatóbbak lesznek, illetve elejét vehetjük az eltérő verziók használatából adódó problémáknak is.
+Vessünk egy pillantást a gradle > libs.versions.toml fájlra is. Ez egy deklaratív módja a projektben használt függőségek és verziók áttekinhető kezelésének. Segítségével központilag kezelhetjük a verziókat, így könnyebb frissíteni azokat. A build.gradle.kts fájlok ezáltal tisztábbak és átláthatóbbak lesznek, illetve elejét vehetjük az eltérő verziók használatából adódó problémáknak is.
 
 - A versions blokkban a különböző könyvtárak pontos verzióit adjuk meg.
 - A libraries blokkban az egyes függőségeket definiáljuk, amelyek egy adott verzióra hivatkoznak a versions blokkból.
