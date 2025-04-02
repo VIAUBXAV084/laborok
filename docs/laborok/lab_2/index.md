@@ -45,7 +45,7 @@ A második képernyő könyvek felvételéért, illetve meglévő könyvek szerk
 
 Az alkalmazásban az MVVM (de még nem MVI) architektúrát fogjuk használni, a ViewModel-ek képernyőkhöz való példányosítását pedig Dependency Injection segítségével oldjuk meg.
 
-A kiinduló projektünket megtaláljuk az elkészült saját repositorynkban. Nyissuk ezt meg a fejlesztőkörnyezetünkben projektként!
+A kiinduló projektünket megtaláljuk az elkészült saját repositorynkban, _LibraryManager_ néven. Nyissuk ezt meg a fejlesztőkörnyezetünkben projektként!
 Láthatjuk, hogy nem tartalmaz még semmi érdemi kódot, a projekt függőségei viszont konfigurálva vannak benne. Az alapvető függőségeken felül a következőkre lesz szükségünk a laboron, ezeket tartalmazza a kiinduló projekt:
 
 *   org.jetbrains.androidx.navigation:navigation-compose: Az androidx.navigation Jetpack Compose könyvtár Compose Multiplatformra elkészített, a JetBrains által támogatott verziója.
