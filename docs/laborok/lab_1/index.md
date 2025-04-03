@@ -371,7 +371,16 @@ Lássuk most, hogyan tudjuk futtatni az alkalmazásunkat a különböző platfor
     * JAVA_HOME a JDK könyvtárra legyen állítva
     * PATH-ben pedig szerepeljen (a korábban már telepített java JDK-k előtt) a JDK `\bin` mappája
 	
-Mielőtt futtatnánk az alkalmazást, tekintsük át a Gradle importálás során felismert Gradle taskokat. A gradle ablakot lenyitva az alábbihoz hasonló run configurationöket kell látnunk:
+Mielőtt futtatnánk az alkalmazást, tekintsük át a Gradle importálás során felismert Gradle taskokat. A gradle ablakot lenyitva csak teszt configurációkat látunk:
+<p align="center">
+<img src="./assets/gradle_runconfigs-missing-tasklist.jpg" width="250">
+</p>
+
+Hogy lássuk az összes taskot kattintsunk a kék információ ikonnal ellátott "Task list is not built..." szövegre, mely megnyitja a Settings > Experimental oldalt, ahol pipáljuk be a következőt: `Configure all Gradle tasks during Gradle Sync`
+
+Ezután az Android Studio menüjéből válasszuk ki a File > Sync Project with Gradle Files-t vagy nyomjuk le a Ctrl+Shift+O billentyűkombinációt.
+
+Ezek után az alábbihoz hasonló run configurationöket kell látnunk:
 
 <p align="center">
 <img src="./assets/gradle_runconfigs.jpg" width="250">
