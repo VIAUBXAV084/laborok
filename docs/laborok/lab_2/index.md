@@ -255,7 +255,7 @@ Ehhez a feladathoz nem kell képernyőképet készítenünk, amennyiben elkész�
 
 ## A felhasználói felület elkészítése (1 pont)
 
-A továbbikaban fejezzük be az alkalmazásunkat, készítsük el a 2 képernyőnket!
+A továbbiakban fejezzük be az alkalmazásunkat, készítsük el a 2 képernyőnket!
 
 Vegyük fel a könyvek adatait tároló data classt a _model_ packagebe:
 ```
