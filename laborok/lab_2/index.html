@@ -841,7 +841,7 @@ Láthatjuk, hogy nem tartalmaz még semmi érdemi kódot, a projekt függősége
 <p class="admonition-title">Gradle függőségek verziószámai<p>A projekt több olyan függőséget is használ (pl. navigation, lifecycle viewmodel), amelyek nem az elérhető legfrissebb verziót használják. Erre figyelmeztet is warning formájában az Android Studio. Vigyázat: nem minden függőség esetén célszerű mindig a legfrissebb verziót használni, amennyiben az nem stabil, alfa állapotban van, akkor fordítási, vagy akár futási idejű hibákat is okozhat. Például az org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose függőség legújabb elérhető, de nem stable release verziója (az útmutató készülésének pillanatában 2.9.0-alpha05) desktop platformon futási hibát okoz.</p>
 </p>
 </div>
-<p>A projektünk tartalmaz továbbá néhánypackaget is, amelyek az alkalmazás különböző részeinek jól elkülönített tárolásáért lesznek felelősek. Nézzük meg ezeket röviden, melyik mit fog tartalmazni:</p>
+<p>A projektünk tartalmaz továbbá néhány packaget is, amelyek az alkalmazás különböző részeinek jól elkülönített tárolásáért lesznek felelősek. Nézzük meg ezeket röviden, melyik mit fog tartalmazni:</p>
 <ul>
 <li>component: Újrahasználható composable elemek.</li>
 <li>model: Az alkalmazás modell osztályai.</li>
@@ -853,63 +853,63 @@ Láthatjuk, hogy nem tartalmaz még semmi érdemi kódot, a projekt függősége
 <h2 id="az-alkalmazas-alapjai-es-navigacio-1-pont">Az alkalmazás alapjai és navigáció (1 pont)<a class="headerlink" href="#az-alkalmazas-alapjai-es-navigacio-1-pont" title="Permanent link">&para;</a></h2>
 <p>Készítsük el az említett funkciókkal és felhasználói felülettel az alkalmazást Compose Multiplatform segítségével! A továbbiakban végig a közös kódban, a commonMain source seten belül dolgozzunk.</p>
 <p>Kezdjük a navigáció kialakításával! Ehhez célszerű először felvenni a két képernyőnk Composable függvényeit, egyelőre üres tartalommal. Vegyünk fel tehát a <em>screen</em> packagebe egy <em>BookListScreen.kt</em> és egy <em>BookDetailScreen.kt</em> fájlt, bennük a megfelelő Composable függvényekkel. A listázó képernyőnk a navigációhoz szükséges NavController példányt, a részletező képernyő azon felül a szerkesztendő könyv esetleges ID-ját is paraméterként kapja:</p>
-<div class="highlight"><pre><span></span><code>import androidx.compose.runtime.Composable
-import androidx.navigation.NavController
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.runtime.Composable</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.navigation.NavController</span>
 
-@Composable
-fun BookListScreen(navController: NavController) {}
+<span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">BookListScreen</span><span class="p">(</span><span class="n">navController</span><span class="p">:</span><span class="w"> </span><span class="n">NavController</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>import androidx.compose.runtime.Composable
-import androidx.navigation.NavController
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.runtime.Composable</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.navigation.NavController</span>
 
-@Composable
-fun BookDetailScreen(navController: NavController, bookId: Int?) {}
+<span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">BookDetailScreen</span><span class="p">(</span><span class="n">navController</span><span class="p">:</span><span class="w"> </span><span class="n">NavController</span><span class="p">,</span><span class="w"> </span><span class="n">bookId</span><span class="p">:</span><span class="w"> </span><span class="kt">Int?</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
 </code></pre></div>
 <p>Az alkalmazásunk navigációját egy NavigationGraph formájában adjuk meg. Minden képernyőhöz egy elérési út tartozik, a NavGraph pedig az egyes elérési útakhoz definiálja, milyen composable elemet kell megjelenítenünk, milyen paraméterekkel. Vegyünk fel egy NavGraph.kt fájlt a <em>navigation</em> packagen belül.</p>
 <p>Az útvonalak áttekinthető kezeléséért hozzunk létre itt egy-egy azokért felelős segédosztályt:</p>
-<p><div class="highlight"><pre><span></span><code>import androidx.compose.runtime.Composable
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import hu.bme.aut.librarymanager.screen.BookDetailScreen
-import hu.bme.aut.librarymanager.screen.BookListScreen
+<p><div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.runtime.Composable</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.navigation.NavHostController</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.navigation.compose.NavHost</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.navigation.compose.composable</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">hu.bme.aut.librarymanager.screen.BookDetailScreen</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">hu.bme.aut.librarymanager.screen.BookListScreen</span>
 
-sealed class Screen(val route: String) {
-    data object BookList : Screen(&quot;booklist&quot;)
-    data object BookDetails : Screen(&quot;bookDetails/{bookId}&quot;) {
-        fun createRoute(bookId: String) = &quot;bookDetails/$bookId&quot;
-    }
-}
+<span class="kd">sealed</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">Screen</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">route</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">data</span><span class="w"> </span><span class="kd">object</span><span class="w"> </span><span class="nc">BookList</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Screen</span><span class="p">(</span><span class="s">&quot;booklist&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">data</span><span class="w"> </span><span class="kd">object</span><span class="w"> </span><span class="nc">BookDetails</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Screen</span><span class="p">(</span><span class="s">&quot;bookDetails/{bookId}&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">fun</span><span class="w"> </span><span class="nf">createRoute</span><span class="p">(</span><span class="n">bookId</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;bookDetails/</span><span class="si">$</span><span class="n">bookId</span><span class="s">&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
 Minden képernyőnkhöz egy útvonal tartozik, a részletező képernyő az útvonal paramétereként a szerkesztendő könyv azonosítóját is átveszi, majd annak felhasználásával képes előállítani a konkrét útvonalat.</p>
 <p>Vegyük fel most a NavGraph-unkat is:</p>
-<div class="highlight"><pre><span></span><code>@Composable
-fun NavGraph(navController: NavHostController) {
-    NavHost(navController, startDestination = Screen.BookList.route) {
-        composable(Screen.BookList.route) { BookListScreen(navController) }
-        composable(Screen.BookDetails.route) { backStackEntry -&gt;
-            val bookId = backStackEntry.arguments?.getString(&quot;bookId&quot;) ?: return@composable
-            BookDetailScreen(navController, bookId.toInt())
-        }
-    }
-}
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">NavGraph</span><span class="p">(</span><span class="n">navController</span><span class="p">:</span><span class="w"> </span><span class="n">NavHostController</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">NavHost</span><span class="p">(</span><span class="n">navController</span><span class="p">,</span><span class="w"> </span><span class="n">startDestination</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Screen</span><span class="p">.</span><span class="na">BookList</span><span class="p">.</span><span class="na">route</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">composable</span><span class="p">(</span><span class="n">Screen</span><span class="p">.</span><span class="na">BookList</span><span class="p">.</span><span class="na">route</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">BookListScreen</span><span class="p">(</span><span class="n">navController</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="n">composable</span><span class="p">(</span><span class="n">Screen</span><span class="p">.</span><span class="na">BookDetails</span><span class="p">.</span><span class="na">route</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">backStackEntry</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">            </span><span class="kd">val</span><span class="w"> </span><span class="nv">bookId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">backStackEntry</span><span class="p">.</span><span class="na">arguments</span><span class="o">?.</span><span class="na">getInt</span><span class="p">(</span><span class="s">&quot;bookId&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">?:</span><span class="w"> </span><span class="k">return</span><span class="nd">@composable</span>
+<span class="w">            </span><span class="n">BookDetailScreen</span><span class="p">(</span><span class="n">navController</span><span class="p">,</span><span class="w"> </span><span class="n">bookId</span><span class="p">.</span><span class="na">toInt</span><span class="p">())</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>A NavHost segítségével megadjuk, melyik útvonal esetén melyik képernyőt kell megjelenítenünk. A részletező képernyő esetén az útvonalból a paramétert kiszedjük, majd amennyiben nem null, átadjuk a Composable függvény meghívásakor.</p>
 <p>Végezetül nyissuk meg az alkalmazásunk belépési pontjaként szolgáló MainApp.kt fájlt, és vegyük fel az elkészített NavGraph-unkat az App() függvényünkbe:</p>
-<div class="highlight"><pre><span></span><code>import androidx.compose.material.MaterialTheme
-import androidx.compose.runtime.Composable
-import androidx.navigation.compose.rememberNavController
-import hu.bme.aut.librarymanager.navigation.NavGraph
-import org.jetbrains.compose.ui.tooling.preview.Preview
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material.MaterialTheme</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.runtime.Composable</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.navigation.compose.rememberNavController</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">hu.bme.aut.librarymanager.navigation.NavGraph</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.jetbrains.compose.ui.tooling.preview.Preview</span>
 
-@Composable
-@Preview
-fun App() {
-    MaterialTheme {
-        val navController = rememberNavController()
-        NavGraph(navController)
-    }
-}
+<span class="nd">@Composable</span>
+<span class="nd">@Preview</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">App</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">MaterialTheme</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">navController</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rememberNavController</span><span class="p">()</span>
+<span class="w">        </span><span class="n">NavGraph</span><span class="p">(</span><span class="n">navController</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>Ehhez a feladathoz nem kell képernyőképet készítenünk, amennyiben elkészültünk, folytassuk a következő résszel!</p>
 <h2 id="mvvm-architektura-es-dependency-injection-1-pont">MVVM architektúra és dependency injection (1 pont)<a class="headerlink" href="#mvvm-architektura-es-dependency-injection-1-pont" title="Permanent link">&para;</a></h2>
@@ -930,144 +930,144 @@ fun App() {
 </p>
 </div>
 <p>Vegyük fel a <em>viewmodel</em> packagebe a BookViewModel osztályunkat!</p>
-<div class="highlight"><pre><span></span><code>import androidx.lifecycle.ViewModel
-import hu.bme.aut.librarymanager.model.Book
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">androidx.lifecycle.ViewModel</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">hu.bme.aut.librarymanager.model.Book</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">kotlinx.coroutines.flow.MutableStateFlow</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">kotlinx.coroutines.flow.StateFlow</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">kotlinx.coroutines.flow.asStateFlow</span>
 
-class BookViewModel : ViewModel() {
+<span class="kd">class</span><span class="w"> </span><span class="nc">BookViewModel</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ViewModel</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 
-    private val _books = MutableStateFlow&lt;List&lt;Book&gt;&gt;(emptyList())
-    val books: StateFlow&lt;List&lt;Book&gt;&gt; = _books.asStateFlow()
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">_books</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MutableStateFlow</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Book</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">emptyList</span><span class="p">())</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">books</span><span class="p">:</span><span class="w"> </span><span class="n">StateFlow</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Book</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_books</span><span class="p">.</span><span class="na">asStateFlow</span><span class="p">()</span>
 
-    fun addBook(book: Book) {
-        _books.value += book
-    }
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">addBook</span><span class="p">(</span><span class="n">book</span><span class="p">:</span><span class="w"> </span><span class="n">Book</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">_books</span><span class="p">.</span><span class="na">value</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">book</span>
+<span class="w">    </span><span class="p">}</span>
 
-    fun updateBook(book: Book) {
-        _books.value = _books.value.map {
-            if (it.id == book.id) book else it
-        }
-    }
-}
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">updateBook</span><span class="p">(</span><span class="n">book</span><span class="p">:</span><span class="w"> </span><span class="n">Book</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">_books</span><span class="p">.</span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_books</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">map</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">id</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">book</span><span class="p">.</span><span class="na">id</span><span class="p">)</span><span class="w"> </span><span class="n">book</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="nb">it</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>A ViewModel fogja tárolni a könyvek kezeléséért felelős képernyőkhöz tartozó állapotot, nevezetesen az alkalmazásban lévő könyvek listáját, és biztosít azok módosítására műveleteket. A listát egy nem módosítható StateFlow segítségével teszi származtatottan elérhetővé a Viewk számára, ugyanakkor csak a viewmodelen belül ez a lista módosítható is (private MutableStateFlow).</p>
 <p>Használjuk most a Koin-t a ViewModel-ek képernyőkbe való injektálására! A Dependency Injection-ről részletesen a vonatkozó előadás anyagában (is) tájékozódhatunk. A dependency injection (DI) egy tervezési minta, amelynek célja az objektumok közötti függőségek lazább összekapcsolása. Ahelyett, hogy egy osztály maga hozná létre a szükséges függőségeket, ezeket kívülről adják át neki, például egy injektor vagy egy DI konténer segítségével. Az MVVM mintában a dependency injection segít abban, hogy a ViewModel ne legyen szorosan összekapcsolva a Modellel vagy más szolgáltatásokkal, illetve a ViewModel szintén lazán legyen csatolva a hozzá tartozó View-hoz.</p>
 <p>A Koin konfigurálásához tartozó kódot kiszervezhetnénk egy külön packagebe is, azonban esetünkben annyira egyszerű, hogy tehetjük a MainApp-ba is:</p>
-<div class="highlight"><pre><span></span><code>import hu.bme.aut.librarymanager.viewmodel.BookViewModel
-import org.koin.core.context.startKoin
-import org.koin.dsl.module
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">hu.bme.aut.librarymanager.viewmodel.BookViewModel</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.koin.core.context.startKoin</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.koin.dsl.module</span>
 
-val appModule = module {
-    single { BookViewModel() }
-}
+<span class="kd">val</span><span class="w"> </span><span class="nv">appModule</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">module</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">single</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">BookViewModel</span><span class="p">()</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>Az alkalmazáshoz tartozó koin modulban definiáljuk, hogy a BookViewModel-t Singletonként injektáljuk. Ez azt jelenti, hogy a kód minden olyan helyén, ahol egy BookViewModel példányra van szükség, a Koin automatikusan be fog injektálni egy BookViewModel példányt, és minden ilyen helyen ugyanazt a példányt fogja használni. Esetünkben ez fontos, hiszen ugyanezt a ViewModelt használja mindkét képernyőnk. Amennyiben nem ugyanazt a példányt kapnák meg, az állapotuk nem lenne szinkronizált, ami hibás működéshez vezetne.</p>
 <p>Az App függvényünkön belül incializáljuk a Koint a létrehozott modulunkkal:</p>
-<div class="highlight"><pre><span></span><code>@Composable
-@Preview
-fun App() {
-    startKoin {
-        modules(appModule)
-    }
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="nd">@Preview</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">App</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">startKoin</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">modules</span><span class="p">(</span><span class="n">appModule</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
 
-    MaterialTheme {
-        val navController = rememberNavController()
-        NavGraph(navController)
-    }
-}
+<span class="w">    </span><span class="n">MaterialTheme</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">navController</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rememberNavController</span><span class="p">()</span>
+<span class="w">        </span><span class="n">NavGraph</span><span class="p">(</span><span class="n">navController</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>Végül vegyük fel a képernyőkbe a hozzájuk tartozó ViewModelt, használjuk pl. a Koin <em>koinInject</em> függvényét a konkrét példány injektálására!</p>
-<div class="highlight"><pre><span></span><code>import org.koin.compose.koinInject
-import hu.bme.aut.librarymanager.viewmodel.BookViewModel
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">org.koin.compose.koinInject</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">hu.bme.aut.librarymanager.viewmodel.BookViewModel</span>
 
-@Composable
-fun BookDetailScreen(navController: NavController, bookId: Int?) {
-    val viewModel: BookViewModel = koinInject() // Retrieve the ViewModel using koinInject()
-}
+<span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">BookDetailScreen</span><span class="p">(</span><span class="n">navController</span><span class="p">:</span><span class="w"> </span><span class="n">NavController</span><span class="p">,</span><span class="w"> </span><span class="n">bookId</span><span class="p">:</span><span class="w"> </span><span class="kt">Int?</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">viewModel</span><span class="p">:</span><span class="w"> </span><span class="n">BookViewModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">koinInject</span><span class="p">()</span><span class="w"> </span><span class="c1">// Retrieve the ViewModel using koinInject()</span>
+<span class="p">}</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>import org.koin.compose.koinInject
-import hu.bme.aut.librarymanager.viewmodel.BookViewModel
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">org.koin.compose.koinInject</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">hu.bme.aut.librarymanager.viewmodel.BookViewModel</span>
 
-@Composable
-fun BookListScreen(navController: NavController) {
-    val viewModel: BookViewModel = koinInject() // Retrieve the ViewModel using koinInject()
-}
+<span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">BookListScreen</span><span class="p">(</span><span class="n">navController</span><span class="p">:</span><span class="w"> </span><span class="n">NavController</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">viewModel</span><span class="p">:</span><span class="w"> </span><span class="n">BookViewModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">koinInject</span><span class="p">()</span><span class="w"> </span><span class="c1">// Retrieve the ViewModel using koinInject()</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>Ehhez a feladathoz nem kell képernyőképet készítenünk, amennyiben elkészültünk, folytassuk a következő résszel!</p>
 <h2 id="a-felhasznaloi-felulet-elkeszitese-1-pont">A felhasználói felület elkészítése (1 pont)<a class="headerlink" href="#a-felhasznaloi-felulet-elkeszitese-1-pont" title="Permanent link">&para;</a></h2>
 <p>A továbbiakban fejezzük be az alkalmazásunkat, készítsük el a 2 képernyőnket!</p>
 <p>Vegyük fel a könyvek adatait tároló data classt a <em>model</em> packagebe:
-<div class="highlight"><pre><span></span><code>data class Book(
-    val id: Int,
-    val title: String,
-    val author: String,
-    val year: Int,
-    val isAvailable: Boolean
-)
+<div class="highlight"><pre><span></span><code><span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">Book</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">id</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">title</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">author</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">year</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">isAvailable</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span>
+<span class="p">)</span>
 </code></pre></div></p>
 <p>Készítsük el az egy könyv megjelenítéséért felelős Composable elemünket! Bár esetünkben erre csak a listázó képernyőn lesz szükségünk, ezt célszerű egy külön, később bárhol újrafelhasználható composableként megvalósítanunk, mert később új képernyőkön szükségünk lehet rá.</p>
 <p>Hozzunk létre egy BookCard.kt fájlt a <em>component</em> packagen belül az alábbi tartalommal:
-<div class="highlight"><pre><span></span><code>import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
-import hu.bme.aut.librarymanager.model.Book
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.foundation.layout.Column</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.foundation.layout.Spacer</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.foundation.layout.fillMaxWidth</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.foundation.layout.height</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.foundation.layout.padding</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.foundation.shape.RoundedCornerShape</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material.Button</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material.ButtonDefaults</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material.Card</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material.MaterialTheme</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material.Text</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.runtime.Composable</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.ui.Modifier</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.ui.graphics.Color</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.ui.unit.dp</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">hu.bme.aut.librarymanager.model.Book</span>
 
 
-@Composable
-fun BookCard(book: Book, onEdit: () -&gt; Unit) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp),
-        elevation = 4.dp,
-        shape = RoundedCornerShape(8.dp)
-    ) {
-        Column(modifier = Modifier.padding(16.dp)) {
-            Text(
-                text = book.title,
-                style = MaterialTheme.typography.h6,
-                color = MaterialTheme.colors.primary
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = &quot;Author: ${book.author}&quot;,
-                style = MaterialTheme.typography.body1
-            )
-            Text(
-                text = &quot;Year of Publish: ${book.year}&quot;,
-                style = MaterialTheme.typography.body1
-            )
-            Text(
-                text = if (book.isAvailable) &quot;Free&quot; else &quot;Taken&quot;,
-                style = MaterialTheme.typography.body2,
-                color = if (book.isAvailable) Color.Green else Color.Red
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            Button(
-                onClick = onEdit,
-                modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(8.dp),
-                colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary)
-            ) {
-                Text(&quot;Edit&quot;, color = Color.White)
-            }
-        }
-    }
-}
+<span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">BookCard</span><span class="p">(</span><span class="n">book</span><span class="p">:</span><span class="w"> </span><span class="n">Book</span><span class="p">,</span><span class="w"> </span><span class="n">onEdit</span><span class="p">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Card</span><span class="p">(</span>
+<span class="w">        </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span>
+<span class="w">            </span><span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">()</span>
+<span class="w">            </span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="m">8.</span><span class="n">dp</span><span class="p">),</span>
+<span class="w">        </span><span class="n">elevation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4.</span><span class="n">dp</span><span class="p">,</span>
+<span class="w">        </span><span class="n">shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RoundedCornerShape</span><span class="p">(</span><span class="m">8.</span><span class="n">dp</span><span class="p">)</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Column</span><span class="p">(</span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="m">16.</span><span class="n">dp</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">Text</span><span class="p">(</span>
+<span class="w">                </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">book</span><span class="p">.</span><span class="na">title</span><span class="p">,</span>
+<span class="w">                </span><span class="n">style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaterialTheme</span><span class="p">.</span><span class="na">typography</span><span class="p">.</span><span class="na">h6</span><span class="p">,</span>
+<span class="w">                </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaterialTheme</span><span class="p">.</span><span class="na">colors</span><span class="p">.</span><span class="na">primary</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="n">Spacer</span><span class="p">(</span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="m">8.</span><span class="n">dp</span><span class="p">))</span>
+<span class="w">            </span><span class="n">Text</span><span class="p">(</span>
+<span class="w">                </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Author: </span><span class="si">${</span><span class="n">book</span><span class="p">.</span><span class="na">author</span><span class="si">}</span><span class="s">&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="n">style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaterialTheme</span><span class="p">.</span><span class="na">typography</span><span class="p">.</span><span class="na">body1</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="n">Text</span><span class="p">(</span>
+<span class="w">                </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Year of Publish: </span><span class="si">${</span><span class="n">book</span><span class="p">.</span><span class="na">year</span><span class="si">}</span><span class="s">&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="n">style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaterialTheme</span><span class="p">.</span><span class="na">typography</span><span class="p">.</span><span class="na">body1</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="n">Text</span><span class="p">(</span>
+<span class="w">                </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">book</span><span class="p">.</span><span class="na">isAvailable</span><span class="p">)</span><span class="w"> </span><span class="s">&quot;Free&quot;</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s">&quot;Taken&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="n">style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaterialTheme</span><span class="p">.</span><span class="na">typography</span><span class="p">.</span><span class="na">body2</span><span class="p">,</span>
+<span class="w">                </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">book</span><span class="p">.</span><span class="na">isAvailable</span><span class="p">)</span><span class="w"> </span><span class="n">Color</span><span class="p">.</span><span class="na">Green</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">Color</span><span class="p">.</span><span class="na">Red</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="n">Spacer</span><span class="p">(</span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="m">16.</span><span class="n">dp</span><span class="p">))</span>
+<span class="w">            </span><span class="n">Button</span><span class="p">(</span>
+<span class="w">                </span><span class="n">onClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">onEdit</span><span class="p">,</span>
+<span class="w">                </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">(),</span>
+<span class="w">                </span><span class="n">shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RoundedCornerShape</span><span class="p">(</span><span class="m">8.</span><span class="n">dp</span><span class="p">),</span>
+<span class="w">                </span><span class="n">colors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ButtonDefaults</span><span class="p">.</span><span class="na">buttonColors</span><span class="p">(</span><span class="n">backgroundColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaterialTheme</span><span class="p">.</span><span class="na">colors</span><span class="p">.</span><span class="na">secondary</span><span class="p">)</span>
+<span class="w">            </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">Text</span><span class="p">(</span><span class="s">&quot;Edit&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Color</span><span class="p">.</span><span class="na">White</span><span class="p">)</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div></p>
 <p>A szebb és konvencionálisabb megjelenésért a material megfelelő elemeit használjuk (pl. Card, Button). A composable elemünk átveszi paraméterként a könyvet, amelynek az adatait megjeleníti, illetve egy callback metódust is, amelyet a szerkesztő gomb onClick eseményén használ fel.</p>
 <div class="admonition note">
@@ -1081,56 +1081,56 @@ fun BookCard(book: Book, onEdit: () -&gt; Unit) {
 </p>
 </div>
 <p>Mielőtt megvalósítjuk a Screeneket, hozzunk létre a <em>util</em> packageben egy Constants.kt fájlt, benne egyetlen konstanssal:
-<div class="highlight"><pre><span></span><code>const val NEW_BOOK_ID = -1
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">NEW_BOOK_ID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="m">1</span>
 </code></pre></div></p>
 <p>Ezt arra fogjuk használni, hogy a részletező képernyő meg tudja különböztetni, hogy éppen új könyv felvételét, vagy meglévő módosítását kell végrehajtania. Amennyiben a NEW_BOOK_ID konstanstól különböző ID-t kap, akkor meglévő könyv szerkesztéséről van szó, egyéb esetben pedig új könyvet kell fevennünk.</p>
 <p>Valósítsuk most meg a képernyőinket is. Kezdjük a listázó képernyővel:</p>
-<div class="highlight"><pre><span></span><code>import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.navigation.NavController
-import hu.bme.aut.librarymanager.component.BookCard
-import hu.bme.aut.librarymanager.navigation.Screen
-import hu.bme.aut.librarymanager.util.NEW_BOOK_ID
-import hu.bme.aut.librarymanager.viewmodel.BookViewModel
-import org.koin.compose.koinInject
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.foundation.layout.padding</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.foundation.lazy.LazyColumn</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.foundation.lazy.items</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material.FloatingActionButton</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material.Icon</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material.MaterialTheme</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material.Scaffold</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material.Text</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material.TopAppBar</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material.icons.Icons</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material.icons.filled.Add</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.runtime.Composable</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.runtime.collectAsState</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.runtime.getValue</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.ui.Modifier</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.ui.graphics.Color</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.navigation.NavController</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">hu.bme.aut.librarymanager.component.BookCard</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">hu.bme.aut.librarymanager.navigation.Screen</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">hu.bme.aut.librarymanager.util.NEW_BOOK_ID</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">hu.bme.aut.librarymanager.viewmodel.BookViewModel</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.koin.compose.koinInject</span>
 
-@Composable
-fun BookListScreen(navController: NavController) {
-    val viewModel: BookViewModel = koinInject()
-    val books by viewModel.books.collectAsState()
+<span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">BookListScreen</span><span class="p">(</span><span class="n">navController</span><span class="p">:</span><span class="w"> </span><span class="n">NavController</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">viewModel</span><span class="p">:</span><span class="w"> </span><span class="n">BookViewModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">koinInject</span><span class="p">()</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">books</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">viewModel</span><span class="p">.</span><span class="na">books</span><span class="p">.</span><span class="na">collectAsState</span><span class="p">()</span>
 
-    Scaffold(
-        topBar = { TopAppBar(title = { Text(&quot;Library&quot;) }) },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = { navController.navigate(Screen.BookDetails.createRoute(NEW_BOOK_ID.toString())) },
-                backgroundColor = MaterialTheme.colors.primary
-            ) {
-                Icon(Icons.Default.Add, contentDescription = &quot;Add Book&quot;, tint = Color.White)
-            }
-        }
-    ) { padding -&gt;
-        LazyColumn(modifier = Modifier.padding(padding)) {
-            items(books) { book -&gt;
-                BookCard(book, onEdit = { navController.navigate(Screen.BookDetails.createRoute(book.id.toString())) })
-            }
-        }
-    }
-}
+<span class="w">    </span><span class="n">Scaffold</span><span class="p">(</span>
+<span class="w">        </span><span class="n">topBar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">TopAppBar</span><span class="p">(</span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Text</span><span class="p">(</span><span class="s">&quot;Library&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">},</span>
+<span class="w">        </span><span class="n">floatingActionButton</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">FloatingActionButton</span><span class="p">(</span>
+<span class="w">                </span><span class="n">onClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">navController</span><span class="p">.</span><span class="na">navigate</span><span class="p">(</span><span class="n">Screen</span><span class="p">.</span><span class="na">BookDetails</span><span class="p">.</span><span class="na">createRoute</span><span class="p">(</span><span class="n">NEW_BOOK_ID</span><span class="p">.</span><span class="na">toString</span><span class="p">()))</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                </span><span class="n">backgroundColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaterialTheme</span><span class="p">.</span><span class="na">colors</span><span class="p">.</span><span class="na">primary</span>
+<span class="w">            </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">Icon</span><span class="p">(</span><span class="n">Icons</span><span class="p">.</span><span class="na">Default</span><span class="p">.</span><span class="na">Add</span><span class="p">,</span><span class="w"> </span><span class="n">contentDescription</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Add Book&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">tint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Color</span><span class="p">.</span><span class="na">White</span><span class="p">)</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">padding</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">        </span><span class="n">LazyColumn</span><span class="p">(</span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="n">padding</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">items</span><span class="p">(</span><span class="n">books</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">book</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">                </span><span class="n">BookCard</span><span class="p">(</span><span class="n">book</span><span class="p">,</span><span class="w"> </span><span class="n">onEdit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">navController</span><span class="p">.</span><span class="na">navigate</span><span class="p">(</span><span class="n">Screen</span><span class="p">.</span><span class="na">BookDetails</span><span class="p">.</span><span class="na">createRoute</span><span class="p">(</span><span class="n">book</span><span class="p">.</span><span class="na">id</span><span class="p">.</span><span class="na">toString</span><span class="p">()))</span><span class="w"> </span><span class="p">})</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>Figyeljük meg a következőket:</p>
 <ul>
@@ -1140,145 +1140,145 @@ fun BookListScreen(navController: NavController) {
 <li>LazyColumn segítségével jelenítjük meg a könyvek listáját, ahol felhasználjuk az előbb elkészített BookCard Composable elemünket.</li>
 </ul>
 <p>Implementáljuk végül a részletező képernyőt:</p>
-<div class="highlight"><pre><span></span><code>import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Checkbox
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import hu.bme.aut.librarymanager.model.Book
-import hu.bme.aut.librarymanager.util.NEW_BOOK_ID
-import hu.bme.aut.librarymanager.viewmodel.BookViewModel
-import org.koin.compose.koinInject
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.foundation.layout.Arrangement</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.foundation.layout.Column</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.foundation.layout.Row</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.foundation.layout.fillMaxSize</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.foundation.layout.fillMaxWidth</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.foundation.layout.padding</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.foundation.shape.RoundedCornerShape</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material.Button</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material.ButtonDefaults</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material.Checkbox</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material.Icon</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material.IconButton</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material.MaterialTheme</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material.OutlinedTextField</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material.Scaffold</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material.Text</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material.TopAppBar</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material.icons.Icons</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material.icons.automirrored.filled.ArrowBack</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material.icons.filled.DateRange</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material.icons.filled.Home</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material.icons.filled.Person</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.runtime.Composable</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.runtime.LaunchedEffect</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.runtime.mutableStateOf</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.runtime.remember</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.ui.Alignment</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.ui.Modifier</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.ui.graphics.Color</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.ui.unit.dp</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.navigation.NavController</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">hu.bme.aut.librarymanager.model.Book</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">hu.bme.aut.librarymanager.util.NEW_BOOK_ID</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">hu.bme.aut.librarymanager.viewmodel.BookViewModel</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">org.koin.compose.koinInject</span>
 
-@Composable
-fun BookDetailScreen(navController: NavController, bookId: Int?) {
-    val viewModel: BookViewModel = koinInject() // Retrieve the ViewModel using koinInject()
-    val book = remember { mutableStateOf(Book(0, &quot;&quot;, &quot;&quot;, 0, true)) }
+<span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">BookDetailScreen</span><span class="p">(</span><span class="n">navController</span><span class="p">:</span><span class="w"> </span><span class="n">NavController</span><span class="p">,</span><span class="w"> </span><span class="n">bookId</span><span class="p">:</span><span class="w"> </span><span class="kt">Int?</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">viewModel</span><span class="p">:</span><span class="w"> </span><span class="n">BookViewModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">koinInject</span><span class="p">()</span><span class="w"> </span><span class="c1">// Retrieve the ViewModel using koinInject()</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">book</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">remember</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">mutableStateOf</span><span class="p">(</span><span class="n">Book</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">))</span><span class="w"> </span><span class="p">}</span>
 
-    if (bookId != null &amp;&amp; bookId != NEW_BOOK_ID) {
-        LaunchedEffect(bookId) {
-            viewModel.books.value.find { it.id == bookId }?.let {
-                book.value = it
-            }
-        }
-    }
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">bookId</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">bookId</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">NEW_BOOK_ID</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">LaunchedEffect</span><span class="p">(</span><span class="n">bookId</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">viewModel</span><span class="p">.</span><span class="na">books</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">find</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">id</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">bookId</span><span class="w"> </span><span class="p">}</span><span class="o">?.</span><span class="na">let</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">book</span><span class="p">.</span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">it</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(if (bookId == -1) &quot;New Book&quot; else &quot;Edit Book&quot;) },
-                navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = &quot;Back&quot;)
-                    }
-                }
-            )
-        }
-    ) { padding -&gt;
-        Column(
-            modifier = Modifier
-                .padding(padding)
-                .fillMaxSize()
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            // Title Field
-            OutlinedTextField(
-                value = book.value.title,
-                onValueChange = { book.value = book.value.copy(title = it) },
-                label = { Text(&quot;Title&quot;) },
-                modifier = Modifier.fillMaxWidth(),
-                singleLine = true,
-                leadingIcon = { Icon(Icons.Default.Home, contentDescription = &quot;Title&quot;) }
-            )
+<span class="w">    </span><span class="n">Scaffold</span><span class="p">(</span>
+<span class="w">        </span><span class="n">topBar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">TopAppBar</span><span class="p">(</span>
+<span class="w">                </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Text</span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">bookId</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="o">-</span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="s">&quot;New Book&quot;</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s">&quot;Edit Book&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                </span><span class="n">navigationIcon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">IconButton</span><span class="p">(</span><span class="n">onClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">navController</span><span class="p">.</span><span class="na">popBackStack</span><span class="p">()</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="n">Icon</span><span class="p">(</span><span class="n">Icons</span><span class="p">.</span><span class="na">AutoMirrored</span><span class="p">.</span><span class="na">Filled</span><span class="p">.</span><span class="na">ArrowBack</span><span class="p">,</span><span class="w"> </span><span class="n">contentDescription</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Back&quot;</span><span class="p">)</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">padding</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">        </span><span class="n">Column</span><span class="p">(</span>
+<span class="w">            </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span>
+<span class="w">                </span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="n">padding</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="na">fillMaxSize</span><span class="p">()</span>
+<span class="w">                </span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="m">16.</span><span class="n">dp</span><span class="p">),</span>
+<span class="w">            </span><span class="n">verticalArrangement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Arrangement</span><span class="p">.</span><span class="na">spacedBy</span><span class="p">(</span><span class="m">16.</span><span class="n">dp</span><span class="p">)</span>
+<span class="w">        </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// Title Field</span>
+<span class="w">            </span><span class="n">OutlinedTextField</span><span class="p">(</span>
+<span class="w">                </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">book</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">title</span><span class="p">,</span>
+<span class="w">                </span><span class="n">onValueChange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">book</span><span class="p">.</span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">book</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">copy</span><span class="p">(</span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">it</span><span class="p">)</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Text</span><span class="p">(</span><span class="s">&quot;Title&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">(),</span>
+<span class="w">                </span><span class="n">singleLine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">                </span><span class="n">leadingIcon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Icon</span><span class="p">(</span><span class="n">Icons</span><span class="p">.</span><span class="na">Default</span><span class="p">.</span><span class="na">Home</span><span class="p">,</span><span class="w"> </span><span class="n">contentDescription</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Title&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<span class="w">            </span><span class="p">)</span>
 
-            // Author Field
-            OutlinedTextField(
-                value = book.value.author,
-                onValueChange = { book.value = book.value.copy(author = it) },
-                label = { Text(&quot;Author&quot;) },
-                modifier = Modifier.fillMaxWidth(),
-                singleLine = true,
-                leadingIcon = { Icon(Icons.Default.Person, contentDescription = &quot;Author&quot;) }
-            )
+<span class="w">            </span><span class="c1">// Author Field</span>
+<span class="w">            </span><span class="n">OutlinedTextField</span><span class="p">(</span>
+<span class="w">                </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">book</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">author</span><span class="p">,</span>
+<span class="w">                </span><span class="n">onValueChange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">book</span><span class="p">.</span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">book</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">copy</span><span class="p">(</span><span class="n">author</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">it</span><span class="p">)</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Text</span><span class="p">(</span><span class="s">&quot;Author&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">(),</span>
+<span class="w">                </span><span class="n">singleLine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">                </span><span class="n">leadingIcon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Icon</span><span class="p">(</span><span class="n">Icons</span><span class="p">.</span><span class="na">Default</span><span class="p">.</span><span class="na">Person</span><span class="p">,</span><span class="w"> </span><span class="n">contentDescription</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Author&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<span class="w">            </span><span class="p">)</span>
 
-            // Year Field
-            OutlinedTextField(
-                value = book.value.year.toString(),
-                onValueChange = { book.value = book.value.copy(year = it.toIntOrNull() ?: 0) },
-                label = { Text(&quot;Year of Publish&quot;) },
-                modifier = Modifier.fillMaxWidth(),
-                singleLine = true,
-                leadingIcon = { Icon(Icons.Default.DateRange, contentDescription = &quot;Year&quot;) }
-            )
+<span class="w">            </span><span class="c1">// Year Field</span>
+<span class="w">            </span><span class="n">OutlinedTextField</span><span class="p">(</span>
+<span class="w">                </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">book</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">year</span><span class="p">.</span><span class="na">toString</span><span class="p">(),</span>
+<span class="w">                </span><span class="n">onValueChange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">book</span><span class="p">.</span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">book</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">copy</span><span class="p">(</span><span class="n">year</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">toIntOrNull</span><span class="p">()</span><span class="w"> </span><span class="o">?:</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Text</span><span class="p">(</span><span class="s">&quot;Year of Publish&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">(),</span>
+<span class="w">                </span><span class="n">singleLine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">                </span><span class="n">leadingIcon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Icon</span><span class="p">(</span><span class="n">Icons</span><span class="p">.</span><span class="na">Default</span><span class="p">.</span><span class="na">DateRange</span><span class="p">,</span><span class="w"> </span><span class="n">contentDescription</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Year&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<span class="w">            </span><span class="p">)</span>
 
-            // Availability Checkbox
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Checkbox(
-                    checked = book.value.isAvailable,
-                    onCheckedChange = { book.value = book.value.copy(isAvailable = it) },
-                    modifier = Modifier.padding(end = 8.dp)
-                )
-                Text(
-                    text = if (book.value.isAvailable) &quot;Free&quot; else &quot;Taken&quot;,
-                    style = MaterialTheme.typography.body1
-                )
-            }
+<span class="w">            </span><span class="c1">// Availability Checkbox</span>
+<span class="w">            </span><span class="n">Row</span><span class="p">(</span>
+<span class="w">                </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">(),</span>
+<span class="w">                </span><span class="n">verticalAlignment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Alignment</span><span class="p">.</span><span class="na">CenterVertically</span>
+<span class="w">            </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">Checkbox</span><span class="p">(</span>
+<span class="w">                    </span><span class="n">checked</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">book</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">isAvailable</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">onCheckedChange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">book</span><span class="p">.</span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">book</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">copy</span><span class="p">(</span><span class="n">isAvailable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">it</span><span class="p">)</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                    </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="n">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">8.</span><span class="n">dp</span><span class="p">)</span>
+<span class="w">                </span><span class="p">)</span>
+<span class="w">                </span><span class="n">Text</span><span class="p">(</span>
+<span class="w">                    </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">book</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">isAvailable</span><span class="p">)</span><span class="w"> </span><span class="s">&quot;Free&quot;</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s">&quot;Taken&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaterialTheme</span><span class="p">.</span><span class="na">typography</span><span class="p">.</span><span class="na">body1</span>
+<span class="w">                </span><span class="p">)</span>
+<span class="w">            </span><span class="p">}</span>
 
-            // Save Button
-            Button(
-                onClick = {
-                    if (bookId == NEW_BOOK_ID) {
-                        viewModel.addBook(book.value.copy(id = viewModel.books.value.size + 1))
-                    } else {
-                        viewModel.updateBook(book.value)
-                    }
-                    navController.popBackStack()
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 16.dp),
-                shape = RoundedCornerShape(8.dp),
-                colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
-            ) {
-                Text(
-                    text = &quot;Save&quot;,
-                    style = MaterialTheme.typography.button,
-                    color = Color.White
-                )
-            }
-        }
-    }
-}
+<span class="w">            </span><span class="c1">// Save Button</span>
+<span class="w">            </span><span class="n">Button</span><span class="p">(</span>
+<span class="w">                </span><span class="n">onClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">bookId</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">NEW_BOOK_ID</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="n">viewModel</span><span class="p">.</span><span class="na">addBook</span><span class="p">(</span><span class="n">book</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">copy</span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">viewModel</span><span class="p">.</span><span class="na">books</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">size</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">))</span>
+<span class="w">                    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="n">viewModel</span><span class="p">.</span><span class="na">updateBook</span><span class="p">(</span><span class="n">book</span><span class="p">.</span><span class="na">value</span><span class="p">)</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                    </span><span class="n">navController</span><span class="p">.</span><span class="na">popBackStack</span><span class="p">()</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span>
+<span class="w">                    </span><span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">()</span>
+<span class="w">                    </span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="n">top</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">16.</span><span class="n">dp</span><span class="p">),</span>
+<span class="w">                </span><span class="n">shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RoundedCornerShape</span><span class="p">(</span><span class="m">8.</span><span class="n">dp</span><span class="p">),</span>
+<span class="w">                </span><span class="n">colors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ButtonDefaults</span><span class="p">.</span><span class="na">buttonColors</span><span class="p">(</span><span class="n">backgroundColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaterialTheme</span><span class="p">.</span><span class="na">colors</span><span class="p">.</span><span class="na">primary</span><span class="p">)</span>
+<span class="w">            </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">Text</span><span class="p">(</span>
+<span class="w">                    </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Save&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaterialTheme</span><span class="p">.</span><span class="na">typography</span><span class="p">.</span><span class="na">button</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Color</span><span class="p">.</span><span class="na">White</span>
+<span class="w">                </span><span class="p">)</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>Figyeljük meg a következőket:</p>
 <ul>
@@ -1385,8 +1385,8 @@ fun BookDetailScreen(navController: NavController, bookId: Int?) {
           </path>
         </svg>
       </span>
-      <span title="2025. április 3. 02:31:46">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. április 3. 02:31:46"><span class="timeago" datetime="2025-04-03T02:31:46+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. április 3. 02:31:46">2025-04-03</span>
+      <span title="2025. április 3. 21:57:23">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. április 3. 21:57:23"><span class="timeago" datetime="2025-04-03T21:57:23+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. április 3. 21:57:23">2025-04-03</span>
       </span>
     </span>
 
