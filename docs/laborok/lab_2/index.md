@@ -56,7 +56,7 @@ Láthatjuk, hogy nem tartalmaz még semmi érdemi kódot, a projekt függősége
 !!!info "Gradle függőségek verziószámai"
 		A projekt több olyan függőséget is használ (pl. navigation, lifecycle viewmodel), amelyek nem az elérhető legfrissebb verziót használják. Erre figyelmeztet is warning formájában az Android Studio. Vigyázat: nem minden függőség esetén célszerű mindig a legfrissebb verziót használni, amennyiben az nem stabil, alfa állapotban van, akkor fordítási, vagy akár futási idejű hibákat is okozhat. Például az org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose függőség legújabb elérhető, de nem stable release verziója (az útmutató készülésének pillanatában 2.9.0-alpha05) desktop platformon futási hibát okoz.
 		
-A projektünk tartalmaz továbbá néhánypackaget is, amelyek az alkalmazás különböző részeinek jól elkülönített tárolásáért lesznek felelősek. Nézzük meg ezeket röviden, melyik mit fog tartalmazni:
+A projektünk tartalmaz továbbá néhány packaget is, amelyek az alkalmazás különböző részeinek jól elkülönített tárolásáért lesznek felelősek. Nézzük meg ezeket röviden, melyik mit fog tartalmazni:
 
 *   component: Újrahasználható composable elemek.
 *   model: Az alkalmazás modell osztályai.
@@ -72,7 +72,7 @@ Készítsük el az említett funkciókkal és felhasználói felülettel az alka
 
 Kezdjük a navigáció kialakításával! Ehhez célszerű először felvenni a két képernyőnk Composable függvényeit, egyelőre üres tartalommal. Vegyünk fel tehát a _screen_ packagebe egy _BookListScreen.kt_ és egy _BookDetailScreen.kt_ fájlt, bennük a megfelelő Composable függvényekkel. A listázó képernyőnk a navigációhoz szükséges NavController példányt, a részletező képernyő azon felül a szerkesztendő könyv esetleges ID-ját is paraméterként kapja:
 
-```
+```kotlin
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 
@@ -80,7 +80,7 @@ import androidx.navigation.NavController
 fun BookListScreen(navController: NavController) {}
 ```
 
-```
+```kotlin
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 
@@ -92,7 +92,7 @@ Az alkalmazásunk navigációját egy NavigationGraph formájában adjuk meg. Mi
 
 Az útvonalak áttekinthető kezeléséért hozzunk létre itt egy-egy azokért felelős segédosztályt:
 
-```
+```kotlin
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -111,13 +111,13 @@ Minden képernyőnkhöz egy útvonal tartozik, a részletező képernyő az útv
 
 Vegyük fel most a NavGraph-unkat is:
 
-```
+```kotlin
 @Composable
 fun NavGraph(navController: NavHostController) {
     NavHost(navController, startDestination = Screen.BookList.route) {
         composable(Screen.BookList.route) { BookListScreen(navController) }
         composable(Screen.BookDetails.route) { backStackEntry ->
-            val bookId = backStackEntry.arguments?.getString("bookId") ?: return@composable
+            val bookId = backStackEntry.arguments?.getInt("bookId") ?: return@composable
             BookDetailScreen(navController, bookId.toInt())
         }
     }
@@ -128,7 +128,7 @@ A NavHost segítségével megadjuk, melyik útvonal esetén melyik képernyőt k
 
 Végezetül nyissuk meg az alkalmazásunk belépési pontjaként szolgáló MainApp.kt fájlt, és vegyük fel az elkészített NavGraph-unkat az App() függvényünkbe:
 
-```
+```kotlin
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.rememberNavController
@@ -170,7 +170,7 @@ Az MVVM architektúra három fő komponensből áll:
 
 Vegyük fel a _viewmodel_ packagebe a BookViewModel osztályunkat!
 
-```
+```kotlin
 import androidx.lifecycle.ViewModel
 import hu.bme.aut.librarymanager.model.Book
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -200,7 +200,7 @@ Használjuk most a Koin-t a ViewModel-ek képernyőkbe való injektálására! A
 
 A Koin konfigurálásához tartozó kódot kiszervezhetnénk egy külön packagebe is, azonban esetünkben annyira egyszerű, hogy tehetjük a MainApp-ba is:
 
-```
+```kotlin
 import hu.bme.aut.librarymanager.viewmodel.BookViewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
@@ -214,7 +214,7 @@ Az alkalmazáshoz tartozó koin modulban definiáljuk, hogy a BookViewModel-t Si
 
 Az App függvényünkön belül incializáljuk a Koint a létrehozott modulunkkal:
 
-```
+```kotlin
 @Composable
 @Preview
 fun App() {
@@ -231,7 +231,7 @@ fun App() {
 
 Végül vegyük fel a képernyőkbe a hozzájuk tartozó ViewModelt, használjuk pl. a Koin _koinInject_ függvényét a konkrét példány injektálására!
 
-```
+```kotlin
 import org.koin.compose.koinInject
 import hu.bme.aut.librarymanager.viewmodel.BookViewModel
 
@@ -241,7 +241,7 @@ fun BookDetailScreen(navController: NavController, bookId: Int?) {
 }
 ```
 
-```
+```kotlin
 import org.koin.compose.koinInject
 import hu.bme.aut.librarymanager.viewmodel.BookViewModel
 
@@ -258,7 +258,7 @@ Ehhez a feladathoz nem kell képernyőképet készítenünk, amennyiben elkész�
 A továbbiakban fejezzük be az alkalmazásunkat, készítsük el a 2 képernyőnket!
 
 Vegyük fel a könyvek adatait tároló data classt a _model_ packagebe:
-```
+```kotlin
 data class Book(
     val id: Int,
     val title: String,
@@ -271,7 +271,7 @@ data class Book(
 Készítsük el az egy könyv megjelenítéséért felelős Composable elemünket! Bár esetünkben erre csak a listázó képernyőn lesz szükségünk, ezt célszerű egy külön, később bárhol újrafelhasználható composableként megvalósítanunk, mert később új képernyőkön szükségünk lehet rá.
 
 Hozzunk létre egy BookCard.kt fájlt a _component_ packagen belül az alábbi tartalommal:
-```
+```kotlin
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -347,7 +347,7 @@ A szebb és konvencionálisabb megjelenésért a material megfelelő elemeit has
 		
 
 Mielőtt megvalósítjuk a Screeneket, hozzunk létre a _util_ packageben egy Constants.kt fájlt, benne egyetlen konstanssal:
-```
+```kotlin
 const val NEW_BOOK_ID = -1
 ```
 
@@ -355,7 +355,7 @@ Ezt arra fogjuk használni, hogy a részletező képernyő meg tudja különböz
 
 Valósítsuk most meg a képernyőinket is. Kezdjük a listázó képernyővel:
 
-```
+```kotlin
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -413,7 +413,7 @@ Figyeljük meg a következőket:
 
 Implementáljuk végül a részletező képernyőt:
 
-```
+```kotlin
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
