@@ -583,7 +583,7 @@ Valósítsunk meg keresési funkciót (tartalmazott kifejezés, nem pontos egyez
     A megoldás menete a következő:
 	
 	1. A BookListScreen-hez adjunk hozzá pl. egy OutlinedTextField-et!
-	2. A keresés fajtájának kiválasztásához használhatunk pl. ExposedDropDownMenuBox-ot, vagy MultiChoiceSegmentedButtonRow-t! Ezek használatához a material3-at meg kell adnunk függőségként a Gradle konfigurációs fájlunkban.
+	2. A keresés fajtájának kiválasztásához használhatunk pl. ExposedDropdownMenuBox-ot, vagy MultiChoiceSegmentedButtonRow-t! Ezek használatához a material3-at meg kell adnunk függőségként a Gradle konfigurációs fájlunkban.
 	3. A BookViewModel-ben vegyünk fel egy searchQuery-t (mi legyen a típusa?).
 	4. A books listát szűrjük a searchQuery alapján!
 	
@@ -634,8 +634,8 @@ Oldjuk meg, hogy könyveken való Swipeolással (oldalra tetszőlegesen választ
 ??? tip "Segítség"
     A megoldás menete a következő:
 	
-	1. Módosítsuk a BookItem Composablet, csomagoljuk be egy SwipeToDismiss Composable-be!
-	2. Vegyünk át a BookItem-ben egy callback metódust paraméterként, hívjuk meg ezt, ha Swipe történt!
+	1. Módosítsuk a BookCard Composablet, csomagoljuk be egy SwipeToDismiss Composable-be!
+	2. Vegyünk át a BookCard-ban egy callback metódust paraméterként, hívjuk meg ezt, ha Swipe történt!
 	3. Módosítsuk a BookViewModel-t, hogy lehessen könyvet törölni is!
 	4. A BookCard Composable használatakor a listázó képernyőn paraméterként a Swipe-on hívott callback metódusnak adjunk át egy lambda kifejezést, amely meghívja a ViewModel megfelelő törlő metódusát!
 	
