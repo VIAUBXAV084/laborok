@@ -4,7 +4,7 @@
 
 [BMEVIAUBXAV084 - Kotlin Multiplatform alapú szoftverfejlesztés](https://www.aut.bme.hu/Course/VIAUBXAV084) tárgy laborfeladatai.
 
-A jegyzetek MkDocs segítségével készülnek és GitHub Pages-en kerülnek publikálásra: <https://viaubxav080.github.io/laborok/>
+A jegyzetek MkDocs segítségével készülnek és GitHub Pages-en kerülnek publikálásra: <https://viaubxav084.github.io/laborok/>
 
 Az MKDocs használatához [a hivatalos dokumentáció](https://squidfunk.github.io/mkdocs-material/creating-your-site/) segítségedre lehet.
 
