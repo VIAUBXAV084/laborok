@@ -117,7 +117,7 @@ fun NavGraph(navController: NavHostController) {
     NavHost(navController, startDestination = Screen.BookList.route) {
         composable(Screen.BookList.route) { BookListScreen(navController) }
         composable(Screen.BookDetails.route) { backStackEntry ->
-            val bookId = backStackEntry.arguments?.getInt("bookId") ?: return@composable
+            val bookId = backStackEntry.arguments?.getString("bookId") ?: return@composable
             BookDetailScreen(navController, bookId.toInt())
         }
     }
