@@ -559,7 +559,7 @@ Figyeljük meg a következőket:
 *   A Scaffold topBar-jára elhelyezünk egy visszafelé vezető gombot (nyilat) is, amely megnyomása esetén a navController _popBackStack_ metódusát használva térhetünk vissza arra a képernyőre, amiről a részletező képernyőre navigáltunk.
 *   A mentés gombra kattintva megvizsgáljuk, hogy szerkesztés módban voltunk-e, vagy új könyvet vettünk fel, és ennek megfelelően hívjuk meg a ViewModel megfelelő metódusát a könyv módosítására vagy új könyv felvételére.
 
-Ezzel elkészültünk, futtassuk az alkalmazást! Nézzük meg és próbáljuk ki Android és Desktop (és iOS, ha lehetőségünk engedi) platformon is!
+Ezzel elkészültünk, futtassuk az alkalmazást! Nézzük meg és próbáljuk ki Android, Desktop, és Web (és iOS, ha lehetőségünk engedi) platformon is!
 
 
 !!!example "BEADANDÓ (1 pont)"
