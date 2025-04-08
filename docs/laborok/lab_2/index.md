@@ -22,10 +22,7 @@ A feladatok megoldása során ne felejtsük el követni a [feladat beadás folya
 
 ## A labor kontextusa és kiinduló projekt
 
-A labor során egy könyvek adatait kezelni képes alkalmazást készítünk el desktop, android és iOS platformokra. 
-
-!!!note "Webre miért nem?"
-        Kotlin Multiplatformon a webassembly alapú webes platform támogatottsága még alfa verzióban van, mert az még nagyon friss, folyamatosan fejlődő állapotot mutat. Ennek eredményeképp sok, amúgy elterjedt külső könyvtár nem támogatja még annak újszerűsége miatt. Esetünkben a Koin könyvtárat fogjuk használni Dependency Injection-re, amely közvetlenül nem támogatja a webassembly alapú webes platformot. Bár ettől függetlenül megoldható, hogy webes környezetben is használjunk Dependency Injectiont, az egyszerűség kedvéért most nem foglalkozunk vele.
+A labor során egy könyvek adatait kezelni képes alkalmazást készítünk el desktop, android iOS és webassembly platformokra. 
 
 Az alkalmazásban fel tudunk venni új könyveket alapvető adataik megadásával, azokat listaszerűen meg tudjuk jeleníteni, illetve szerkeszteni tudjuk őket. Az alkalmazás a vezetett rész végére a következő(höz hasonló) módon fog kinézni desktop platformon:
 
