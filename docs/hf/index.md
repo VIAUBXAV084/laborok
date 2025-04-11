@@ -22,7 +22,7 @@ A házi feladat beadásának platformja a laborokhoz hasonlóan a Github Classro
 
 ### Specifikáció
 
-A specifikáció beadás határideje a **9. hét vége (2025. április 13. 23:59)**.
+A specifikáció beadás határideje a **2025. április 27. 23:59**.
 A specifikáció elkészítése közben a "**spec**" branchen dolgozz. Erre az ágra akárhány kommitot tehetsz.
 Sablont a README.md fájl tartalmaz, azt kell kiegészíteni, és feltölteni a repóba a megadott határidőig.
 A beadás akkor teljes, ha a "spec" branch-en megtalálható a README.md fájlban a specifikáció. A beadást egy pull request jelzi, amely pull requestet valamelyik oktatóhoz kell rendelned.
@@ -32,6 +32,6 @@ A specifikáció elkészítése előfeltétele a házi feladat elfogadásának.
 
 A házi feladat beadás határideje a **13. hét vége (2025. május 18. 23:59)**.
 A házi feladat elkészítése közben a "**hf**" branchen dolgozz. Erre az ágra akárhány kommitot tehetsz. 
-A projektet mindenképpen ebbe a repository-ba hozd létre, a fejlesztést végig itt végezd.
+A projektet mindenképpen ebbe a repository-ba hozd létre, a fejlesztést végig itt végezd. Amennyiben korábban már elkezdted egy másik repositoryban, töltsd fel az állapotát és dolgozz tovább itt.
 A beadás akkor teljes, ha a "hf" branch-en megtalálható a projekted teljes forráskódja. A beadást egy pull request jelzi, amely pull requestet valamelyik oktatóhoz kell rendelned.
-A házi feladathoz mindenképpen tartozik **házi feladat védés** is. Ennek ideje a beadást követően 14. héten, az oktatókkal egyeztetett időpontban van.
+A házi feladathoz mindenképpen tartozik **házi feladat bemutatás** is. Ennek ideje a beadást követően 14. héten, az oktatókkal egyeztetett időpontban van.
