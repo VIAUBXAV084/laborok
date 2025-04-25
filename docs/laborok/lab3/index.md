@@ -4,12 +4,17 @@
 
 A labor során egy filmfigyelő lista alkalmazást fogunk elkészíteni Android, IOS és Desktop platformokra. Az alkalmazásban lehet majd filmekre keresni, melyeket egy figyelő listára lehet helyezni.
 
-A filmek adatforrása a [TheMovieDb](https://www.themoviedb.org/) lesz, mely bizotosít egy REST-API-t filmek és sorozatok keresésére. Ehhez egy API kulcsot kell igényelni a [Developer](https://developer.themoviedb.org/docs/getting-started) weboldalon. Ehhez regisztrálni kell, majd egy key fog megjelenni a képernyő alján. Erre később szükségünk lesz.
+A filmek adatforrása a [TheMovieDb](https://www.themoviedb.org/) lesz, mely bizotosít egy REST-API-t filmek és sorozatok keresésére. Ehhez egy API kulcsot kell igényelni a [Developer](https://developer.themoviedb.org/docs/getting-started) weboldalon. Ehhez regisztrálni kell, majd egy key fog megjelenni a képernyő alján. Erre később szükségünk lesz. **Amennyiben nem szeretnénk a  regisztrációval foglalkozni, használhatjuk a következő API kulcsok valamelyikét:**
+ 
+ - eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4N2IwMWI0Y2I1MTQwMjhkZDljMGVlMWE1NjE3Y2I1NCIsIm5iZiI6MTczOTM2MzAwMi40NzYsInN1YiI6IjY3YWM5MmJhMjFkMGE5MmQ0YjliYWFjMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.SNBeQWAYNi_QEl981CV6WwjCaFPZ6gGt3VE-V7Eho84
+ - eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1NjQ2YzI3OTE3Yjg5NjYyZTVmOWM0MWNjN2YzNjc4MiIsIm5iZiI6MTc0NTYwMjcxMi40MDQsInN1YiI6IjY4MGJjODk4ZDE0OGE4MmIwZDlkMWY0NSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.5rlt97hjf-ckbGiVg_-0-kFGxL8-D0HQX99Vr6kp7cc
+
 
 3 fő technológia amely használva lesz a labor során:
- - [Ktor](https://ktor.io/) mely segítségével fog történni a halózati kommunikáció
- - [Room](https://developer.android.com/kotlin/multiplatform/room) mely a lokális adatbázist fogja nyújtani
- - [Koin](https://insert-koin.io/) dependency injection keretrendszer
+
+ - [Ktor](https://ktor.io/), mely segítségével fog történni a halózati kommunikáció.
+ - [Room](https://developer.android.com/kotlin/multiplatform/room), mely a lokális adatbázist fogja nyújtani.
+ - [Koin](https://insert-koin.io/), dependency injection keretrendszer.
 
 ## Előkészületek
 
@@ -31,9 +36,7 @@ A feladatok megoldása során ne felejtsük el követni a [feladat beadás folya
 
 ![Starter stage](assets/hello_world.png)
 
-## Feladatok
-
-### 1. Képernyők elrendezése és navigáció
+## 1. Képernyők elrendezése és navigáció (1 pont)
 
 A 2. laborhoz hasonlóan alakítsuk ki először az alkalmazás navigációjának alapját. Hozzunk létre egy **navigation** packaget, (kotlin/hu/bme/aut/navigation) azon belül egy **Route enum class**-t az alábbi tartalommal:
 
@@ -57,7 +60,7 @@ enum class Route(val title: String, val icon: ImageVector) {
 
 Ez az osztály fogja definiálni a képernyőket a navigáció számára. Ahogy látható, 2 fő képernyőből fog állni az alkalmazás: egy Search képernyő, ahol lehet majd keresni a filmekre és egy WatchList képernyő.
 
-Célszerű lenne, hogy az alkalmazás a 2 mobilplatformon hasonlítson, ellenben desktopon eltérő layout-ja legyen. Ezt jelenleg csak kód duplikációval tudnánk elérni, vagyis az iosMain és androidMain-ben duplikálva az ő megjelenésükért szükséges kódok duplán lennének. Ha jobban megnézzük, definiálva van a kezdőprojektben már egy mobileMain source set a `build.gradle.kts`-ben, melyre dependálnak az ios és az android platformok. Így fogjuk elérni azt, hogy mobil platformokon közös, de a többi (esetünkben desktop) platformtól különböző elrendezésben alakítsuk ki a felhasználói felületünket.
+Célszerű lenne, hogy az alkalmazás a 2 mobilplatformon hasonlítson, ellenben desktopon eltérő layout-ja legyen. Ezt jelenleg csak kód duplikációval tudnánk elérni, vagyis az iosMain-ben és androidMain-ben duplikálva az ő megjelenésükért szükséges kódok duplán lennének. Ha jobban megnézzük, definiálva van a kezdőprojektben már egy mobileMain source set a `build.gradle.kts`-ben, melyre dependálnak az ios és az android platformok. Így fogjuk elérni azt, hogy mobil platformokon közös, de a többi (esetünkben desktop) platformtól különböző elrendezésben alakíthassuk ki a felhasználói felületünket.
 
 ```kotlin
 val mobileMain by creating {
@@ -81,11 +84,11 @@ val iosMain by creating {
 }
 ```
 
-Hozzunk létre egy mobileMain directory-t a többi sourceset mellett.
+Hozzunk létre egy _mobileMain_ directory-t a többi sourceset mellett.
 
 ![Mobile Sourceset](assets/mobile_sourceset.png)
 
-Ezután szükségünk lesz egy, a platformok megjelenéséért felelős kódra. Itt fogjuk szabályozni, milyen elrendezésben jelenjen meg a felhasználói felület mobil, illetve desktop platformokon. A közös kódban a ui packegen belül hozzunk létre egy PlatformLayout.kt-t az alábbi tartalommal.
+Ezután szükségünk lesz egy, a platformok navigációjának megjelenéséért felelős kódra. Itt fogjuk szabályozni, milyen elrendezésben jelenjen meg a navigáció felhasználói felülete mobil, illetve desktop platformokon. A közös kódban a ui packegen belül hozzunk létre egy PlatformLayout.kt-t az alábbi tartalommal.
 
 ```kotlin
 import androidx.compose.runtime.Composable
@@ -102,9 +105,7 @@ expect fun PlatformLayout(
 )
 ```
 
-TODO: EXPLAIN
-
-Itt kihasználjuk az **expect-actual** mechanizmusát a KMP-nek és a platformok fogják mondják megmondani, hogyan jelenjenek meg az egyes képernyők. Alt+Enter segítségével hozzuk létre a desktop és a mobile sourceseteken az actual implementációkat, ekkor létrejönnek a `PlatformLayout.desktop.kt` és a `PlatformLayout.mobile.kt` fájlok. Ezek nézzenek ki az alábbi módon:
+Itt kihasználjuk az **expect-actual** mechanizmusát a KMP-nek és a platformok fogják mondják megmondani, hogyan jelenjenek meg az egyes képernyők. A _PlatformLayout_ egy composable elem, amely a szokásos modifieren túl átveszi a navigation bar elemeit, az azokból éppen kijelölt elemet, a navigáció elemein való kattintáskor végzendő műveletet, illetve a layout tartalmát. Alt+Enter segítségével hozzuk létre a desktop és a mobile sourceseteken az actual implementációkat, ekkor létrejönnek a `PlatformLayout.desktop.kt` és a `PlatformLayout.mobile.kt` fájlok. Ezek nézzenek ki az alábbi módon:
 
 `PlatformLayout.desktop.kt` :
 ```kotlin
@@ -190,9 +191,9 @@ actual fun PlatformLayout(
 }
 ```
 
-TODO: EXPLAIN
+Desktop esetén egy oldalsó navigációs panelt (_NavigationRail_), mobil esetén pedig egy megszokott _NavigationBart_ használunk.
 
-Használjuk most fel a PlatformLayout-unkat az `App.kt` fájlunk fő composablejében, illetve alakítsuk ki a navigációt is:
+Használjuk fel ezután a _PlatformLayout-unkat_ az `App.kt` fájlunk fő composablejében, ez a _PlatformLayout_ fog renderelődni az alkalmazás indításakor. Alakítsuk ki a navigációt is az előző laboron látottakhoz hasonlóan, és adjuk meg a megfelelő elemeit a _PlatformLayout_ megfelelő paramétereinek:
 
 ```kotlin
 AppTheme {
@@ -228,15 +229,17 @@ AppTheme {
     }
 ```
 
-TODO: EXPLAIN
+Futtassuk az alkalmazást, próbáljuk ki egy mobilos, és desktop platformon is. A következő(höz hasonló) elrendezést kell látnunk.
 
 ![Navigation](assets/navigation.png)
 
-## Hálózati kommunikáció kialakítása
+## 2. Hálózati kommunikáció és felhasználói felület kialakítása (1 pont)
+
+### Ktor kliens felhasználása
 
 Alakítsuk most ki a hálózati kommunikációnkat a Ktor kliens API segítségével.
 
-Hozzunk létre egy data packaget és azon belül egy network packaget, melyben a hálózati kommukációhoz tartozó adatokhoz (Data Transfer Object - DTO) kapcsolódó részek lesznek. Hozzunk létre egy `TMDbResponse.kt` fájlt, ide fognak kerülni a kapcsolódó adatosztályok, melyek a használt API válaszaira adnak DTO-kat. Egy filmről el fogjuk tárolni az azonsítóját, címét és posterjéhez tartozó elérési útvonalat (path), mely nem minden film esetén biztosított, ezért nullablere állítjuk.
+Hozzunk létre a közös kódban egy _data_ packaget és azon belül egy _network_ packaget, melyben a hálózati kommukációhoz tartozó adatokhoz kapcsolódó részek lesznek. Hozzunk létre egy `TMDBResponse.kt` fájlt, ide fognak kerülni a kapcsolódó adatosztályok, melyek a használt API válaszaira adnak DTO-kat. Egy filmről el fogjuk tárolni az azonosítóját, címét és posterjéhez tartozó elérési útvonalat (path), mely nem minden film esetén biztosított, ezért nullablere állítjuk.
 
 ```kotlin
 import kotlinx.serialization.SerialName
@@ -253,9 +256,10 @@ data class MovieResponse(
 data class TMDbResponse(
     val results: List<MovieResponse>
 )
-````
+```
 
-Készítsük el magát az API klienst, amely a Ktor kliens API segítségével fogja elvégezni a hálózati kommunikációt.
+Ugyanebben a packageben készítsük el magát az API klienst, amely a Ktor kliens API segítségével fogja elvégezni a hálózati kommunikációt. Itt eltároljuk az API alap URL-jét, illetve definiáljuk a kétféle kérésünkhöz tartozó műveleteket. Az egyszerűség kedvéért az alkalmazásban csak két api hívás lesz, a **getPopularMovies()** a_ _TheMovieDB_ adatbázisban eltárolt aktuálisan legnépszerübb filmeket fogja visszaadni, a **searchMovie(title : String)** segítségével pedig lehet majd szövegesen keresni a filmek között. Az eredmény egy _HttpResponse_ típusú objektum lesz, amelynek body-jából tudjuk kinyerni a visszaadott adatokat. A kliens get kérését paraméterezzük is: beállítjuk a _language_ és _page_ paramétereket.
+
 
 ```kotlin
 import io.ktor.client.*
@@ -286,11 +290,7 @@ class TMDBApiClient(private val client: HttpClient) {
 }
 ```
 
-TODO: EXPLAIN
-
-Az egyszerűség kedvéért az alkalmazásban csak két api hívás lesz, a **getPopularMovies()** a TheMovieDB adatbázisban eltárolt aktuálisan legnépszerübb filmeket fogja visszaadni, a **searchMovie(title : String)** segítségével pedig lehet majd szövegesen keresni a filmek között.
-
-A következő lépés az adott platformoknak megfelelő HttpClient létrehozása lesz a közös kódban. A network packageben hozzunk létre egy `ProvideApiBaseClient.kt` fájlt az alábbi tartalommal.
+A következő lépés az adott platformoknak megfelelő HttpClient létrehozása lesz a közös kódban. Továbbra is a network packagen belül hozzunk létre egy `ProvideApiBaseClient.kt` fájlt az alábbi tartalommal. Az API kulcs helyére akár az igényelt, akár a megadott 2 api kulcs valamelyikét illesszük be!
 
 ```kotlin
 import io.ktor.client.*
@@ -317,7 +317,7 @@ fun provideHttpBaseClient() = platformClient().config {
         bearer {
             loadTokens {
                 BearerTokens(
-                    "IDE_AZ_IGÉNYELT_API_KULCS",
+                    "IDE_AZ_API_KULCS",
                     null
                 )
             }
@@ -335,9 +335,9 @@ fun provideHttpBaseClient() = platformClient().config {
 }
 ```
 
-A **platformClient()** feladata elkérni az adott platformoktól a megfelelő **HttpClienteket**, majd ezen a config blockon belül pluginok hozzáadása. Jelen esetben, a hálózati kommunkáció során a tényleges tartalom JSON-okformájában fog utazni, ezért ezt állítjuk be (ContentNegotiation blokk Json beállítása). Az Api hívások során az igényelt API tokent az Authorization header-ben kell megadni, ehhez az Auth plugint használjuk. A  kommunikáció Bearer típusú lesz, továbbá  szeretnénk az egyszerűbb debuggolás érdekében, hogy a hálózati kommunikáció megjelenjen a console-on is.
+A **platformClient()** feladata elkérni az adott platformoktól a megfelelő **HttpClienteket**, majd ezen a config blockon belül pluginok hozzáadása. Jelen esetben, a hálózati kommunkáció során a tényleges tartalom JSON-ok formájában fog utazni, ezért ezt állítjuk be (_ContentNegotiation_ blokk _Json_ beállítása). Az Api hívások során az igényelt API tokent az _Authorization_ header-ben kell megadni, ehhez az _Auth_ plugint használjuk. A  kommunikáció _Bearer_ típusú lesz, továbbá  szeretnénk az egyszerűbb debuggolás érdekében, hogy a hálózati kommunikáció megjelenjen a console-on is.
 
-Ezzel elkészült a közös kódban definiált HttpClient, ennek azonban a konkrét megvalósításait a különböző platformokon használt megfelelő natív API segítségével tudjuk kialakítani. Alt+Enter segítésével hozzuk létre a platformoknak megfelelő **HttpClienteket** tartalmazó fájlokat. Jelen esetben androidMain, iosMain és desktopMain platformokra lesz szükségünk.
+Ezzel elkészült a közös kódban definiált _HttpClient_, ennek a konkrét megvalósításait a különböző platformokon használt megfelelő natív API segítségével tudjuk kialakítani. Alt+Enter segítésével hozzuk létre a platformoknak megfelelő **HttpClienteket** tartalmazó fájlokat. Jelen esetben androidMain, iosMain és desktopMain platformokra lesz szükségünk. Ezekben platform-specifikus módon, az adott platformon használható _HttpClient-et_ (_OkHttp_ androidon és desktopon, _Darwin_ iOS-en) szolgáltatunk a Ktor számára.
 
 `Client.ios.kt`:
 ```kotlin
@@ -369,12 +369,9 @@ actual fun platformClient(): HttpClient {
 }
 ```
 
-TODO: EXPLAIN
+### Repository réteg kialakítása
 
-## Repository
-TODO: INTRO
-
-A data packagen belül hozzunk létre egy **Repository** packaget, azon belül egy **MovieRepository** interfacet.
+A hálózati hívások (és egyéb, hozzájuk köthető származtatott műveletek) elérését tipikusan nem közvetlenül szoktuk végezni, hanem egy extra réteget, a Repository-t vezetjük be, amelyen keresztül fogjuk tudni elérni a megfelelő műveleteket. A Repository tehát absztrakcióként szolgál a HttpClient-ek fölött, amelyek a tényleges hálózati kommunikációt végzik. Így fogunk most mi is eljárni. A data packagen belül hozzunk létre egy **Repository** packaget, azon belül egy **MovieRepository** interfacet.
 
 `MovieRepository.kt` :
 ```kotlin
@@ -396,9 +393,9 @@ interface MovieRepository {
 }
 ```
 
-TODO: EXPLAIN
+Itt deklaráljuk az alkalmazásunkban elérhető műveleteket. Láthatjuk, hogy suspend függvényekről van szó, amelyek Flow-n keresztül teszik elérhetővé az eredmények lekérdezését (amennyiben van ilyen).
 
-Továbbá hozzuk létre a filmeket reprezentáló adatmodellt. Ehhez a data package-el egyszinten készítsünk egy domain packaget. A domain-en belül pedig egy model packaget vegyünk fel, benne egy Movie data class-al.
+Hozzuk létre a filmeket reprezentáló adatmodellt is. Ehhez a data package-el egyszinten készítsünk egy _domain_ packaget (_hu.bme.aut.domain_). A _domain-en_ belül pedig egy _model_ packaget vegyünk fel (_hu.bme.aut.domain.model_), benne egy _Movie_ data class-al. Ez az osztály lesz felelős a filmek alkalmazásunkon belüli reprezentálásáért.
 
 Movie.kt:
 ```kotlin
@@ -410,7 +407,7 @@ data class Movie(
 )
 ```
 
-Ezután implementáljuk a **MovieRepository-t**: hozzunk létre egy impl packaget a repository-n belül benne az alábbi osztállyal.
+Ezután implementáljuk a **MovieRepository-t**: hozzunk létre egy _impl_ packaget a repository-n belül (_hu.bme.aut.data.repository.impl_) benne az alábbi osztállyal.
 
 ```kotlin
 import hu.bme.aut.data.mapper.toMovieDomain
@@ -456,11 +453,9 @@ class MovieRepositoryImpl(
     }
 }
 ```
-TODO: EXPLAIN
+Ez az osztály valósítja meg a Repository interface-ünket. Láthatjuk, hogy a korábbiakban elkészített _TMDBApiClient_ osztályunkat használja fel a hálózati kommunikáció elvégzéséhez. A _storedMovies_, _addMovieToWatchList_ és _removeMovieFromWatchList_ metódusok még nincsenek implementálva, azokkal később foglalkozunk majd.  A _searchMoveByTitle_ és _getPopularMovies_ metódusok viszont már meg vannak valósítva: az api kliens megfelelő metódusait meghívva megkapják az eredményt, majd a tagváltozóként felvett Flow-n keresztül (`movieResultFlow`) frissíti azt (`movieResultFlow.update`). Az eredményt a klienstől azonban a korábban elkészített _MovieResponse_ osztály (DTO) példányaként kapjuk meg, amely nem kompatibilis közvetlenül az alkalmazás modelljeként használt _Movie_ osztállyal.
 
-Szükségünk lesz még egy Mapper készítésére is az Api model -> Domain model között. Ezért a data packagen belül hozzunk létre egy mapper packaget, azon belül a **MovieMapper** osztályt az alábbi tartalommal.
-
-TODO: Kép, hogy áll most a package hierarchia?
+Ezért szükségünk lesz még egy Mapper készítésére is az Api model -> Domain model között. Ezt már használjuk a Repositoryban (`it.toMovieDomain()`), azonban még nem valósítottuk meg, ezért jelnleg fordítási hibát kapunk rá. Ezért a data packagen belül hozzunk létre egy _mapper_ packaget (_hu.bme.aut.data.mapper_), azon belül a **MovieMapper** osztályt az alábbi tartalommal.
 
 ```kotlin
 import hu.bme.aut.data.network.MovieResponse
@@ -474,11 +469,13 @@ fun MovieResponse.toMovieDomain(onWatchList: Boolean = false) = Movie(
 )
 ```
 
-TODO: EXPLAIN
+Itt egy kotlin nyelvi elemet, az _extension functiont_ használjuk: a _MovieResponse_ osztályt kiterjesztjük egy _toMovieDomain_ metódussal, amely paraméterként átveszi, hogy figyelő listán volt-e a film, majd elvégzi a konverziót a DTO és a model osztályok között.
 
 A **MovieResponse** posterPath-je nem tartalmazza a teljes útvonalat a képekhez. Ez azért van, mert a TheMovieDB más subdomaint biztosít a kép elérésére, továbbá lehet felbontást is változtatni (w500) a kisebb hálózati forgalom érdekében, amelyet szintén az elérés részeként (pl. /w500) adhatunk  meg.
 
-Alakítsuk most ki az alkalmazásunkban a dependency injection használatát, a 2. laborhoz hasonló módon most is a Koin segítségével. Hozzunk létre egy **di** packaget a data/domain-el egyszinten. Ebben a packgeben fogjuk definiálni az összes függőség közötti kapcsolatot. Hozzuk létre a Koin data moduleját, a DataModule.kt fájlban az alábbi tartalommal:
+### Dependency injection bevezetése
+
+Alakítsuk most ki az alkalmazásunkban a dependency injection használatának alapjait is, a 2. laborhoz hasonló módon most is a _Koin_ segítségével. Hozzunk létre egy **di** (_hu.bme.aut.di_) packaget a data és domain packagekkel egyszinten. Ebben a packageben fogjuk definiálni az összes függőség közötti kapcsolatot. Hozzuk létre a Koin data moduleját, a _DataModule.kt_ fájlban az alábbi tartalommal:
 
 ```kotlin
 import hu.bme.aut.data.network.TMDBApiClient
@@ -499,13 +496,18 @@ fun dataModule() = module {
     singleOf(::MovieRepositoryImpl) bind MovieRepository::class
 }
 ```
-TODO: EXPLAIN
 
-## UI folytatása
-TODO: ---------------------------------------------------------------------------------------------------
-Folytassuk most a felhasználói felületünk kialakítását. Hozzunk létre egy feature packaget, benne hozzunk létre egy search packaget. Ide helyezzük majd a különböző képernyőket és a hozzájuk tartozó viewmodelleket.
+Három típusú függőség injektálását definiáljuk. A HttpClient esetén a provideHttpBaseClient metódust hívjuk meg. a TMDPApiClient esetén egyszerűen példányosítjuk a TMDBApiClient osztályunkat, azonban figyelnünk kell arra is, hogy ez az osztály is vár egy függőséget konstruktorában (HttpClient). Ezért példányosításakor a Koin _get()_ metódusát hívva injektáljuk a függőségét. Az utolsó pedig a következőket éri el:
+	
+	1. A singleOf a single-hez hasonlóan egy singleton példányt hoz létre, csak ez az egy példány jön létre és minden, ezt a függőséget felhasználó objektum ugyanazt a példányt fogja használni.
+	2. A ::::MovieRepositoryImpl Kotlinos konstruktor referencia. Lényegében azt jelenti, hogy "hozz létre a _MovieRepositoryImpl_ osztály egy példányát a konstruktorának felhasználásával".
+	3. A `bind MovieRepository::class` a _MovieRepositoryImpl_ osztályt hozzáköti a _MovieRepository_ interfacehez, vagyis mindig, amikor egy _MovieRepository_ típusú függőséget várunk, egy _MovieRepositoryImpl_ példányt kell injektálni.
 
-Most elkészítjük a keresés képernyőt és a hozzátartozó ViewModelt.
+
+### Felhasználói felület folytatása
+Folytassuk most a felhasználói felületünk kialakítását, valósítsuk meg a filmeket megjelenítő képernyőt és a hozzá tartozó infrastruktúrát is. Hozzunk létre egy feature packaget, benne hozzunk létre egy search packaget. Ide helyezzük majd a különböző képernyőket és a hozzájuk tartozó viewmodelleket.
+
+Készítsük most el a keresés képernyőt és a hozzátartozó ViewModelt.
 
 `SearchScreenViewModel.kt`:
 ```kotlin
@@ -552,10 +554,10 @@ class SearchScreenViewModel(
     }
 }
 ```
-TODO: EXPLAIN
-Ahogy a kódból is látszódik, a viewmodel a konstruktorában a repository-t. Mikor létrejön a viewmodel init{} blokk meghívja a repository getPopularMovies() függvényét, hogy megtörténjen a hálózati hívás, továbbá felirakozik egy belső flow-ra, mely a keresési szabadszöveges keresés Stringjét tárolja. Debounce 500ms pedig késlelteti a keresést.
 
-Hozzuk létre a képernyőt (`SearchScreen.kt`) a viewmodellel egyszinten.
+Ahogy láthatjuk, a ViewModel a konstruktorában várja a repository-t, amelynek a műveleteit fogja hívni. Mikor létrejön a ViewModel, az init{} blokkjában meghívja a repository _getPopularMovies()_ függvényétegy korutinban (_viewModelScope.launch_), hogy megtörténjen a hálózati hívás, továbbá felirakozik egy belső flow-ra, mely a keresési szabadszöveges keresés Stringjét tárolja el. A Debounce 500ms szerepe pedig, hogy késlelteti a keresést fél másodpercig. A ViewModel létrejöttekor meghívja a a repository _getMovies_ metódusát is, amellyen feltölti a tárolt filmek listáját.
+
+Hozzuk most létre a kereső képernyőt (`SearchScreen.kt`) a ViewModel-el egyszinten (_hu.bme.aut.feature.search.SearchScreen_).
 
 `SearchScreen.kt`
 ```kotlin
@@ -600,11 +602,11 @@ fun SearchScreen(
     }
 }
 ```
-A Screen konstukrában a viewModel-t a **koin** fogja bizotsítani a koinViewModel() hívás által, ehhez még készítenünk kell egy koin Module-t, ahol viewModelek függőségeit fogjuk definiálni.
+A Screen konstruktorában a ViewModel-t a **koin** fogja bizotsítani a koinViewModel() hívás által. Ehhez azonban még készítenünk kell egy koin Module-t, ahol ViewModelek függőségeit fogjuk definiálni.
 
-Szükséges lenne továbbá, hogy az alkalmazásunk listanézete eltérjen a két platformon. Mobile képernyőkön egymás alatt jelenjenek (LazyList) meg az egyes film kártyák, de desktopon gridesítve(listVerticalGrid).
+A korábbiaknak megfelelően szükséges lenne továbbá, hogy az alkalmazásunk listanézete eltérjen a két platformon. Mobil képernyőkön egymás alatt jelenjenek (_LazyList_) meg az egyes film kártyák, de desktopon táblázatszerűen (_ListVerticalGrid_).
 
-Hozzunk létre egy `PlatformMovieList.kt` fájlt, ui/component packageben, feladata paraméterként kapott movie-k layoutjának megszabása, de az egyes Movie-k megjelenítése a lamdbaként kapott composable függvény feladata.
+Hozzunk létre egy `PlatformMovieList.kt` fájlt a ui/component packageben (_hu.bme.aut.ui_ és _hu.bme.aut.ui.component_), ennek feladata lesz a paraméterként kapott filmek elrendezésének megszabása, de az egyes filmek megjelenítése a lamdbaként kapott composable függvény formájában lesz megadva.
 
 `PlatformMovieList.kt`
 ```kotlin
@@ -618,7 +620,7 @@ expect fun PlatformMovieList(
 )
 ```
 
-Mivel egységes megjelenítés szeretnénk android-on és ios-en, ezért mobileMain-ben hozzuk létre az implementációt.
+Mivel egységes megjelenítést szeretnénk Androidon és iOS-en, ezért a mobileMain SourceSet-ben hozzuk létre az implementációt, ugyanolyan packageben, mint amit a közös kódban is létrehoztunk (_hu.bme.aut.ui.component_).
 
 `PlatformMovieList.mobile.kt`
 ```kotlin
@@ -640,6 +642,7 @@ actual fun PlatformMovieList(
 }
 ```
 
+Itt definiáljuk, hogy mobilos platformok esetén egy egyszerű listaszerű megjelenítést szeretnénk a filmeknek, ahol a kapott lambda mondja meg, hogy egy konkrét filmet hogyan jelenítsünk meg.
 
 `PlatformMovieList.desktop`
 
@@ -666,7 +669,9 @@ actual fun PlatformMovieList(
 }
 ```
 
-Továbbra szükséges létrehoznunk egy `MovieCard.kt` fájlt, ezt létrehozhatjuk. feature/movie package-ben, azért kerül ide mert később további funkcionalitást fog kapni a kártya.
+Desktop esetén pedig egy gridesített megjelenítést alkalmazunk, egy film megjelenítése ugyanúgy a lambda segítségével történik.
+
+A filmeket a megszokott Card-szerű formátumban fogjuk megjeleníteni, hozzuk most létre a közös kódban a `MovieCard.kt` fájlunkat, amely a szükséges Composable elemet fogja tartalmazni. Ezt a feature/movie packagebe helyezzük (_hu.bme.aut.feature.movie_), mert később további funkcionalitást is fog kapni a kártya.
 
 ```kotlin
 import androidx.compose.foundation.layout.*
@@ -703,7 +708,7 @@ fun MovieCard(
 }
 ```
 
-Ezután cseréljük ki a Placeholder Text(text = Route.Search.title) composable-t a SearchScreen()-re
+Ezután az App.kt belépési pontján cseréljük ki az ideiglenes Text(text = Route.Search.title) composable-t a SearchScreen()-re:
 
 `App.kt`:
 ```kotlin
@@ -712,8 +717,7 @@ composable(route = Route.Search.title) {
 }
 ```
 
-Jelen állapotban minden kész, ahhoz hogy lehessen használni az alkalamazást, ellenben mégsem fog működni.
-A **DI** függőségeket kell még definiálnunk. Ehhez a **DI** package-en belül hozzunk létre egy **ViewModelModule-t** az alábbi tartalommal.
+Jelen állapotban minden kész ahhoz, hogy lehessen használni az alkalmazást, ellenben mégsem fog működni. A hiányzó, ViewModel-ekhez tartozó **DI** függőségeket kell még definiálnunk. Ehhez a közös kódbban a **DI** packagen belül (hu.bme.aut.di) hozzunk létre egy **ViewModelModule-t** az alábbi tartalommal.
 
 `ViewModelModule.kt`:
 ```kotlin
@@ -728,7 +732,9 @@ fun viewModelModule() = module {
 }
 ```
 
-Továbbá egy AppModule-t mely az dataModule és a viewModelModule-t tartalmazza. Továbbá egy initializeKoin függvény, mely átadja a koin számára a definiált függőségeket.
+Itt definiáljuk a ViewModel-ekkel kapcsolatos függőségeket, melyre speciális támogatást nyújt a Koin. Azt adjuk meg, hogy valahányszor a Koin _viewmodel()_ hívását használjuk (ahogy azt a SearchScreen-ben meg is tettük), a SearchScreenViewModel példányát injektáljuk. Annak konstruktor paraméterében a _get()_ hívás szerepe ugyanaz, mint amit korábban láttunk.
+
+Vegyünk fel továbbá egy AppModule-t is, amely az alkalmazás moduljainak felsorolását tartalmazza. Vegyük észre, hogy több modult is használunk már: a korábban létrehozott DataModule-t, és az újonnan készített ViewModelModule-t. Ide helyezünk továbbá egy initializeKoin függvényt, mely átadja a koin számára a definiált függőségeket. Ezt azért tesszük meg, hogy a különböző platformokon ne kelljen azt mindenhol duplikálnunk.
 
 `AppModule.kt`:
 ```kotlin
@@ -747,7 +753,9 @@ fun initializeKoin() = startKoin {
 }
 ```
 
-Ezután szükséges minden platformon meghívni az initializeKoin függvényt, mellyel "bekapcsoljuk" a koint.
+Ezután szükséges minden platformon meghívni az initializeKoin függvényt, mellyel "bekapcsoljuk" a Koint az adott platformon.
+
+Androidon:
 
 `MainActivity.kt`:
 ```kotlin
@@ -761,6 +769,8 @@ class MainActivity : ComponentActivity() {
     }
 }
 ```
+
+Desktopon:
 
 `main.kt`:
 ```kotlin
@@ -779,6 +789,8 @@ fun main() = application {
 }
 ```
 
+iOS-en:
+
 `MainViewController.kt`:
 ```kotlin
 import androidx.compose.ui.window.ComposeUIViewController
@@ -790,7 +802,7 @@ fun MainViewController() = ComposeUIViewController {
 }
 ```
 
-Továbbá AndroidManifest fájlban adjuk hozzá a következő sort az engedélyekhez, hogy az alkalmazás hozzáférjen az internethez.
+Továbbá, az AndroidManifest fájlban adjuk hozzá a következő sort az engedélyekhez, hogy az alkalmazás hozzáférjen az internethez.
 
 `AndroidManifest.xml`:
 ```xml
@@ -800,13 +812,13 @@ Továbbá AndroidManifest fájlban adjuk hozzá a következő sort az engedélye
 
 ```
 
-Jelen állapotban indítható az alkalmazás, és kereshetőek filmek.
+Jelen állapotban indítható az alkalmazás, és kereshetőek a filmek. Próbáljuk ki, az alábbihoz hasonlót kell látnunk!
 
 ![Api result](assets/api_result.png)
 
 ## 3. Perzisztens adattárolás: Room
 
-Következő lépés az alkalmazás fejlesztésében a perzisztens adattárolás létrehozása. Ehhez a Room könyvtár lesz használva.
+Következő lépésként az alkalmazás fejlesztésében a perzisztens adattárolás létrehozása. Ehhez a Room könyvtár lesz használva.
 A Room ismerős lehet az Android fejlesztésből, a könyvtár a 2.7.0-alpha01 már Multiplatform könyvtárrá vált így használható Desktop és IOS platformokon is. A Room az SQLlite relációs adatbázis felett egy absztrakciós réteg(ORM), mellyel könnyen lehet relációs adatszerkezeteket felépíteni.
 [Részletes leírása](https://developer.android.com/kotlin/multiplatform/room)
 
