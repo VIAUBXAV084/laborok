@@ -1138,7 +1138,8 @@ Ennek implementációjára 2 alapvető lehetőségünk van.
 Az első, hogy minden képernyő ViewModelje propagálja ezeket a műveleteket a repository függvényei felé, majd egy lambda paraméterként átadjuk azokat az egyes film kártyáknak.
 
 Rövid egyszerűsített kód példának:
- ```kotlin
+
+```kotlin
 class ScreenAViewModel(private val repository: Repository) {
     fun addMovieToWatchList(movie: Movie) {
         repository.addMovieToWatchList(movie)
@@ -1178,7 +1179,7 @@ fun ScreenB(viewModel: ScreenBViewModel) {
         }
     }
 }
- ```
+```
  Ezzel a megoldással az a probléma, hogy láthatóan kódduplikáció jelenik meg. Erre megoldás lehetne, ha egy ős ViewModelbe raknánk a közös függvényeket, de akkor minden képernyőn, ahol a hozzáadás és törlés tulajdonsága kell a kártyának, a MovieCard lambdáinak  külön kellene átadni a ViewModel függvényeit.
 
  A másik megközelítésben a képernyők kizárólag a MovieCard-ok megjelenítéséért felelnek, és a filmekhez kapcsolódó műveletek logikáját egy külön MovieCardViewModel-be helyezzük. Ezáltal csökkentjük a képernyők kódbeli összetettségét, miközben jobban elkülönítjük a függőségeket. Ez a megközelítés elősegíti a komponensek újrafelhasználhatóságát és egyszerűsíti a kódunk karbantarthatóságát is. Hasonló elvet követ a [Decompose](https://github.com/arkivanov/Decompose) könyvtár is, amely lehetővé teszi a UI-elemek életciklusának és adatkezelésének függetlenítését a környező komponensektől. Célszerű tehát ezt a megoldást választanunk.
