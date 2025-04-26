@@ -88,5 +88,6 @@ nav:
   - "Laborok":
       - laborok/lab_1/index.md
       - laborok/lab_2/index.md
+      - laborok/lab3/index.md
   - "Házi feladat":
       - hf/index.md
