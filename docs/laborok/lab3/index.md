@@ -851,7 +851,7 @@ Jelen állapotban indítható az alkalmazás, és kereshetőek a filmek. Próbá
 !!!example "BEADANDÓ (1 pont)" 
 	Készítsünk egy **képernyőképet**, amelyen az elindított alkalmazás SearchScreen képernyője látszik desktopon és mobil platformon egymás mellett! A kép a megoldásban a repositoryban f2.png néven szerepeljen!
 
-## 3. Perzisztens adattárolás: Room
+## 3. Perzisztens adattárolás: Room (1 pont)
 
 Térjünk most rá a perzisztens adattárolás létrehozására. Ehhez a Room könyvtárat fogjuk használni, amely egy kliens oldali SQLite adatbázis felett biztosít ORM támogatást. A Room az android ökoszisztémában jól bevált és elterjedt megoldás, a 2.7.0-alpha01 verziótól kezdve pedig már Kotlin Multiplatform környezetben is használható.
 [Részletes dokumentáció](https://developer.android.com/kotlin/multiplatform/room)
