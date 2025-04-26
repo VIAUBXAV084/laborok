@@ -1745,8 +1745,8 @@ Ahogy látható, a <strong>Room-ból</strong> származó Annotációkkal van kie
 <p>Ezzel majdnem készen vagyunk már, arra van még szükség, hogy a felhasználói felületen jelenítsünk meg a filmeken egy hozzáadó / törlő gombot is, amelyekkel figyelőlistára helyezhetjük, illetve eltávolíthajuk onnan az adott filmet attól függően, hogy rajta van-e már.</p>
 <p>Ennek implementációjára 2 alapvető lehetőségünk van.</p>
 <p>Az első, hogy minden képernyő ViewModelje propagálja ezeket a műveleteket a repository függvényei felé, majd egy lambda paraméterként átadjuk azokat az egyes film kártyáknak.</p>
-<p>Rövid egyszerűsített kód példának:</p>
-<p><div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nc">ScreenAViewModel</span><span class="p">(</span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">repository</span><span class="p">:</span><span class="w"> </span><span class="n">Repository</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<p>Rövid egyszerűsített kód példánk:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span><span class="w"> </span><span class="nc">ScreenAViewModel</span><span class="p">(</span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">repository</span><span class="p">:</span><span class="w"> </span><span class="n">Repository</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">addMovieToWatchList</span><span class="p">(</span><span class="n">movie</span><span class="p">:</span><span class="w"> </span><span class="n">Movie</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="n">repository</span><span class="p">.</span><span class="na">addMovieToWatchList</span><span class="p">(</span><span class="n">movie</span><span class="p">)</span>
 <span class="w">    </span><span class="p">}</span>
@@ -1786,7 +1786,7 @@ Ahogy látható, a <strong>Room-ból</strong> származó Annotációkkal van kie
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
- Ezzel a megoldással az a probléma, hogy láthatóan kódduplikáció jelenik meg. Erre megoldás lehetne, ha egy ős ViewModelbe raknánk a közös függvényeket, de akkor minden képernyőn, ahol a hozzáadás és törlés tulajdonsága kell a kártyának, a MovieCard lambdáinak  külön kellene átadni a ViewModel függvényeit.</p>
+<p>Ezzel a megoldással az a probléma, hogy láthatóan kódduplikáció jelenik meg. Erre megoldás lehetne, ha egy ős ViewModelbe raknánk a közös függvényeket, de akkor minden képernyőn, ahol a hozzáadás és törlés tulajdonsága kell a kártyának, a MovieCard lambdáinak  külön kellene átadni a ViewModel függvényeit.</p>
 <p>A másik megközelítésben a képernyők kizárólag a MovieCard-ok megjelenítéséért felelnek, és a filmekhez kapcsolódó műveletek logikáját egy külön MovieCardViewModel-be helyezzük. Ezáltal csökkentjük a képernyők kódbeli összetettségét, miközben jobban elkülönítjük a függőségeket. Ez a megközelítés elősegíti a komponensek újrafelhasználhatóságát és egyszerűsíti a kódunk karbantarthatóságát is. Hasonló elvet követ a <a href="https://github.com/arkivanov/Decompose">Decompose</a> könyvtár is, amely lehetővé teszi a UI-elemek életciklusának és adatkezelésének függetlenítését a környező komponensektől. Célszerű tehát ezt a megoldást választanunk.</p>
 <p>Hozzuk létre tehát a <code>MovieCardViewModel.kt</code>-t a MovieCard mellett (a <em>hu.bme.aut.ui.feature.movie</em> packageben).
 <div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">androidx.lifecycle.ViewModel</span>
@@ -1947,8 +1947,8 @@ Ahogy látható, a <strong>Room-ból</strong> származó Annotációkkal van kie
           </path>
         </svg>
       </span>
-      <span title="2025. április 26. 22:10:55">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. április 26. 22:10:55"><span class="timeago" datetime="2025-04-26T22:10:55+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. április 26. 22:10:55">2025-04-26</span>
+      <span title="2025. április 26. 22:15:57">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. április 26. 22:15:57"><span class="timeago" datetime="2025-04-26T22:15:57+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. április 26. 22:15:57">2025-04-26</span>
       </span>
     </span>
 
