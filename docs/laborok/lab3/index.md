@@ -1320,7 +1320,7 @@ Fordítsuk és indítsuk el az alkalmazásunkat desktop és mobilos platformon i
 ![Add delete on cards](assets/add_delete_on_cards.png)
 
 !!!example "BEADANDÓ (1 pont)" 
-	Készítsünk egy **képernyőképet**, amelyen az elindított alkalmazás SearchScreen képernyője látszik desktopon és mobil platformon egymás mellett! Legyen olyan film is, amelyiken a hozzáadás gomb látszik, és olyan is, amelyiken a törlés gomb! A kép a megoldásban a repositoryban f3.png néven szerepeljen!
+	Készítsünk egy **képernyőképet**, amelyen az elindított alkalmazás SearchScreen képernyője látszik valamelyik tetszőleges platformon! Legyen olyan film is, amelyiken a hozzáadás gomb látszik, és olyan is, amelyiken a törlés gomb! A kép a megoldásban a repositoryban f3.png néven szerepeljen!
 
 ## Önálló feladat - Watchlist képernyő implementálása (1 pont)
 Valósítsuk meg a WatchList képernyőt is! Egészítsük ki az alkalmazást úgy, hogy a Watchlist képernyőn csak az adatbázisban tárolt filmek jelenjenek meg!
