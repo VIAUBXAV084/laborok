@@ -527,9 +527,10 @@ fun dataModule() = module {
 ```
 
 Három típusú függőség injektálását definiáljuk. A HttpClient esetén a provideHttpBaseClient metódust hívjuk meg. A TMDPApiClient esetén egyszerűen példányosítjuk a TMDBApiClient osztályunkat, azonban figyelnünk kell arra is, hogy ez az osztály is vár egy függőséget konstruktorában (HttpClient). Ezért példányosításakor a Koin _get()_ metódusát hívva injektáljuk a függőségét. Az utolsó pedig a következőket éri el:
-	1. A singleOf a single-hez hasonlóan egy singleton példányt hoz létre, csak ez az egy példány jön létre és minden, ezt a függőséget felhasználó objektum ugyanazt a példányt fogja használni.
-	2. A ::MovieRepositoryImpl Kotlinos konstruktor referencia. Lényegében azt jelenti, hogy "hozz létre a _MovieRepositoryImpl_ osztály egy példányát a konstruktorának felhasználásával".
-	3. A bind MovieRepository::class a _MovieRepositoryImpl_ osztályt hozzáköti a _MovieRepository_ interfacehez, vagyis mindig, amikor egy _MovieRepository_ típusú függőséget várunk, egy _MovieRepositoryImpl_ példányt kell injektálni.
+
+1. A singleOf a single-hez hasonlóan egy singleton példányt hoz létre, csak ez az egy példány jön létre és minden, ezt a függőséget felhasználó objektum ugyanazt a példányt fogja használni.
+2. A ::MovieRepositoryImpl Kotlinos konstruktor referencia. Lényegében azt jelenti, hogy "hozz létre a _MovieRepositoryImpl_ osztály egy példányát a konstruktorának felhasználásával".
+3. A bind MovieRepository::class a _MovieRepositoryImpl_ osztályt hozzáköti a _MovieRepository_ interfacehez, vagyis mindig, amikor egy _MovieRepository_ típusú függőséget várunk, egy _MovieRepositoryImpl_ példányt kell injektálni.
 
 
 ### Felhasználói felület folytatása
@@ -856,10 +857,11 @@ Térjünk most rá a perzisztens adattárolás létrehozására. Ehhez a Room k�
 [Részletes dokumentáció](https://developer.android.com/kotlin/multiplatform/room)
 
 A Room bekötése az alkalmazásba 4 fő elemből áll, az alábbiakat kell elvégeznünk:
-	- **Movie Entitás** definiálás, mely a Movie táblát fogja reprezentálni az adatbázisban, melyből 1-1 sor az adatbázisban fog 1-1 objektum példányt jelenteni.
-	- **Dao** definiálása, melyben definiáljuk, hogy 1-1 entitáson milyen műveleteink vannak.
-	- **RoomDatabase** osztályból leszármazás, melyen definiáljuk az entitiásainkat és azokhoz tartozó Dao osztályainkat
-	- **Platform specifikus kódrészek** implementálása a Room inicializálásához.
+
+1. **Movie Entitás** definiálás, mely a Movie táblát fogja reprezentálni az adatbázisban, melyből 1-1 sor az adatbázisban fog 1-1 objektum példányt jelenteni.
+2. **Dao** definiálása, melyben definiáljuk, hogy 1-1 entitáson milyen műveleteink vannak.
+3. **RoomDatabase** osztályból leszármazás, melyen definiáljuk az entitiásainkat és azokhoz tartozó Dao osztályainkat
+4. **Platform specifikus kódrészek** implementálása a Room inicializálásához.
 
 Először hozzuk létre az entitásunkat a közös kódban a _data/database/entity_ (_hu.bme.aut.data.database.entity_) packagen belül az alábbi tartalommal:
 
