@@ -779,13 +779,13 @@
 
 <h1 id="labor-3-halozati-kommunikacio-es-adatkezeles">Labor 3 - Hálózati kommunikáció és adatkezelés<a class="headerlink" href="#labor-3-halozati-kommunikacio-es-adatkezeles" title="Permanent link">&para;</a></h1>
 <h2 id="bevezeto">Bevezető<a class="headerlink" href="#bevezeto" title="Permanent link">&para;</a></h2>
-<p>A labor során egy filmfigyelő lista alkalmazást fogunk elkészíteni Android, IOS és Desktop platformokra. Az alkalmazásban lehet majd filmekre keresni, melyeket egy figyelő listára lehet helyezni. Figyelmet fordítunk továbbá a projekt precíz strukturálására is (packagek szerkezetének kialakítása), hogy lássunk példát egy összetettebb, nagyobb projektekben átláthatóbban használható megközelítésre is. Bár a projektünkben önmagában ez nem lenne mindig indokolt, mert viszonylag kevés fájlt fognak tartalmazni a packagek. Ha az alkalmazásunk bonyolultabb lenne és jóval több funkcióból állna, akkor kifizetődőbb lenne, mint egy sokkal egyszerűbb megközelítés. Az egyszerűség kedvéért, hogy könnyebben lehessen követni a packagek hierarchiáját, új package létrehozásakor mindig megadjuk zárójelben a package teljes, fully qualified nevét.</p>
+<p>A labor során egy filmfigyelő lista alkalmazást fogunk elkészíteni Android, IOS és Desktop platformokra. Az alkalmazásban lehet majd filmekre keresni, melyeket egy figyelő listára lehet helyezni. Figyelmet fordítunk továbbá a projekt precíz strukturálására is (packagek szerkezetének kialakítása), hogy lássunk példát egy összetettebb, nagyobb projektekben átláthatóbban használható megközelítésre is. Bár a projektünkben önmagában ez nem lenne mindig indokolt, mert viszonylag kevés fájlt fognak tartalmazni a packagek, Ha az alkalmazásunk bonyolultabb lenne és jóval több funkcióból állna, akkor kifizetődőbb lenne, mint egy sokkal egyszerűbb megközelítés. Az egyszerűség kedvéért, hogy könnyebben lehessen követni a packagek hierarchiáját, új package létrehozásakor mindig megadjuk zárójelben a package teljes, fully qualified nevét.</p>
 <p>A filmek adatforrása a <a href="https://www.themoviedb.org/">TheMovieDb</a> lesz, mely biztosít egy REST-API-t filmek és sorozatok keresésére. Ehhez egy API kulcsot kell igényelni a <a href="https://developer.themoviedb.org/docs/getting-started">Developer</a> weboldalon. Ehhez regisztrálni kell, majd egy key fog megjelenni a képernyő alján. Erre később szükségünk lesz. <strong>Amennyiben nem szeretnénk a  regisztrációval és az API kulcs igényléssel foglalkozni, használhatjuk a következő API kulcsok valamelyikét:</strong></p>
 <div class="highlight"><pre><span></span><code><span class="n">eyJhbGciOiJIUzI1NiJ9</span><span class="p">.</span><span class="na">eyJhdWQiOiI4N2IwMWI0Y2I1MTQwMjhkZDljMGVlMWE1NjE3Y2I1NCIsIm5iZiI6MTczOTM2MzAwMi40NzYsInN1YiI6IjY3YWM5MmJhMjFkMGE5MmQ0YjliYWFjMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ</span><span class="p">.</span><span class="na">SNBeQWAYNi_QEl981CV6WwjCaFPZ6gGt3VE</span><span class="o">-</span><span class="n">V7Eho84</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="n">eyJhbGciOiJIUzI1NiJ9</span><span class="p">.</span><span class="na">eyJhdWQiOiI1NjQ2YzI3OTE3Yjg5NjYyZTVmOWM0MWNjN2YzNjc4MiIsIm5iZiI6MTc0NTYwMjcxMi40MDQsInN1YiI6IjY4MGJjODk4ZDE0OGE4MmIwZDlkMWY0NSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ</span><span class="p">.</span><span class="m">5</span><span class="n">rlt97hjf</span><span class="o">-</span><span class="n">ckbGiVg_</span><span class="o">-</span><span class="m">0</span><span class="o">-</span><span class="n">kFGxL8</span><span class="o">-</span><span class="n">D0HQX99Vr6kp7cc</span>
 </code></pre></div>
-<p>3 fő technológia amely használva lesz a labor során:</p>
+<p>3 fő technológia, amely használva lesz a labor során:</p>
 <ul>
 <li><a href="https://ktor.io/">Ktor</a>, mely segítségével fog történni a halózati kommunikáció.</li>
 <li><a href="https://developer.android.com/kotlin/multiplatform/room">Room</a>, mely a lokális adatbázist fogja nyújtani.</li>
@@ -1032,7 +1032,7 @@
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">results</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">MovieResponse</span><span class="o">&gt;</span>
 <span class="p">)</span>
 </code></pre></div>
-<p>Ugyanebben a packageben készítsük el magát az API klienst (<code>TMDBApiClient.kt</code>), amely a Ktor kliens API segítségével fogja elvégezni a hálózati kommunikációt. Itt eltároljuk az API alap URL-jét, illetve definiáljuk a kétféle kérésünkhöz tartozó műveleteket. Az egyszerűség kedvéért az alkalmazásban csak két api hívás lesz, a <strong>getPopularMovies()</strong> a_ <em>TheMovieDB</em> adatbázisban eltárolt aktuálisan legnépszerübb filmeket fogja visszaadni, a <strong>searchMovie(title : String)</strong> segítségével pedig lehet majd szövegesen keresni a filmek között. Az eredmény egy <em>HttpResponse</em> típusú objektum lesz, amelynek body-jából tudjuk kinyerni a visszaadott adatokat. A kliens get kérését paraméterezzük is: beállítjuk a <em>language</em> és <em>page</em> paramétereket.</p>
+<p>Ugyanebben a packageben készítsük el magát az API klienst (<code>TMDBApiClient.kt</code>), amely a Ktor kliens API segítségével fogja elvégezni a hálózati kommunikációt. Itt eltároljuk az API alap URL-jét, illetve definiáljuk a kétféle kérésünkhöz tartozó műveleteket. Az egyszerűség kedvéért az alkalmazásban csak két api hívás lesz, a <strong>getPopularMovies()</strong> a <em>TheMovieDB</em> adatbázisban eltárolt aktuálisan legnépszerűbb filmeket fogja visszaadni, a <strong>searchMovie(title : String)</strong> segítségével pedig lehet majd szövegesen keresni a filmek között. Az eredmény egy <em>HttpResponse</em> típusú objektum lesz, amelynek body-jából tudjuk kinyerni a visszaadott adatokat. A kliens get kérését paraméterezzük is: beállítjuk a <em>language</em> és <em>page</em> paramétereket.</p>
 <div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">io.ktor.client.*</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">io.ktor.client.call.*</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">io.ktor.client.request.*</span>
@@ -1148,7 +1148,7 @@
 <span class="w">    </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">removeMovieFromWatchList</span><span class="p">(</span><span class="n">movie</span><span class="p">:</span><span class="w"> </span><span class="n">Movie</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div></p>
-<p>Itt deklaráljuk az alkalmazásunkban elérhető műveleteket. Láthatjuk, hogy suspend függvényekről van szó, amelyek Flow-n keresztül teszik elérhetővé az eredmények lekérdezését (amennyiben van ilyen).</p>
+<p>Itt deklaráljuk az alkalmazásunkban elérhető műveleteket. Láthatjuk, hogy a függvények egy része suspend függvény. Azért épp ezek, és a másik 2 nem, mert a 4 suspend függvény mind közvetlenül hosszantartó műveletet fog meghívni (hálózati vagy adatbázis hívás), a másik 2 pedig közvetlenül nem. Megfigyelhetjük azt is, hogy pl. a getPopularMovies metódusnak nincs visszatérési értéke, holott nyilván vissza kell térnie valamilyen eredménnyel. Ennek a látszólagos problémának a megoldását nemsokára, a Repository implementációjánál fogjuk látni.</p>
 <p>Hozzuk létre a filmeket reprezentáló adatmodellt is. Ehhez a data package-el egyszinten készítsünk egy <em>domain</em> packaget (<em>hu.bme.aut.domain</em>). A <em>domain-en</em> belül pedig egy <em>model</em> packaget vegyünk fel (<em>hu.bme.aut.domain.model</em>), benne egy <em>Movie</em> data class-al. Ez az osztály lesz felelős a filmek alkalmazásunkon belüli reprezentálásáért.</p>
 <p>Movie.kt:
 <div class="highlight"><pre><span></span><code><span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">Movie</span><span class="p">(</span>
@@ -1201,7 +1201,7 @@
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-Ez az osztály valósítja meg a Repository interface-ünket. Láthatjuk, hogy a korábbiakban elkészített <em>TMDBApiClient</em> osztályunkat használja fel a hálózati kommunikáció elvégzéséhez. A <em>storedMovies</em>, <em>addMovieToWatchList</em> és <em>removeMovieFromWatchList</em> metódusok még nincsenek implementálva, azokkal később foglalkozunk majd.  A <em>searchMoveByTitle</em> és <em>getPopularMovies</em> metódusok viszont már meg vannak valósítva: az api kliens megfelelő metódusait meghívva megkapják az eredményt, majd a tagváltozóként felvett Flow-n keresztül (<code>movieResultFlow</code>) frissíti azt (<code>movieResultFlow.update</code>). Az eredményt a klienstől azonban a korábban elkészített <em>MovieResponse</em> osztály (DTO) példányaként kapjuk meg, amely nem kompatibilis közvetlenül az alkalmazás modelljeként használt <em>Movie</em> osztállyal.</p>
+Ez az osztály valósítja meg a Repository interface-ünket. Láthatjuk, hogy a korábbiakban elkészített <em>TMDBApiClient</em> osztályunkat használja fel a hálózati kommunikáció elvégzéséhez. A <em>storedMovies</em>, <em>addMovieToWatchList</em> és <em>removeMovieFromWatchList</em> metódusok még nincsenek implementálva, azokkal később foglalkozunk majd.  A <em>searchMoveByTitle</em> és <em>getPopularMovies</em> metódusok viszont már meg vannak valósítva: az api kliens megfelelő metódusait meghívva megkapják az eredményt, majd a tagváltozóként felvett Flow-n keresztül (<code>movieResultFlow</code>) frissítik azt (<code>movieResultFlow.update</code>). Az eredményt a klienstől azonban a korábban elkészített <em>MovieResponse</em> osztály (DTO) példányaként kapjuk meg, amely nem kompatibilis közvetlenül az alkalmazás modelljeként használt <em>Movie</em> osztállyal.</p>
 <p>Ezért szükségünk lesz még egy Mapper készítésére is az Api model -&gt; Domain model között. Ezt már használjuk a Repositoryban (<code>it.toMovieDomain()</code>), azonban még nem valósítottuk meg, ezért jelenleg fordítási hibát kapunk rá. Ezért a data packagen belül hozzunk létre egy <em>mapper</em> packaget (<em>hu.bme.aut.data.mapper</em>), azon belül egy <strong>MovieMapper.kt</strong> fájlt az alábbi tartalommal.</p>
 <div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">hu.bme.aut.data.network.MovieResponse</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">hu.bme.aut.domain.model.Movie</span>
@@ -1235,14 +1235,13 @@ Ez az osztály valósítja meg a Repository interface-ünket. Láthatjuk, hogy a
 <span class="w">    </span><span class="n">singleOf</span><span class="p">(</span><span class="o">::</span><span class="n">MovieRepositoryImpl</span><span class="p">)</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">MovieRepository</span><span class="o">::</span><span class="kd">class</span>
 <span class="err">}</span>
 </code></pre></div>
-<p>Három típusú függőség injektálását definiáljuk. A HttpClient esetén a provideHttpBaseClient metódust hívjuk meg. a TMDPApiClient esetén egyszerűen példányosítjuk a TMDBApiClient osztályunkat, azonban figyelnünk kell arra is, hogy ez az osztály is vár egy függőséget konstruktorában (HttpClient). Ezért példányosításakor a Koin <em>get()</em> metódusát hívva injektáljuk a függőségét. Az utolsó pedig a következőket éri el:</p>
-<div class="highlight"><pre><span></span><code>1. A singleOf a single-hez hasonlóan egy singleton példányt hoz létre, csak ez az egy példány jön létre és minden, ezt a függőséget felhasználó objektum ugyanazt a példányt fogja használni.
-2. A ::::MovieRepositoryImpl Kotlinos konstruktor referencia. Lényegében azt jelenti, hogy &quot;hozz létre a _MovieRepositoryImpl_ osztály egy példányát a konstruktorának felhasználásával&quot;.
-3. A `bind MovieRepository::class` a _MovieRepositoryImpl_ osztályt hozzáköti a _MovieRepository_ interfacehez, vagyis mindig, amikor egy _MovieRepository_ típusú függőséget várunk, egy _MovieRepositoryImpl_ példányt kell injektálni.
-</code></pre></div>
+<p>Három típusú függőség injektálását definiáljuk. A HttpClient esetén a provideHttpBaseClient metódust hívjuk meg. A TMDPApiClient esetén egyszerűen példányosítjuk a TMDBApiClient osztályunkat, azonban figyelnünk kell arra is, hogy ez az osztály is vár egy függőséget konstruktorában (HttpClient). Ezért példányosításakor a Koin <em>get()</em> metódusát hívva injektáljuk a függőségét. Az utolsó pedig a következőket éri el:
+    1. A singleOf a single-hez hasonlóan egy singleton példányt hoz létre, csak ez az egy példány jön létre és minden, ezt a függőséget felhasználó objektum ugyanazt a példányt fogja használni.
+    2. A ::MovieRepositoryImpl Kotlinos konstruktor referencia. Lényegében azt jelenti, hogy "hozz létre a <em>MovieRepositoryImpl</em> osztály egy példányát a konstruktorának felhasználásával".
+    3. A bind MovieRepository::class a <em>MovieRepositoryImpl</em> osztályt hozzáköti a <em>MovieRepository</em> interfacehez, vagyis mindig, amikor egy <em>MovieRepository</em> típusú függőséget várunk, egy <em>MovieRepositoryImpl</em> példányt kell injektálni.</p>
 <h3 id="felhasznaloi-felulet-folytatasa">Felhasználói felület folytatása<a class="headerlink" href="#felhasznaloi-felulet-folytatasa" title="Permanent link">&para;</a></h3>
-<p>Folytassuk most a felhasználói felületünk kialakítását, valósítsuk meg a filmeket megjelenítő képernyőt és a hozzá tartozó infrastruktúrát is. Hozzunk létre a <em>ui</em> packageben egy <em>feature</em> (<em>hu.bme.aut.ui.feature</em>) packaget, benne hozzunk létre egy <em>search</em> packaget (<em>hu.bme.aut.ui.feature.search</em>). Ide helyezzük majd a SearchScreen-hez köthető képernyőket és a hozzájuk tartozó ViewModeleket.</p>
-<p>Készítsük most el a keresés képernyőt és a hozzátartozó ViewModelt.</p>
+<p>Folytassuk most a felhasználói felületünk kialakítását, valósítsuk meg a filmeket megjelenítő keresőképernyőt és a hozzá tartozó infrastruktúrát is. Hozzunk létre a <em>ui</em> packageben egy <em>feature</em> (<em>hu.bme.aut.ui.feature</em>) packaget, benne hozzunk létre egy <em>search</em> packaget (<em>hu.bme.aut.ui.feature.search</em>). Ide helyezzük majd a SearchScreent és a hozzá tartozó ViewModelt.</p>
+<p>Készítsük most el a keresés képernyőt és a hozzá tartozó ViewModelt.</p>
 <p><code>SearchScreenViewModel.kt</code>:
 <div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">androidx.lifecycle.ViewModel</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">androidx.lifecycle.viewModelScope</span>
@@ -1287,7 +1286,7 @@ Ez az osztály valósítja meg a Repository interface-ünket. Láthatjuk, hogy a
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></p>
-<p>Ahogy láthatjuk, a ViewModel a konstruktorában várja a repository-t, amelynek a műveleteit fogja hívni. Mikor létrejön a ViewModel, az init{} blokkjában meghívja a repository <em>getPopularMovies()</em> függvényétegy korutinban (<em>viewModelScope.launch</em>), hogy megtörténjen a hálózati hívás, továbbá felirakozik egy belső flow-ra, mely a keresési szabadszöveges keresés Stringjét tárolja el. A Debounce 500ms szerepe pedig, hogy késlelteti a keresést fél másodpercig. A ViewModel létrejöttekor meghívja a a repository <em>getMovies</em> metódusát is, amellyen feltölti a tárolt filmek listáját.</p>
+<p>Ahogy láthatjuk, a ViewModel a konstruktorában várja a repository-t, amelynek a műveleteit fogja hívni. Mikor létrejön a ViewModel, az init{} blokkjában meghívja a repository <em>getPopularMovies()</em> függvényét egy korutinban (<em>viewModelScope.launch</em>), hogy megtörténjen a hálózati hívás, továbbá felirakozik egy belső flow-ra, mely a szabadszöveges keresés Stringjét tárolja el. A Debounce 500ms szerepe pedig, hogy késlelteti a keresést fél másodpercig. A ViewModel létrejöttekor meghívja a a repository <em>getMovies</em> metódusát is, amellyel feltölti a tárolt filmek listáját.</p>
 <p>Hozzuk most létre a kereső képernyőt (<code>SearchScreen.kt</code>) a ViewModel-el egyszinten (<em>hu.bme.aut.ui.feature.search.SearchScreen</em>).</p>
 <p><code>SearchScreen.kt</code>
 <div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.foundation.background</span>
@@ -1439,7 +1438,7 @@ Ez az osztály valósítja meg a Repository interface-ünket. Láthatjuk, hogy a
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></p>
-<p>Itt definiáljuk a ViewModel-ekkel kapcsolatos függőségeket, melyre speciális támogatást nyújt a Koin. Azt adjuk meg, hogy valahányszor a Koin <em>viewmodel()</em> hívását használjuk (ahogy azt a SearchScreen-ben meg is tettük), a SearchScreenViewModel példányát injektáljuk. Annak konstruktor paraméterében a <em>get()</em> hívás szerepe ugyanaz, mint amit korábban láttunk.</p>
+<p>Itt definiáljuk a ViewModel-ekkel kapcsolatos függőségeket, melyre speciális támogatást nyújt a Koin. Azt adjuk meg, hogy valahányszor a Koin <em>koinViewModel()</em> hívását használjuk (ahogy azt a SearchScreen-ben meg is tettük), a SearchScreenViewModel példányát injektáljuk. Annak konstruktor paraméterében a <em>get()</em> hívás szerepe ugyanaz, mint amit korábban láttunk.</p>
 <p>Vegyünk fel továbbá egy AppModule-t is, amely az alkalmazás moduljainak felsorolását tartalmazza. Vegyük észre, hogy több modult is használunk már: a korábban létrehozott DataModule-t, és az újonnan készített ViewModelModule-t. Ide helyezünk továbbá egy initializeKoin függvényt, mely átadja a koin számára a definiált függőségeket. Ezt azért tesszük meg, hogy a különböző platformokon ne kelljen azt mindenhol duplikálnunk.</p>
 <p><code>AppModule.kt</code>:
 <div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">org.koin.core.context.startKoin</span>
@@ -1513,10 +1512,10 @@ Ez az osztály valósítja meg a Repository interface-ünket. Láthatjuk, hogy a
 <p>Térjünk most rá a perzisztens adattárolás létrehozására. Ehhez a Room könyvtárat fogjuk használni, amely egy kliens oldali SQLite adatbázis felett biztosít ORM támogatást. A Room az android ökoszisztémában jól bevált és elterjedt megoldás, a 2.7.0-alpha01 verziótól kezdve pedig már Kotlin Multiplatform környezetben is használható.
 <a href="https://developer.android.com/kotlin/multiplatform/room">Részletes dokumentáció</a></p>
 <p>A Room bekötése az alkalmazásba 4 fő elemből áll, az alábbiakat kell elvégeznünk:
-- <strong>Movie Entitás</strong> definiálás, mely a Movie táblát fogja reprezentálni az adatbázisban, melyből 1-1 sor az adatbázisban fog 1-1 objektum példányt jelenteni.
-- <strong>Dao</strong> definiálása, melyben definiáljuk, hogy 1-1 entitáson milyen műveleteink vannak.
-- <strong>RoomDatabase</strong> osztályból leszármazás, melyen definiáljuk az entitiásainkat és azokhoz tartozó Dao osztályainkat
-- <strong>Platform specifikus kódrészek</strong> implementálása a Room inicializálásához.</p>
+    - <strong>Movie Entitás</strong> definiálás, mely a Movie táblát fogja reprezentálni az adatbázisban, melyből 1-1 sor az adatbázisban fog 1-1 objektum példányt jelenteni.
+    - <strong>Dao</strong> definiálása, melyben definiáljuk, hogy 1-1 entitáson milyen műveleteink vannak.
+    - <strong>RoomDatabase</strong> osztályból leszármazás, melyen definiáljuk az entitiásainkat és azokhoz tartozó Dao osztályainkat
+    - <strong>Platform specifikus kódrészek</strong> implementálása a Room inicializálásához.</p>
 <p>Először hozzuk létre az entitásunkat a közös kódban a <em>data/database/entity</em> (<em>hu.bme.aut.data.database.entity</em>) packagen belül az alábbi tartalommal:</p>
 <p><code>MovieEntity.kt</code>:
 <div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">androidx.room.Entity</span>
@@ -1567,7 +1566,7 @@ Ahogy látható, a <strong>Room-ból</strong> származó Annotációkkal van kie
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></p>
-<p>Itt is a <em>Room</em> által biztosítótt annotációkkal látjuk el a <strong>MovieDatabase</strong> osztályunkat, ami esetünkben most egy absztrakt osztály lesz. Itt a Compiler az implementációt létrehozza a háttérben fordítási időben. Az AppDataBaseConstuctor esetén pedig az adott platformhoz tartozó initilize methodot is generálja nekünk.</p>
+<p>Itt is a <em>Room</em> által biztosított annotációkkal látjuk el a <strong>MovieDatabase</strong> osztályunkat, ami esetünkben most egy absztrakt osztály lesz. Itt a Compiler az implementációt létrehozza a háttérben fordítási időben. Az AppDataBaseConstuctor esetén pedig az adott platformhoz tartozó initilize methodot is generálja nekünk.</p>
 <p>A <strong>MyMoviesDao</strong> interfészben definiáljuk, hogy az adatbázisunkon milyen műveleteket tudunk végrehajtani.  Láthatjuk, hogy jelenleg beszúrni, minden adatot lekérdezni, egy adott film adatait olvasni, illetve törölni tudunk.</p>
 <p>Bővítsük most ki a DI megoldásunkat a Room számára szükséges modullal is. Hozzunk létre egy <code>DataBaseModule.kt</code> fájlt a di package-en belül, az alábbi tartalommal.</p>
 <p><code>DataBaseModule.kt</code>:
@@ -1598,7 +1597,7 @@ Ahogy látható, a <strong>Room-ból</strong> származó Annotációkkal van kie
 <span class="kd">const</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">DB_FILE_NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;mymovies.db&quot;</span>
 </code></pre></div></p>
 <p>Room esetén kissé bonyolultabb megoldást kell alkalmaznunk az adatbázis létrehozásakor. Ez azért van, mert egyes platformok esetén Platform specifikus adatokra is szükség lehet az adatbázis létrehozásakor (pl. Android esetén az android <em>context</em>). Ez jelen esetben egy <strong>PlatformParameters</strong> osztályban lesz elrejtve, ezáltal a lehető legtöbb kódot lehet a közös kódban implementálni. Ezen felül deklarálunk egy databaseBuilder <em>expect</em> függvényt is, amely a Room adatbázis platform-specifikus inicializálásáért lesz felelős.</p>
-<p>Hozzunk létre egy <strong>PlatformParameters</strong> osztályt a di package-en belül az alábbi tartalommal.</p>
+<p>Hozzunk létre egy <strong>PlatformParameters</strong> osztályt a di packagen belül az alábbi tartalommal.</p>
 <p><code>PlatformParameters.kt</code>:
 <div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">org.koin.core.module.Module</span>
 
@@ -1682,7 +1681,7 @@ Ahogy látható, a <strong>Room-ból</strong> származó Annotációkkal van kie
 <span class="w">        </span><span class="p">.</span><span class="na">setDriver</span><span class="p">(</span><span class="n">BundledSQLiteDriver</span><span class="p">())</span>
 <span class="p">}</span>
 </code></pre></div></p>
-<p>Most már csak a DI app moduljába kell felvennük a database modult és kiegészíteni a hívás láncot, hogy mindegyik platform, mikor inicializálja a koin-t, átadjon egy PlatformParatmeters példányt is paraméterként.</p>
+<p>Most már csak a DI app moduljába kell felvennük a database modult és kiegészíteni a hívás láncot, hogy mindegyik platform, mikor inicializálja a koin-t, átadjon egy PlatformParameters példányt is paraméterként.</p>
 <p><code>AppModule.kt</code>:
 <div class="highlight"><pre><span></span><code><span class="kd">fun</span><span class="w"> </span><span class="nf">appModule</span><span class="p">(</span><span class="n">platformParameters</span><span class="p">:</span><span class="w"> </span><span class="n">PlatformParameters</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">module</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">includes</span><span class="p">(</span>
@@ -1896,7 +1895,7 @@ Ahogy látható, a <strong>Room-ból</strong> származó Annotációkkal van kie
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></p>
-<p>A SearchMoviesViewModel jelen pillanatban a movieResultFlow-ra van feliratkozva, vagyis annak a változására történik recomposition a UI-on. Hasonlóan szükség lenne az adatábázis flow-ra történő feliratkozásra is, hogy az adatbázisban tárolt filmek változása esetén is frissüljön a SearchScreen. Erre nyújt megoldást a <strong>combine()</strong> nyelvi elem, mely 2 flowt alakít át egy flow-vá, és együttesen figyeli mindkettőt.</p>
+<p>A SearchMoviesViewModel jelen pillanatban a movieResultFlow-ra van feliratkozva, vagyis annak a változására történik recomposition a UI-on. Hasonlóan szükség lenne az adatbázis flow-ra történő feliratkozásra is, hogy az adatbázisban tárolt filmek változása esetén is frissüljön a SearchScreen. Erre nyújt megoldást a <strong>combine()</strong> nyelvi elem, mely 2 flowt alakít át egy flow-vá, és együttesen figyeli mindkettőt.</p>
 <p>Változtassuk meg a <strong>getMovies()</strong> függvényt, mely már a <em>combinet</em> és a segédfüggvényt is alkalmazza.
 <div class="highlight"><pre><span></span><code><span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">getMovies</span><span class="p">():</span><span class="w"> </span><span class="n">Flow</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Movie</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">=</span>
 <span class="w">        </span><span class="n">combine</span><span class="p">(</span><span class="n">movieResultFlow</span><span class="p">,</span><span class="w"> </span><span class="n">storedMovies</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">searchResult</span><span class="p">,</span><span class="w"> </span><span class="n">storedMovies</span><span class="w"> </span><span class="o">-&gt;</span>
@@ -1907,7 +1906,7 @@ Ahogy látható, a <strong>Room-ból</strong> származó Annotációkkal van kie
 <p><a class="glightbox" href="assets/add_delete_on_cards.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="Add delete on cards" src="assets/add_delete_on_cards.png" /></a></p>
 <div class="admonition example">
 <p class="admonition-title">BEADANDÓ (1 pont)</p>
-<p>Készítsünk egy <strong>képernyőképet</strong>, amelyen az elindított alkalmazás SearchScreen látszik desktopon és mobil platformon egymás mellett! Legyen olyan film is, amelyiken a hozzáadás gomb látszik, és olyan is, amelyiken a törlés gomb! A kép a megoldásban a repositoryban f3.png néven szerepeljen!</p>
+<p>Készítsünk egy <strong>képernyőképet</strong>, amelyen az elindított alkalmazás SearchScreen képernyője látszik desktopon és mobil platformon egymás mellett! Legyen olyan film is, amelyiken a hozzáadás gomb látszik, és olyan is, amelyiken a törlés gomb! A kép a megoldásban a repositoryban f3.png néven szerepeljen!</p>
 </div>
 <h2 id="onallo-feladat-watchlist-kepernyo-implementalasa-1-pont">Önálló feladat - Watchlist képernyő implementálása (1 pont)<a class="headerlink" href="#onallo-feladat-watchlist-kepernyo-implementalasa-1-pont" title="Permanent link">&para;</a></h2>
 <p>Valósítsuk meg a WatchList képernyőt is! Egészítsük ki az alkalmazást úgy, hogy a Watchlist képernyőn csak az adatbázisban tárolt filmek jelenjenek meg!</p>
@@ -1947,8 +1946,8 @@ Ahogy látható, a <strong>Room-ból</strong> származó Annotációkkal van kie
           </path>
         </svg>
       </span>
-      <span title="2025. április 26. 22:15:57">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. április 26. 22:15:57"><span class="timeago" datetime="2025-04-26T22:15:57+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. április 26. 22:15:57">2025-04-26</span>
+      <span title="2025. április 27. 09:43:21">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. április 27. 09:43:21"><span class="timeago" datetime="2025-04-27T09:43:21+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. április 27. 09:43:21">2025-04-27</span>
       </span>
     </span>
 
