@@ -1235,10 +1235,12 @@ Ez az osztály valósítja meg a Repository interface-ünket. Láthatjuk, hogy a
 <span class="w">    </span><span class="n">singleOf</span><span class="p">(</span><span class="o">::</span><span class="n">MovieRepositoryImpl</span><span class="p">)</span><span class="w"> </span><span class="n">bind</span><span class="w"> </span><span class="n">MovieRepository</span><span class="o">::</span><span class="kd">class</span>
 <span class="err">}</span>
 </code></pre></div>
-<p>Három típusú függőség injektálását definiáljuk. A HttpClient esetén a provideHttpBaseClient metódust hívjuk meg. A TMDPApiClient esetén egyszerűen példányosítjuk a TMDBApiClient osztályunkat, azonban figyelnünk kell arra is, hogy ez az osztály is vár egy függőséget konstruktorában (HttpClient). Ezért példányosításakor a Koin <em>get()</em> metódusát hívva injektáljuk a függőségét. Az utolsó pedig a következőket éri el:
-    1. A singleOf a single-hez hasonlóan egy singleton példányt hoz létre, csak ez az egy példány jön létre és minden, ezt a függőséget felhasználó objektum ugyanazt a példányt fogja használni.
-    2. A ::MovieRepositoryImpl Kotlinos konstruktor referencia. Lényegében azt jelenti, hogy "hozz létre a <em>MovieRepositoryImpl</em> osztály egy példányát a konstruktorának felhasználásával".
-    3. A bind MovieRepository::class a <em>MovieRepositoryImpl</em> osztályt hozzáköti a <em>MovieRepository</em> interfacehez, vagyis mindig, amikor egy <em>MovieRepository</em> típusú függőséget várunk, egy <em>MovieRepositoryImpl</em> példányt kell injektálni.</p>
+<p>Három típusú függőség injektálását definiáljuk. A HttpClient esetén a provideHttpBaseClient metódust hívjuk meg. A TMDPApiClient esetén egyszerűen példányosítjuk a TMDBApiClient osztályunkat, azonban figyelnünk kell arra is, hogy ez az osztály is vár egy függőséget konstruktorában (HttpClient). Ezért példányosításakor a Koin <em>get()</em> metódusát hívva injektáljuk a függőségét. Az utolsó pedig a következőket éri el:</p>
+<ol>
+<li>A singleOf a single-hez hasonlóan egy singleton példányt hoz létre, csak ez az egy példány jön létre és minden, ezt a függőséget felhasználó objektum ugyanazt a példányt fogja használni.</li>
+<li>A ::MovieRepositoryImpl Kotlinos konstruktor referencia. Lényegében azt jelenti, hogy "hozz létre a <em>MovieRepositoryImpl</em> osztály egy példányát a konstruktorának felhasználásával".</li>
+<li>A bind MovieRepository::class a <em>MovieRepositoryImpl</em> osztályt hozzáköti a <em>MovieRepository</em> interfacehez, vagyis mindig, amikor egy <em>MovieRepository</em> típusú függőséget várunk, egy <em>MovieRepositoryImpl</em> példányt kell injektálni.</li>
+</ol>
 <h3 id="felhasznaloi-felulet-folytatasa">Felhasználói felület folytatása<a class="headerlink" href="#felhasznaloi-felulet-folytatasa" title="Permanent link">&para;</a></h3>
 <p>Folytassuk most a felhasználói felületünk kialakítását, valósítsuk meg a filmeket megjelenítő keresőképernyőt és a hozzá tartozó infrastruktúrát is. Hozzunk létre a <em>ui</em> packageben egy <em>feature</em> (<em>hu.bme.aut.ui.feature</em>) packaget, benne hozzunk létre egy <em>search</em> packaget (<em>hu.bme.aut.ui.feature.search</em>). Ide helyezzük majd a SearchScreent és a hozzá tartozó ViewModelt.</p>
 <p>Készítsük most el a keresés képernyőt és a hozzá tartozó ViewModelt.</p>
@@ -1511,11 +1513,13 @@ Ez az osztály valósítja meg a Repository interface-ünket. Láthatjuk, hogy a
 <h2 id="3-perzisztens-adattarolas-room-1-pont">3. Perzisztens adattárolás: Room (1 pont)<a class="headerlink" href="#3-perzisztens-adattarolas-room-1-pont" title="Permanent link">&para;</a></h2>
 <p>Térjünk most rá a perzisztens adattárolás létrehozására. Ehhez a Room könyvtárat fogjuk használni, amely egy kliens oldali SQLite adatbázis felett biztosít ORM támogatást. A Room az android ökoszisztémában jól bevált és elterjedt megoldás, a 2.7.0-alpha01 verziótól kezdve pedig már Kotlin Multiplatform környezetben is használható.
 <a href="https://developer.android.com/kotlin/multiplatform/room">Részletes dokumentáció</a></p>
-<p>A Room bekötése az alkalmazásba 4 fő elemből áll, az alábbiakat kell elvégeznünk:
-    - <strong>Movie Entitás</strong> definiálás, mely a Movie táblát fogja reprezentálni az adatbázisban, melyből 1-1 sor az adatbázisban fog 1-1 objektum példányt jelenteni.
-    - <strong>Dao</strong> definiálása, melyben definiáljuk, hogy 1-1 entitáson milyen műveleteink vannak.
-    - <strong>RoomDatabase</strong> osztályból leszármazás, melyen definiáljuk az entitiásainkat és azokhoz tartozó Dao osztályainkat
-    - <strong>Platform specifikus kódrészek</strong> implementálása a Room inicializálásához.</p>
+<p>A Room bekötése az alkalmazásba 4 fő elemből áll, az alábbiakat kell elvégeznünk:</p>
+<ol>
+<li><strong>Movie Entitás</strong> definiálás, mely a Movie táblát fogja reprezentálni az adatbázisban, melyből 1-1 sor az adatbázisban fog 1-1 objektum példányt jelenteni.</li>
+<li><strong>Dao</strong> definiálása, melyben definiáljuk, hogy 1-1 entitáson milyen műveleteink vannak.</li>
+<li><strong>RoomDatabase</strong> osztályból leszármazás, melyen definiáljuk az entitiásainkat és azokhoz tartozó Dao osztályainkat</li>
+<li><strong>Platform specifikus kódrészek</strong> implementálása a Room inicializálásához.</li>
+</ol>
 <p>Először hozzuk létre az entitásunkat a közös kódban a <em>data/database/entity</em> (<em>hu.bme.aut.data.database.entity</em>) packagen belül az alábbi tartalommal:</p>
 <p><code>MovieEntity.kt</code>:
 <div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">androidx.room.Entity</span>
@@ -1946,8 +1950,8 @@ Ahogy látható, a <strong>Room-ból</strong> származó Annotációkkal van kie
           </path>
         </svg>
       </span>
-      <span title="2025. április 27. 09:43:21">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. április 27. 09:43:21"><span class="timeago" datetime="2025-04-27T09:43:21+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. április 27. 09:43:21">2025-04-27</span>
+      <span title="2025. április 27. 09:53:59">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. április 27. 09:53:59"><span class="timeago" datetime="2025-04-27T09:53:59+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. április 27. 09:53:59">2025-04-27</span>
       </span>
     </span>
 
