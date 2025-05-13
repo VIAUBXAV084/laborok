@@ -1,5 +1,5 @@
 site_name: BMEVIAUBXAV084 - Kotlin Multiplatform alapú szoftverfejlesztés laborfeladatok
-site_author: Ekler Péter, Galuska Zoltán Bálint, Gazdi László, Kende Zoltán, Pásztor Dániel, Raisz Olivér Iván, Somogyi Norbert Zsolt
+site_author: Ekler Péter, Gazdi László, Pásztor Dániel, Somogyi Norbert Zsolt
 copyright: Copyright &copy; BME VIK AUT
 repo_name: viaubxav084/laborok
 repo_url: https://github.com/viaubxav084/laborok
@@ -77,7 +77,7 @@ plugins:
       locale: hu
   - git-committers:
       repository: VIAUBXAV084/laborok
-      branch: master
+      branch: main
 
 nav:
   - "Tudnivalók":
@@ -89,5 +89,6 @@ nav:
       - laborok/lab_1/index.md
       - laborok/lab_2/index.md
       - laborok/lab3/index.md
+      - laborok/adaptive/index.md
   - "Házi feladat":
       - hf/index.md
