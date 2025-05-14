@@ -73,7 +73,7 @@ Szintén szerepel a fájlok között a res/values mappában egy strings.xml fáj
 ## A domain réteg
 
 !!!info "Domain réteg"
-	A domain rétegben a projekt "technológiafüggetlen" része található, amelybe még nem vegyülnek a konkrét adattárolási technológiával vagy megjelenítéssel kapcsolatos részletek. Ezzel a közbülső réteggel az alkalmazásunk komponensei lazábban csatolttá válnak, és megkönnyítik, hogy kevés módosítással lecseréljük akár az adattárolásért felelős technológiánkat, akár a megjelenítést. Az itt megvalósított üzleti logika műveletek nem függenek közvetlen sem az adattárolástól, csak a reposiory komponensektől, és mivel a tennivalók független domainmodelljével dolgoznak, a megjelenítéstől is függetlenek. 
+	A domain rétegben a projekt "technológiafüggetlen" része található, amelybe még nem vegyülnek a konkrét adattárolási technológiával vagy megjelenítéssel kapcsolatos részletek. Ezzel a közbülső réteggel az alkalmazásunk komponensei lazábban csatolttá válnak, és megkönnyítik, hogy kevés módosítással lecseréljük akár az adattárolásért felelős technológiánkat, akár a megjelenítést. Az itt megvalósított üzleti logika műveletek nem függenek közvetlen sem az adattárolástól, csak a repository komponensektől, és mivel a tennivalók független domainmodelljével dolgoznak, a megjelenítéstől is függetlenek. 
 	
 	Jelen esetben nem lesz komplex üzleti logikánk, így ez a réteg gyakorlatilag kimarad, csak a függőséginjektálás és a modellek kerülnek bele.
 
@@ -112,7 +112,7 @@ data class User(
 ## Adatelérési réteg
 
 !!!info "Repository minta"
-	A Repository minta lényege, hogy az adatelérést absztracháljuk, vagyis leválasztjuk a konkrét megvalósításról, így növelve a kód karbantarthatóságát, tesztelhetőségét és fliexibilitását. Ezzel mind a konkrét adatelérésünk mind az üzleti logikánk fükketlenné válik és nem függenek egymástól.
+	A Repository minta lényege, hogy az adatelérést absztraháljuk, vagyis leválasztjuk a konkrét megvalósításról, így növelve a kód karbantarthatóságát, tesztelhetőségét és flexibilitását. Ezzel mind a konkrét adatelérésünk mind az üzleti logikánk függetlenné válik és nem függenek egymástól.
 
 	Jelen helyzetben ezt úgy valósítjuk meg, hogy definiálunk egy *interface*-t, amin keresztül az adatainkat elérjük, majd ennek egy implementációja fogja végezni a valós adatmanipulációt.
 
@@ -370,7 +370,7 @@ class ProductSearchViewModel(
                         it.copy(
                             isLoading = false,
                             products = products,
-                            selectedProduct = currentSelected ?: null
+                            selectedProduct = currentSelected
                         )
                     }
                 }
@@ -386,7 +386,7 @@ class ProductSearchViewModel(
 }
 ```
 
-`ProductSearchViewModel` egy privát *MutableStateFlow*-ban tartalmazza az imént létrehozott `ProductSearchScreenState` állapotot, és azt egy megfigyelhető formában a *View* rendelkezésére bocsájtja. Ezen kívül az init blokkban elvégzi az adatok belöltését a repository-ból, valamint az `onEvent` függvénnyel lekezeli a *View* felől érkező eseményt.
+`ProductSearchViewModel` egy privát *MutableStateFlow*-ban tartalmazza az imént létrehozott `ProductSearchScreenState` állapotot, és azt egy megfigyelhető formában a *View* rendelkezésére bocsájtja. Ezen kívül az init blokkban elvégzi az adatok betöltését a repository-ból, valamint az `onEvent` függvénnyel lekezeli a *View* felől érkező eseményt.
 
 
 ### View
@@ -433,7 +433,7 @@ import vikted.composeapp.generated.resources.compose_multiplatform
 fun ProductCard(
     modifier: Modifier = Modifier,
     product: Product,
-    backgroundColor:Color
+    backgroundColor: Color
 ) {
     Card(
         modifier = modifier
@@ -781,7 +781,7 @@ fun ProductDetailsPane(
 }
 ```
 
-Figyeljük meg, hogy hogyan valósítottuk meg a vásárlás gombot a képernyő alján! Egy *Surface*-t helyeztünk el, amire kattintáskor egy *Snackbar* üzenet jelenik meg. Fontos megjegyezni, hogy a *Snackbar* nem érhető el a UI szálról, így egy külön korutinnal kell megoldanunk a használatát.
+Figyeljük meg, hogy hogyan valósítottuk meg a vásárlás gombot a képernyő alján! Egy *Surface*-t helyeztünk el, amire kattintáskor egy *Snackbar* üzenet jelenik meg. Fontos megjegyezni, hogy a *Snackbar* suspendable függvénnyel indítható el, így egy külön korutinnal kell megoldanunk a használatát.
 
 
 ### A kereső oldal
@@ -886,12 +886,10 @@ fun ProductSearchScreen(
                         state = state,
                         onListItemClick = {
                             viewModel.onEvent(ProductSearchScreenEvent.ProductSelected(it))
-                            scope.launch {
-                                scaffoldNavigator.navigateTo(
-                                    ListDetailPaneScaffoldRole.Detail,
-                                    it
-                                )
-                            }
+                            scaffoldNavigator.navigateTo(
+                                ListDetailPaneScaffoldRole.Detail,
+                                it
+                            )
                         }
                     )
                 }
@@ -923,7 +921,7 @@ Itt azt szeretnénk, hogy a felületünk a képernyő méretétől függően ada
 
 Ettől a *twoPane* állapottól függően jelenítjük meg a *TopAppBar*-on a navigációs ikont vagy éppen a *FloatingActionButton*-t.
 
-A `ListDetailPaneScaffold` lista peneljénél megjelenítjük a `ProductListPane` panelunkat, aminek átadjuk az állapotot, valamint listaelemre kattintás esetén a navigáció előtt `ProductSearchScreenEvent.ProductSelected` eseményt küldünk.
+A `ListDetailPaneScaffold` lista paneljénél megjelenítjük a `ProductListPane` panelunkat, aminek átadjuk az állapotot, valamint listaelemre kattintás esetén a navigáció előtt `ProductSearchScreenEvent.ProductSelected` eseményt küldünk.
 
 Figyeljük meg, hogy hogyan valósítjuk meg a *detailPane*-t. *twoPane* állapot esetén egy *Box*-ba behelyezve *modifier*-ekkel jelenítjük meg, míg ellenkező esetben *Box nélkül*.
 
@@ -975,7 +973,7 @@ fun initKoin () {
 }
 ```
 
-Ha ezekkel megvagyunk, az alkalmazásunk már futtatható. Ideiglenesen illesszük be a7 `App` függvényünkbe a `ProductSearchScreen`-t.
+Ha ezekkel megvagyunk, az alkalmazásunk már futtatható. Ideiglenesen illesszük be a `App` függvényünkbe a `ProductSearchScreen`-t.
 
 `App.kt`:
 
@@ -1212,8 +1210,8 @@ sealed class ProductCreateScreenEvent {
     data class ChangeDescriptionValue(val text: String) : ProductCreateScreenEvent()
     data class ChangePrice(val price: Int) : ProductCreateScreenEvent()
     data class ImageSelected(val imageUrl: String) : ProductCreateScreenEvent()
-    object AddImageButtonClicked : ProductCreateScreenEvent()
-    object SaveProduct : ProductCreateScreenEvent()
+    data object AddImageButtonClicked : ProductCreateScreenEvent()
+    data object SaveProduct : ProductCreateScreenEvent()
 }
 ```
 
@@ -1240,7 +1238,6 @@ class ProductCreateViewModel(
 
     private val _state = MutableStateFlow(ProductCreateScreenState())
     val state = _state.asStateFlow()
-
 
     fun onEvent(event: ProductCreateScreenEvent) {
         when (event) {
@@ -1339,8 +1336,8 @@ Először is vegyük föl a képernyőket egy `Screen` osztályba. Ahhoz, hogy n
 package hu.bme.aut.kmp.vikted.navigation
 
 sealed class Screen(val route: String) {
-    object ProductCreate: Screen("product_create")
-    object ProductSearch: Screen("product_search")
+    data object ProductCreate: Screen("product_create")
+    data object ProductSearch: Screen("product_search")
 }
 ```
 
@@ -1419,7 +1416,7 @@ import androidx.compose.runtime.Composable
 expect fun ImagePicker(onResult: (Any?) -> Unit)
 ```
 
-A fuggvényt elláttuk az **expect** kulcsszóval, ami az jelenti, hogy ennek a függvénynek kell, hogy legyen aktuális megvalósítása a célzott platformokon. Készítsük is el ezeket!
+A függvényt elláttuk az **expect** kulcsszóval, ami az jelenti, hogy ennek a függvénynek kell, hogy legyen aktuális megvalósítása a célzott platformokon. Készítsük is el ezeket!
 
 Először nézzük az Androidos változatot. Navigáljunk el az `androidMain` modulban ugyanúgy a `hu.bme.aut.kmp.vikted.presentation.components` *package*-be, és adjuk hozzá az `ImagePicker.android.kt` fájlt.
 
@@ -1498,7 +1495,7 @@ fun onEvent(event: ProductCreateScreenEvent) {
 		        )
 		    }
 		}
-
+		 ...
         ProductCreateScreenEvent.AddImageButtonClicked -> {
             viewModelScope.launch(Dispatchers.IO) {
                 _state.update {
@@ -1515,16 +1512,16 @@ fun onEvent(event: ProductCreateScreenEvent) {
 Próbáljuk ki az alkalmazást! Most már új elem felvételénél képet is csatolhatunk. Azt is megfigyelhetjük, hogy a *Coil* használatával a képek ugyan úgy megjelennek a háttértárakról, mint eddig a hálózatról.
 
 !!!example "BEADANDÓ (1 pont)" 
-	Készíts **két képernyőképet**, amelyen látszik az elkészített új termék hozzáadása felület **egy- illetve kétpanelos** változatban! A képernyőképen az **új termék neve legyen a saját neptun-kódod**! 
+	Készíts **egy képernyőképet**, amelyen látszik az elkészített új termék hozzáadása felület! A képernyőképen az **új termék neve legyen a saját neptun-kódod**! 
 
-	A képeket a megoldásban a repository-ba f2a.png és f2b.png néven töltsd föl!
+	A képet a megoldásban a repository-ba f2a.png néven töltsd föl!
 	
 	A képernyőkép szükséges feltétele a pontszám megszerzésének.
 
 
 ## A felhasználókezelés megvalósítása (1 pont)
 
-Az alkalmazásunk jelenleg csak egy felhasználót támogat. Ha a memória adatbázist lecserélnénk hálózat alapúra, akkor sem tudnánk felhasználóhoz kötni a hirdetéseket. Valósítsunk meg tehát egy egyszerű authentikációt és a hozzá valófelületet a korábbiakhoz hasonlóan, majd ezt illesszük be a navigációba.
+Az alkalmazásunk jelenleg csak egy felhasználót támogat. Ha a memória adatbázist lecserélnénk hálózat alapúra, akkor sem tudnánk felhasználóhoz kötni a hirdetéseket. Valósítsunk meg tehát egy egyszerű authentikációt és a hozzá való felületet a korábbiakhoz hasonlóan, majd ezt illesszük be a navigációba.
 
 
 ### Repository
@@ -1659,10 +1656,10 @@ sealed class AuthenticationEvent {
     data class EmailChanged(val email: String) : AuthenticationEvent()
     data class PasswordChanged(val password: String) : AuthenticationEvent()
     data class ConfirmPasswordChanged(val password: String) : AuthenticationEvent()
-    object PasswordVisibilityChanged : AuthenticationEvent()
-    object ConfirmPasswordVisibilityChanged : AuthenticationEvent()
-    object LoginButtonClicked : AuthenticationEvent()
-    object SignUpButtonClicked : AuthenticationEvent()
+    data object PasswordVisibilityChanged : AuthenticationEvent()
+    data object ConfirmPasswordVisibilityChanged : AuthenticationEvent()
+    data object LoginButtonClicked : AuthenticationEvent()
+    data object SignUpButtonClicked : AuthenticationEvent()
 }
 ```
 
@@ -1707,7 +1704,6 @@ class AuthenticationViewModel(
                         isEmailError = !isEmailValid(email = newEmail)
                     )
                 }
-
             }
 
             is AuthenticationEvent.PasswordChanged -> {
@@ -1725,18 +1721,21 @@ class AuthenticationViewModel(
                 _state.update {
                     it.copy(
                         confirmPassword = newPassword,
-                        isConfirmPasswordError = !isPasswordValid(newPassword)
+                        isConfirmPasswordError = !isPasswordValid(newPassword) || !arePasswordsMatch(
+                            password = _state.value.password,
+                            confirmPassword = newPassword
+                        )
                     )
                 }
             }
 
 
             AuthenticationEvent.ConfirmPasswordVisibilityChanged -> {
-                _state.update { it.copy(isConfirmPasswordVisible = !_state.value.isConfirmPasswordVisible) }
+                _state.update { it.copy(isConfirmPasswordVisible = !it.isConfirmPasswordVisible) }
             }
 
             AuthenticationEvent.PasswordVisibilityChanged -> {
-                _state.update { it.copy(isPasswordVisible = !_state.value.isPasswordVisible) }
+                _state.update { it.copy(isPasswordVisible = !it.isPasswordVisible) }
             }
 
             AuthenticationEvent.LoginButtonClicked -> onSignIn()
@@ -1775,18 +1774,10 @@ class AuthenticationViewModel(
                         password = _state.value.password,
                         confirmPassword = _state.value.confirmPassword
                     )
+					&& isEmailValid(_state.value.email)
                 ) {
                     authenticationRepository.signUp(_state.value.email, _state.value.password)
                     _uiEvent.send(UiEvent.Success)
-                } else if (!isEmailValid(_state.value.email)) {
-                    _state.update { it.copy(isEmailError = true) }
-                } else {
-                    _state.update {
-                        it.copy(
-                            isPasswordError = true,
-                            isConfirmPasswordError = true
-                        )
-                    }
                 }
             } catch (e: Exception) {
                 _uiEvent.send(UiEvent.Failure(e.message.toString()))
@@ -1808,7 +1799,7 @@ class AuthenticationViewModel(
 }
 ```
 
-A bejelentkezési folyamatnál szükségünk lesz egy eddig nem használt módszerre. A felhasználó a felületen rákattint a *Bejelentkezés* gombra, az esemény elmegy a *VoewModel*-hez, ami meghívja a *Repository* megfelelő függvényét. Ez eddig is hasonló módon történt, most viszont szükségünk van arra is, hogy a *Repository* által visszadott választ megjelenítsük a feületen. 
+A bejelentkezési folyamatnál szükségünk lesz egy eddig nem használt módszerre. A felhasználó a felületen rákattint a *Bejelentkezés* gombra, az esemény elmegy a *ViewModel*-hez, ami meghívja a *Repository* megfelelő függvényét. Ez eddig is hasonló módon történt, most viszont szükségünk van arra is, hogy a *Repository* által visszadott választ megjelenítsük a felületen. 
 
 Attól függően, hogy a bejelentkezés sikeres volt-e vagy nem, vagy el kell navigálnunk a felületről vagy hibaüzenetet kell mutatnunk. Erre nem jó módszer az állapot frissítése, mert az nem csak egy pillanatnyi eseményt vált ki. Ezért tehát azt csináljuk, hogy a válasz hatására létrehozunk egy *UIEvent* eseményt, aminek *Success* vagy *Failure* példánya lehet. Ezt az eseményt egy *Channel*-re küldjük, amit az állapothoz hasonlóan egy *Flow*-ban a felület rendelkezésére bocsájtunk.
 
@@ -1820,7 +1811,7 @@ Készítsük is el ezt a `UiEvent` osztályt a `presentation.util` *package*-ben
 package hu.bme.aut.kmp.vikted.presentation.util
 
 sealed class UiEvent {
-    object Success: UiEvent()
+    data object Success: UiEvent()
 
     data class Failure(val message: String): UiEvent()
 }
@@ -1902,11 +1893,9 @@ fun LoginScreen(
                 }
 
                 is UiEvent.Failure -> {
-                    scope.launch {
-                        snackbarHostState.showSnackbar(
-                            message = event.message
-                        )
-                    }
+                    snackbarHostState.showSnackbar(
+                        message = event.message
+                    )
                 }
             }
         }
@@ -2073,11 +2062,9 @@ fun RegistrationScreen(
                 }
 
                 is UiEvent.Failure -> {
-                    scope.launch {
-                        snackbarHostState.showSnackbar(
-                            message = event.message
-                        )
-                    }
+                    snackbarHostState.showSnackbar(
+                        message = event.message
+                    )
                 }
             }
         }
@@ -2255,7 +2242,7 @@ data class ProfileScreenState(
 package hu.bme.aut.kmp.vikted.presentation.screen.profile
 
 sealed class ProfileScreenEvent {
-    object LogoutButtonClicked : ProfileScreenEvent()
+    data object LogoutButtonClicked : ProfileScreenEvent()
 }
 ```
 
@@ -2281,13 +2268,12 @@ class ProfileViewModel(
     private val _state = MutableStateFlow(ProfileScreenState())
     val state = _state.asStateFlow()
 
-
     init {
         _state.update {
             it.copy(
                 hasUser = authenticationRepository.hasUser,
                 userId = authenticationRepository.currentUserId
-                )
+            )
         }
     }
 
@@ -2420,11 +2406,11 @@ Először egészítsük ki a `Screen` osztályunkat az újonnan létrehozott ké
 package hu.bme.aut.kmp.vikted.navigation
 
 sealed class Screen(val route: String) {
-    object ProductCreate: Screen("product_create")
-    object ProductSearch: Screen("product_search")
-    object Profile: Screen("profile")
-    object Login: Screen("login")
-    object Register: Screen("register")
+    data object ProductCreate: Screen("product_create")
+    data object ProductSearch: Screen("product_search")
+    data object Profile: Screen("profile")
+    data object Login: Screen("login")
+    data object Register: Screen("register")
 }
 ```
 
@@ -2517,7 +2503,7 @@ import vikted.composeapp.generated.resources.nav_label_profile
 import vikted.composeapp.generated.resources.nav_label_search
 
 enum class NavigationItems(
-    val title:  StringResource,
+    val title: StringResource,
     val route: String,
     val icon: ImageVector
 ) {
@@ -2616,7 +2602,6 @@ Utolsó lépésként cseréljük le az `App` függévnyben a megjelenítendő `N
 ```kotlin
 package hu.bme.aut.kmp.vikted
 
-
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
@@ -2651,7 +2636,7 @@ Próbáljuk ki az alkalmazást! Most már a bejelentkezésünk és a navigáció
 Valósítsuk meg, hogy a termék lista felületen csak akkor jelenjen meg az új termék hozzáadása gomb, ha a felhasználó be van jelentkezve!
 
 !!!example "BEADANDÓ (1 pont)" 
-	Készíts **egy képernyőképet**, amelyen látszik, hogy a gomb el van rejtve akkor, amikor a felhasználó be van jelentkezve, illetve az **ehhez tartozó kódrészlet**! Ne felejtsük, hogy ehhez bejelentkezéskor be kell állítanunk a megfelelő userId-t is!
+	Készíts **egy képernyőképet**, amelyen látszik, hogy a gomb el van rejtve akkor, amikor a felhasználó nincs bejelentkezve, illetve az **ehhez tartozó kódrészlet**! Ne felejtsük, hogy ehhez bejelentkezéskor be kell állítanunk a megfelelő userId-t is!
 
 	A képet a megoldásban a repository-ba f4.png néven töltsd föl!
 	
@@ -2661,6 +2646,9 @@ Valósítsuk meg, hogy a termék lista felületen csak akkor jelenjen meg az új
 ## Önálló feladat - Lokalizáció támogatása (1 pont)
 
 Adjuk hozzá a projektünkhöz a magyar nyelvet erőforrások használatával!
+
+!!!info "Nyelvváltás"
+	Ha az operációs rendszereden nem magyar nyelvet használsz és nem szeretnéd megváltoztatni, akkor futtasd az alkalmazásod az Android emulátoron és ott változtasd meg a nyelvet.
 
 !!!example "BEADANDÓ (1 pont)" 
 	Készíts **egy képernyőképet**, amelyen látszik, hogy a **felület magyar**, illetve az **ehhez tartozó kódrészlet**!! 
