@@ -73,7 +73,7 @@ val mobileMain by creating {
     }
 
 val androidMain by getting {
-    dependsOn(mobileMain) ---> így az android eléri a mobileMain kódját
+    dependsOn(mobileMain) // ---> így az android eléri a mobileMain kódját
 }
 
 val iosX64Main by getting
@@ -82,7 +82,7 @@ val iosSimulatorArm64Main by getting
 val desktopMain by getting
 
 val iosMain by creating {
-    dependsOn(mobileMain) ---> így az ios eléri a mobileMain kódját
+    dependsOn(mobileMain) // ---> így az ios eléri a mobileMain kódját
     iosX64Main.dependsOn(this)
     iosArm64Main.dependsOn(this)
     iosSimulatorArm64Main.dependsOn(this)
@@ -636,7 +636,7 @@ A Screen konstruktorában a ViewModel-t a **koin** fogja biztosítani a koinView
 
 A _PlatformMovieList_ és _MovieCard_ composablek importálása még egyelőre hibát okoz, hozzuk most létre őket. A korábbiaknak megfelelően ugyanis szükséges lenne, hogy az alkalmazásunk listanézete eltérjen a két platformon. Mobil képernyőkön egymás alatt jelenjenek (_LazyList_) meg az egyes film kártyák, de desktopon táblázatszerűen (_ListVerticalGrid_).
 
-Hozzunk létre egy `PlatformMovieList.kt` fájlt a ui/component packageben (_hu.bme.aut.ui.component), ennek feladata lesz a paraméterként kapott filmek elrendezésének megszabása, de az egyes filmek megjelenítése a lamdbaként kapott composable függvény formájában lesz megadva.
+Hozzunk létre egy `PlatformMovieList.kt` fájlt a ui/component packageben (_hu.bme.aut.ui.component_), ennek feladata lesz a paraméterként kapott filmek elrendezésének megszabása, de az egyes filmek megjelenítése a lamdbaként kapott composable függvény formájában lesz megadva.
 
 `PlatformMovieList.kt`
 ```kotlin
@@ -1115,11 +1115,11 @@ class MovieRepositoryImpl(
 ...
 
 override fun storedMovies() =
-        moviesDao.getAllAsFlow().map {
-            movieEntities -> movieEntities.map {
-                it.toMovieDomain()
-            }
+    moviesDao.getAllAsFlow().map {
+        movieEntities -> movieEntities.map {
+            it.toMovieDomain()
         }
+    }
 
 override suspend fun addMovieToWatchList(movie: Movie) {
     moviesDao.insert(movie.copy(onWatchlist = true).toMovieEntity())
