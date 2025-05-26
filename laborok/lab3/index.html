@@ -854,7 +854,7 @@
 <span class="w">    </span><span class="p">}</span>
 
 <span class="kd">val</span><span class="w"> </span><span class="nv">androidMain</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">getting</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">dependsOn</span><span class="p">(</span><span class="n">mobileMain</span><span class="p">)</span><span class="w"> </span><span class="o">---&gt;</span><span class="w"> </span><span class="n">így</span><span class="w"> </span><span class="n">az</span><span class="w"> </span><span class="n">android</span><span class="w"> </span><span class="n">eléri</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">mobileMain</span><span class="w"> </span><span class="n">kódját</span>
+<span class="w">    </span><span class="n">dependsOn</span><span class="p">(</span><span class="n">mobileMain</span><span class="p">)</span><span class="w"> </span><span class="c1">// ---&gt; így az android eléri a mobileMain kódját</span>
 <span class="p">}</span>
 
 <span class="kd">val</span><span class="w"> </span><span class="nv">iosX64Main</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">getting</span>
@@ -863,7 +863,7 @@
 <span class="kd">val</span><span class="w"> </span><span class="nv">desktopMain</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">getting</span>
 
 <span class="kd">val</span><span class="w"> </span><span class="nv">iosMain</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">creating</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">dependsOn</span><span class="p">(</span><span class="n">mobileMain</span><span class="p">)</span><span class="w"> </span><span class="o">---&gt;</span><span class="w"> </span><span class="n">így</span><span class="w"> </span><span class="n">az</span><span class="w"> </span><span class="n">ios</span><span class="w"> </span><span class="n">eléri</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">mobileMain</span><span class="w"> </span><span class="n">kódját</span>
+<span class="w">    </span><span class="n">dependsOn</span><span class="p">(</span><span class="n">mobileMain</span><span class="p">)</span><span class="w"> </span><span class="c1">// ---&gt; így az ios eléri a mobileMain kódját</span>
 <span class="w">    </span><span class="n">iosX64Main</span><span class="p">.</span><span class="na">dependsOn</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
 <span class="w">    </span><span class="n">iosArm64Main</span><span class="p">.</span><span class="na">dependsOn</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
 <span class="w">    </span><span class="n">iosSimulatorArm64Main</span><span class="p">.</span><span class="na">dependsOn</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
@@ -1348,7 +1348,7 @@ Ez az osztály valósítja meg a Repository interface-ünket. Láthatjuk, hogy a
 </code></pre></div></p>
 <p>A Screen konstruktorában a ViewModel-t a <strong>koin</strong> fogja biztosítani a koinViewModel() hívás által. Ehhez azonban még készítenünk kell egy koin Module-t, ahol ViewModelek függőségeit fogjuk definiálni.</p>
 <p>A <em>PlatformMovieList</em> és <em>MovieCard</em> composablek importálása még egyelőre hibát okoz, hozzuk most létre őket. A korábbiaknak megfelelően ugyanis szükséges lenne, hogy az alkalmazásunk listanézete eltérjen a két platformon. Mobil képernyőkön egymás alatt jelenjenek (<em>LazyList</em>) meg az egyes film kártyák, de desktopon táblázatszerűen (<em>ListVerticalGrid</em>).</p>
-<p>Hozzunk létre egy <code>PlatformMovieList.kt</code> fájlt a ui/component packageben (_hu.bme.aut.ui.component), ennek feladata lesz a paraméterként kapott filmek elrendezésének megszabása, de az egyes filmek megjelenítése a lamdbaként kapott composable függvény formájában lesz megadva.</p>
+<p>Hozzunk létre egy <code>PlatformMovieList.kt</code> fájlt a ui/component packageben (<em>hu.bme.aut.ui.component</em>), ennek feladata lesz a paraméterként kapott filmek elrendezésének megszabása, de az egyes filmek megjelenítése a lamdbaként kapott composable függvény formájában lesz megadva.</p>
 <p><code>PlatformMovieList.kt</code>
 <div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.runtime.Composable</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">hu.bme.aut.domain.model.Movie</span>
@@ -1744,11 +1744,11 @@ Ahogy látható, a <strong>Room-ból</strong> származó Annotációkkal van kie
 <span class="p">...</span>
 
 <span class="kd">override</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">storedMovies</span><span class="p">()</span><span class="w"> </span><span class="o">=</span>
-<span class="w">        </span><span class="n">moviesDao</span><span class="p">.</span><span class="na">getAllAsFlow</span><span class="p">().</span><span class="na">map</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="n">movieEntities</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">movieEntities</span><span class="p">.</span><span class="na">map</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="nb">it</span><span class="p">.</span><span class="na">toMovieDomain</span><span class="p">()</span>
-<span class="w">            </span><span class="p">}</span>
+<span class="w">    </span><span class="n">moviesDao</span><span class="p">.</span><span class="na">getAllAsFlow</span><span class="p">().</span><span class="na">map</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">movieEntities</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">movieEntities</span><span class="p">.</span><span class="na">map</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nb">it</span><span class="p">.</span><span class="na">toMovieDomain</span><span class="p">()</span>
 <span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
 
 <span class="kd">override</span><span class="w"> </span><span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">addMovieToWatchList</span><span class="p">(</span><span class="n">movie</span><span class="p">:</span><span class="w"> </span><span class="n">Movie</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">moviesDao</span><span class="p">.</span><span class="na">insert</span><span class="p">(</span><span class="n">movie</span><span class="p">.</span><span class="na">copy</span><span class="p">(</span><span class="n">onWatchlist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">).</span><span class="na">toMovieEntity</span><span class="p">())</span>
@@ -1964,8 +1964,8 @@ Ahogy látható, a <strong>Room-ból</strong> származó Annotációkkal van kie
           </path>
         </svg>
       </span>
-      <span title="2025. április 27. 10:04:57">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. április 27. 10:04:57"><span class="timeago" datetime="2025-04-27T10:04:57+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. április 27. 10:04:57">2025-04-27</span>
+      <span title="2025. május 7. 13:48:11">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025. május 7. 13:48:11 CEST"><span class="timeago" datetime="2025-05-07T13:48:11+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025. május 7. 13:48:11 CEST">2025-05-07</span>
       </span>
     </span>
 
@@ -1980,7 +1980,9 @@ Ahogy látható, a <strong>Room-ból</strong> származó Annotációkkal van kie
         </svg>
       </span>
       <span>Szerzők</span>
-      <nav><a href="https://github.com/NorbertSomogyi" target="_blank" rel="noopener noreferrer" class="md-author" title="@NorbertSomogyi">
+      <nav><a href="https://github.com/asztrikx" target="_blank" rel="noopener noreferrer" class="md-author" title="@asztrikx">
+          <img src="https://avatars.githubusercontent.com/u/15632657?v=4?size=72" alt="@asztrikx">
+        </a><a href="https://github.com/NorbertSomogyi" target="_blank" rel="noopener noreferrer" class="md-author" title="@NorbertSomogyi">
           <img src="https://avatars.githubusercontent.com/u/17450027?v=4?size=72" alt="@NorbertSomogyi">
         </a><a href="https://github.com/web-flow" target="_blank" rel="noopener noreferrer" class="md-author" title="@web-flow">
           <img src="https://avatars.githubusercontent.com/u/19864447?v=4?size=72" alt="@web-flow">
