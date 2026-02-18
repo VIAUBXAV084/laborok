@@ -1,0 +1,3 @@
+
+# Labor 1 - Kotlin Multiplatform alapok, környezet megismerése
+Hamarosan...
