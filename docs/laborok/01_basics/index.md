@@ -1,3 +1,4 @@
 
-# Labor 1 - Kotlin Multiplatform alapok, környezet megismerése
+# 1. Labor - Kotlin Multiplatform alapok, környezet megismerése
+
 Hamarosan...
