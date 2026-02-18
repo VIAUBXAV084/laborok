@@ -29,7 +29,7 @@ A beadás akkor teljes, ha a "spec" branch-en megtalálható a README.md fájlba
 
 ### Házi feladat
 
-A házi feladat beadás határideje a **május 24. 23:59)**.
+A házi feladat beadás határideje a **május 24. 23:59**.
 A házi feladat elkészítése közben a "**hf**" branchen dolgozz. Erre az ágra akárhány kommitot tehetsz. 
 A projektet mindenképpen ebbe a repository-ba hozd létre, a fejlesztést végig itt végezd. Amennyiben korábban már elkezdted egy másik repositoryban, töltsd fel az állapotát és dolgozz tovább itt.
 A beadás akkor teljes, ha a "hf" branch-en megtalálható a projekted teljes forráskódja. A beadást egy pull request jelzi, amely pull requestet valamelyik oktatóhoz kell rendelned.
