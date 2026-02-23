@@ -289,8 +289,6 @@ Ezután kell kiválasztanunk, hogy milyen platformokat szeretnénk támogatni a 
 7. Pipáljuk be a Server és Include Tests opciókat is, ezek értlemszerűen egy szervert Ktor keretrendszerben, illetve default teszt modulokat is generálnak
 8. Ha minden rendben, > Finish
 
-A továbbiakban
-
 !!!note "További templatek"
 	Az alap, általános templaten túl további kiinduló projektek is elérhetők a webes generátorban, a https://kmp.jetbrains.com/templates/ linken. A megfelelő template kiinduló projektje letölthető.
 	
