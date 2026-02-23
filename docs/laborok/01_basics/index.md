@@ -289,8 +289,13 @@ Ezután kell kiválasztanunk, hogy milyen platformokat szeretnénk támogatni a 
 7. Pipáljuk be a Server és Include Tests opciókat is, ezek értlemszerűen egy szervert Ktor keretrendszerben, illetve default teszt modulokat is generálnak
 8. Ha minden rendben, > Finish
 
+A továbbiakban
+
 !!!note "További templatek"
 	Az alap, általános templaten túl további kiinduló projektek is elérhetők a webes generátorban, a https://kmp.jetbrains.com/templates/ linken. A megfelelő template kiinduló projektje letölthető.
+	
+!!!example "Projekt feltöltése"
+	A teljes projekt, beleértve a forráskód változásait a labor végén lévő feladatokban, szerepeljen a remote repositoryban is, ne felejtsük el a screenshotok mellé azt is felpusholni.
 
 ## Projekt szerkezetének áttekintése
 
@@ -317,7 +322,7 @@ Tekintsük most át a projekt felépítését! A fontosabb elemek a következők
 !!!note "Shared modul használata"
 	A `shared` modul használata természetesen nem kötelező, akár a `composeApp`-on belül is elhelyezhetnénk az üzleti logikáért és adatmodellért felelős részeket. A JetBrains és a Google best practice ajánlásai között viszont már erősen szerepel a _shared_ modulban való elkülönítés.
 
-## Kotlin Multiplatform projektek konfigurálása Gradle-vel
+## Kotlin Multiplatform projektek konfigurálása Gradlevel
 
 Láthatjuk, hogy Android alkalmazásokhoz hasonlóan a KMP projektek kezelésére is a _Gradle_ keretrendszert használhatjuk. A _Gradle_ egy projektautomatizációs eszköz, ennek használatával végezhetjük el a függőségek kezelését, a fordítással és a futtatással kapcsolatos műveleteket.
 
