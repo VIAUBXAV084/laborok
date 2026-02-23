@@ -620,8 +620,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#kotlin-multiplatform-projektek-konfiguralasa-gradle-vel" class="md-nav__link">
-    Kotlin Multiplatform projektek konfigurálása Gradle-vel
+  <a href="#kotlin-multiplatform-projektek-konfiguralasa-gradlevel" class="md-nav__link">
+    Kotlin Multiplatform projektek konfigurálása Gradlevel
   </a>
   
 </li>
@@ -930,8 +930,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#kotlin-multiplatform-projektek-konfiguralasa-gradle-vel" class="md-nav__link">
-    Kotlin Multiplatform projektek konfigurálása Gradle-vel
+  <a href="#kotlin-multiplatform-projektek-konfiguralasa-gradlevel" class="md-nav__link">
+    Kotlin Multiplatform projektek konfigurálása Gradlevel
   </a>
   
 </li>
@@ -1281,9 +1281,14 @@ Android Studioban vagy Intellij IDEA-ban is van lehetőség a megfelelő plugine
 <li>Pipáljuk be a Server és Include Tests opciókat is, ezek értlemszerűen egy szervert Ktor keretrendszerben, illetve default teszt modulokat is generálnak</li>
 <li>Ha minden rendben, &gt; Finish</li>
 </ol>
+<p>A továbbiakban</p>
 <div class="admonition note">
 <p class="admonition-title">További templatek</p>
 <p>Az alap, általános templaten túl további kiinduló projektek is elérhetők a webes generátorban, a <a href="https://kmp.jetbrains.com/templates/">https://kmp.jetbrains.com/templates/</a> linken. A megfelelő template kiinduló projektje letölthető.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Projekt feltöltése</p>
+<p>A teljes projekt, beleértve a forráskód változásait a labor végén lévő feladatokban, szerepeljen a remote repositoryban is, ne felejtsük el a screenshotok mellé azt is felpusholni.</p>
 </div>
 <h2 id="projekt-szerkezetenek-attekintese">Projekt szerkezetének áttekintése<a class="headerlink" href="#projekt-szerkezetenek-attekintese" title="Permanent link">¶</a></h2>
 <p>A letöltött projektet megnyitva automatikusan elindul a projekt Gradle importálása, amelynek sikeres lefutása után a következőhöz hasonlót kell látnunk. Fontos, hogy Android Studioban a szokásos <em>Android</em> nézet helyett  a <em>Project</em> nézetet válasszuk:</p>
@@ -1310,7 +1315,7 @@ Android Studioban vagy Intellij IDEA-ban is van lehetőség a megfelelő plugine
 <p class="admonition-title">Shared modul használata</p>
 <p>A <code>shared</code> modul használata természetesen nem kötelező, akár a <code>composeApp</code>-on belül is elhelyezhetnénk az üzleti logikáért és adatmodellért felelős részeket. A JetBrains és a Google best practice ajánlásai között viszont már erősen szerepel a <em>shared</em> modulban való elkülönítés.</p>
 </div>
-<h2 id="kotlin-multiplatform-projektek-konfiguralasa-gradle-vel">Kotlin Multiplatform projektek konfigurálása Gradle-vel<a class="headerlink" href="#kotlin-multiplatform-projektek-konfiguralasa-gradle-vel" title="Permanent link">¶</a></h2>
+<h2 id="kotlin-multiplatform-projektek-konfiguralasa-gradlevel">Kotlin Multiplatform projektek konfigurálása Gradlevel<a class="headerlink" href="#kotlin-multiplatform-projektek-konfiguralasa-gradlevel" title="Permanent link">¶</a></h2>
 <p>Láthatjuk, hogy Android alkalmazásokhoz hasonlóan a KMP projektek kezelésére is a <em>Gradle</em> keretrendszert használhatjuk. A <em>Gradle</em> egy projektautomatizációs eszköz, ennek használatával végezhetjük el a függőségek kezelését, a fordítással és a futtatással kapcsolatos műveleteket.</p>
 <p>A  <code>composeApp</code> és a <code>shared</code> modul gyökerében található az adott modul gradle konfigurációs fájlja (build.gradle.kts), nyissuk ezeket meg és tekintsük át a legfontosabb részeit!</p>
 <p>A <em>plugins</em> blokkban adjuk meg a használt Gradle pluginokat. Esetünkben:</p>
@@ -1605,8 +1610,8 @@ Vegyük észre, hogy a fejlesztőkörnyezet fordítási hibával jelzi, hogy az 
           </path>
         </svg>
       </span>
-      <span title="2026. február 23. 17:59:55">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2026. február 23. 17:59:55 CET"><span class="timeago" datetime="2026-02-23T17:59:55+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2026. február 23. 17:59:55 CET">2026-02-23</span>
+      <span title="2026. február 23. 18:17:55">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2026. február 23. 18:17:55 CET"><span class="timeago" datetime="2026-02-23T18:17:55+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2026. február 23. 18:17:55 CET">2026-02-23</span>
       </span>
     </span>
 
