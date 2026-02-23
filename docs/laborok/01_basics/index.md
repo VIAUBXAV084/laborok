@@ -22,7 +22,7 @@ A feladatok megoldása során ne felejtsük el követni a [feladat beadás folya
 
 ## Fejlesztői környezet kialakítása
 
-Kotlin Multiplatform alkalmazások fejlesztéséhez a JetBrains hivatalosan az Android Studiot vagy az Intellij Ideat ajánlja. Funkcionalitásban ekvivalensek, az Android Studio kényelmesebb támogatást ad Android fejlesztéshez, még az Intellij Idea Java / Kotlin alapú JVM alkalmazások fejlesztéséhez áll jobban kézre.  Mivel Android platformra való futtatáshoz amúgy is szükség lesz emulátorra (vagy saját fizikai eszközre), ezért kényelmes választás az Android Studio (bár Idea-ban vagy akár parancssorból is megoldható az emulátorok kezelése és futtatása). A tárgyon az Android Studiot fogjuk használni ás a laborok útmutatója arra vonatkozik, de preferencia szerint az Intellij Idea is használható.
+Kotlin Multiplatform alkalmazások fejlesztéséhez a JetBrains hivatalosan az Android Studiot vagy az Intellij Ideat ajánlja. Funkcionalitásban ekvivalensek, az Android Studio kényelmesebb támogatást ad Android fejlesztéshez, az Intellij Idea pedig Java / Kotlin alapú JVM alkalmazások fejlesztéséhez áll jobban kézre.  Mivel Android platformra való futtatáshoz amúgy is szükség lesz emulátorra (vagy saját fizikai eszközre), ezért kényelmes választás az Android Studio (bár Idea-ban vagy akár parancssorból is megoldható az emulátorok kezelése és futtatása). A tárgyon az Android Studiot fogjuk használni ás a laborok útmutatója arra vonatkozik, de preferencia szerint az Intellij Idea is használható.
 
 !!!info "Verziószámok"
 		A későbbiekben problémákat okozhatnak a régebbi verziójú fejlesztőkörnyezetek a tárgyban kiadott segédanyagokkal és laborokkal kapcsolatban, ezért célszerű a legújabb stabil releaset használni. Ez jelenleg Android Studio Panda 1 (2025.3.1), illetve Intellij Community Edition 2025.3.2, (Build: 253.30387.90).
@@ -34,11 +34,11 @@ Kotlin Multiplatform alkalmazások fejlesztéséhez a JetBrains hivatalosan az A
 
 Amennyiben még nincs telepítve megfelelő verziójú fejlesztőkörnyezet, töltsük le és telepítsük az [_Android Studiot_](https://developer.android.com/studio/releases) vagy az [_Intellij Ideat_](https://www.jetbrains.com/idea/download/?section=windows).
 
- Akármelyiket is választottuk, telepítsük a _Kotlin Multiplatform_ plugint, amely számos funkcionalitást nyújt Kotlin Multiplatform projektek kényelmesebb fejlesztéséhez.
+ Akármelyiket is választottuk, telepítsük a _Kotlin Multiplatform_ plugint is.
 
 ## Android alapok (kiegészítő anyag)
 
-A következőkben az Android alapjairól, a fordítás folyamatáról, az SDK telepítéséről, az AVD használatáról és az Android Studio felépítéséről és eszközeiről olvashatunk. Mindezek közül számunkra a továbbiakban közvetlenül az emulátorok használata a legfontosabb, hiszen ezen tudjuk elsősorban futtatni a Kotlin Multiplatform projektünket Android platformon, de ha nem találkoztunk még androiddal, célszerű legalább egyszer átfutni a többi részét is. Amennyiben mindezt már ismerjük, ugorjuk át ezt a szekciót és folytassuk a _Kiinduló alkalmazás generálása_ pontnál.
+A következőkben az Android alapjairól, a fordítás folyamatáról, az SDK telepítéséről, az AVD használatáról és az Android Studio felépítéséről és eszközeiről olvashatunk. Mindezek közül számunkra a továbbiakban közvetlenül az emulátorok használata a legfontosabb, hiszen ezen tudjuk elsősorban futtatni a Kotlin Multiplatform projektünket Android platformon, de ha nem találkoztunk még Androiddal, célszerű legalább egyszer átfutni a többi részét is. Amennyiben mindezt már ismerjük, ugorjuk át ezt a szekciót és folytassuk a _Kiinduló alkalmazás generálása_ pontnál.
 
 ### Fordítás menete Android platformon
 
@@ -278,7 +278,7 @@ Kotlin Multiplatform projektek generálására az ajánlott módszer a fejleszt�
 Hozzuk létre a projektet az alábbiaknak megfelelően:
 
 1. Az alkalmazás neve _KMPIntroduction_ legyen
-2. A package name _hu.bme.aut
+2. A package name _hu.bme.aut_
 3. A minimum SDK az Android platform SDK minimum verzióját jelenti, hagyhatjuk a defaulton (API 24 "Nougat")
 4. Válasszuk ki a projekt lokációját a Git repositorynkban, majd > Next
 
@@ -290,7 +290,7 @@ Ezután kell kiválasztanunk, hogy milyen platformokat szeretnénk támogatni a 
 8. Ha minden rendben, > Finish
 
 !!!note "További templatek"
-	Az alap, általános templaten túl továbbiak is elérhetők a https://kmp.jetbrains.com/templates/ linken. A megfelelő template letölthető és telepíthető az IDE-be.
+	Az alap, általános templaten túl további kiinduló projektek is elérhetők a webes generátorban, a https://kmp.jetbrains.com/templates/ linken. A megfelelő template kiinduló projektje letölthető.
 
 ## Projekt szerkezetének áttekintése
 
@@ -312,9 +312,10 @@ Tekintsük most át a projekt felépítését! A fontosabb elemek a következők
 - Az `iosApp` az iOS alkalmazás XCode projektje, ami közvetlenül megnyitható XCodeban. Swift kódot tartalmazhat, ami az IOS app futtatásához szükséges. Amennyiben nem shared UI-t használnánk az iOS alkalmazáshoz, itt kellene megírni annak UI kódját is.
 - A `server` mappában található a Ktor szerverünkhöz tartozó forráskód, erőforrás állományok és a fordítás közben generált egyéb fájlok (függőségek, classfájlok, bat fájlok stb). Az `Application` fájlban van definiálva a szerver elindítása és egy default `get` végpont. Ennél többet jelenleg nem kell tudnunk róla.
 - A `shared` modul szerepe ugyanaz, mint a `composeApp` volt, viszont ide minden más, a felhasználói felületet nem érintő kód (üzleti logika és adatmodellek) kerül. Ily módon a Kotlin Multiplatform a projekt felépítésének szintjén is elkülöníti a UI-hoz szükséges kódot az alkalmazás többi részétől.
+- A `shared` és `composeApp` modulokban lévő `commonTest` az adott modul tesztjeit tartalmazza, egy `CommonTest` végződésű osztályon belül. Láthatjuk, hogy az osztályon belül a `@Test` annotációval ellátott metódusok lesznek a konkrét tesztesetek. Esetünkben egyetlen egyszerű teszt generálódott a kiinduló projekttel, amit futtatni is egyszerűen tudunk. Ha az osztály melletti dupla zöld nyílra kattintunk, akkor az osztályban lévő összes tesztet futtathatjuk egyszerre. Lehetőségünk van debug módban is futtatni, illetve lefedettségi metrikákat is generálni az adott tesztekre. Ugyanezt megtehetjük egyetlen tesztesetre is, az adott metódus melletti egyszeres zöld nyílra kattinta. Akármennyit is futtatunk, a kiválasztott konfiguráció után azt is meg kell mondanunk, hogy melyik platformon szeretnénk futtatni. A tesztelésről részletesebben később lesz szó.
 
 !!!note "Shared modul használata"
-	A `shared` modul használata természetesen nem kötelező, akár a `composeApp`-on belül is elhelyezhetnénk az üzleti logikáért és adatmodellért felelős részeket. A JetBrains és a Google viszont már erősen ajánlja a _shared_ modulban való elkülönítést.
+	A `shared` modul használata természetesen nem kötelező, akár a `composeApp`-on belül is elhelyezhetnénk az üzleti logikáért és adatmodellért felelős részeket. A JetBrains és a Google best practice ajánlásai között viszont már erősen szerepel a _shared_ modulban való elkülönítés.
 
 ## Kotlin Multiplatform projektek konfigurálása Gradle-vel
 
@@ -377,13 +378,17 @@ A Gradle taskokat kétféleképpen is használhatjuk, parancssorból vagy az And
 vagy használhatjuk az `--all` flaget is, amely minden létező taskot listáz (azokat is, amikről szinte biztos, hogy nem kell tudnunk):
 `./gradlew tasks --all
 
+Parancssorból részletesebb információt is kaphatunk egy konkrét Gradle taskról az alábbi parancs kiadásával:
+
+`./gradlew help --task <taskname>`
+
 Android Studioban a _Gradle_ ablakon belül az alábbihoz hasonlót kell látnunk:
 
 <p align="center">
 <img src="./assets/gradle_tasks.jpg" width="250">
 </p>
 
-!!! note "Hiányzó Gradle taskok"
+!!! note "Hiányzó Gradle taskok a Gradle ablakban"
        Amennyiben nem látjuk a task kategóriákat, vagy azokat lenyitva nem látunk bennük semmit, próbálkozhatunk az alábbiakkal:
 	   
     * File > Settings > Experimental, pipáljuk be a következőt: `Configure all Gradle tasks during Gradle Sync`
@@ -396,6 +401,30 @@ A Gradle taskok minden modulhoz az adott modulban lévő `Tasks` mappán belül 
        Figyeljük meg, hogy iOS-hez tartozó taskokat többnyire nem látunk. Ennek oka az, hogy iOS-re való fordítás és futtatás csak macOS-en, XCode-on keresztül történhet, semmilyen más környezetből nem lehetséges. 
 
 Tekintsük át a számunkra legfontosabbakat!
+
+### Általános taskok: fordítás és tesztek futtatása
+
+A következő taskok nem kifejezetten a Kotlin Multiplatform projektekhez léteznek, hanem általánosak, amelyek minden Gradle által kezelt projektben megtalálhatóak. Ezek közül is sokféle van, a legfontosabbak, amikre szükségünk lehet, a következők.
+
+- Parancssorból: `./gradlew build`
+- Android Studio Gradle ablakban: `Tasks` → `build` → `build`
+
+A teljes projekt minden modulját fordítja (amennyiben a gyökér könyvtárban adjuk ki). Ez nem futtatható állományok előállítását jelenti,  csupán a teljes projekt kotlin kódját fogja lefordítani. Arra célszerű használni néha, hogy ellenőrizzük, minden megfelelően működik-e a projektben fordítási időben.
+
+- Parancssorból: `./gradlew clean`
+- Android Studio Gradle ablakban: `Tasks` → `build` → `clean`
+
+Minden build során keletkezett fájlt (tipikusan a `build` folder tartalma, vagyis class fájlok, executablek stb.) eltávolít a projektből. Fordítás szempontjából friss, alapállapotba juttatja a projektet. Hasznos, ha furcsa fordítási hibákkal küzdünk.
+
+- Parancssorból: `./gradlew compileKotlin<Platform>`
+- Android Studio Gradle ablakban: `Tasks` → `build` → `compileKotlin<Platform>`
+
+Csak az adott, konkrét platformra fordítja a Kotlin kódot, pl. `compileKotlinJvm`, `compileKotlinJs`. Ehhez hasonló egyéb kotlin fordítással kapcsolatos taszkot is találhatunk. Ezekkel tipikusan nem kell foglalkoznunk, mert a sima `build` task ezt mind magától kezeli.
+
+- Parancssorból: `./gradlew allTests`
+- Android Studio Gradle ablakban: `Tasks` → `verification` → `allTests`
+
+Ahogy a neve is mutatja, a projekt összes tesztjét lefuttatja az összes platformon és egy összefoglaló jelentést is ad az eredményről.
 
 ### Az alkalmazás futtatása
 
@@ -416,7 +445,7 @@ Ezután: `adb shell am start -n hu.bme.aut.kmpintroduction/.MainActivity`
 
 Mindezt összevonhatnánk egyetlen custom Gradle taskban is, ez azonban már túlmutat a labor keretein, ezért ezt most nem tesszük meg.
 
-Láthatuk, hogy a `gradlew` parancsainak futtatásakor a `:<modulnév>:` szintaxissal navigálhatunk a Gradle modulok között. Esetünkben a `:composeApp:installDebug` azt jelenti, hogy a főmodulból keressük meg a `composeApp` modult, és annak az `installDebug` taskját futtassuk.
+Láthatjuk, hogy a `gradlew` parancsainak futtatásakor a `:<modulnév>:` szintaxissal navigálhatunk a Gradle modulok között. Esetünkben a `:composeApp:installDebug` azt jelenti, hogy a főmodulból keressük meg a `composeApp` modult, és annak az `installDebug` taskját futtassuk Ez egyben arról is ad információt, hol keressük az adott taskot a grafikus felületen: amelyik modul szerepel közvetlenül a task előtt, annak a taskjai között fogjuk megtalálni az adott parancsot.
 
 Desktop esetén a következő módon járunk el:
 
@@ -435,18 +464,20 @@ Webes futtatáshoz:
 - Android Studio Gradle ablakban: `composeApp` → `Tasks` → `kotlin browser` → `jsBrowserProductionRun`
 
 
-iOS-en való futtatáshoz macOS-re, és azon telepített XCode-ra van szükség. Egy abban létrehozott és elindított emulátoron lehet futtatni az alkalmazás iOS-verzióját az Androidos verzióhoz hasonlóan. Ezt kizárólag macOS-en lehet végrehajtani, amennyiben van rá eszközünk, kipróbálhatjuk ezt is! Az alábbiak szerint kell eljárnunk.	
-
-- Nyissuk meg az iOS projektet XCodeban! Keressük meg az iosApp foldert, ebben megtaláljuk a projektfájlt: `iosApp.xcodeproj`. Nyissuk ezt meg XCodeban! (pl. jobb klikk > Open In > Open in Associated APplication)
-- Konfiguráljuk a projektet XCodeban! Jelöljük ki a projektet a projekt navigátorban, a _Targets_ alatt jelöljük ki a main app targetet. A _Build Phases_ taben kattintsunk a "+" gombra, majd válasszuk a _New Run Script Phase_ opciót. Húzzuk ezt be úgy, hogy a _Compile Sources_ fázis előtt legyen. Nyissuk ki az új _Run Script_ fázist, és másoljuk be a következő bash scriptet:
+!!! info "Futtatás iOS-en"
+	iOS-en való futtatáshoz macOS-re, és azon telepített XCode-ra van szükség. Fontos, hogy ez nem a Kotlin Multiplatform limitációja, hanem tudatos döntés az _Apple_ részéről. Egy XCodeban létrehozott és elindított emulátoron lehet futtatni az alkalmazás iOS-verzióját az Androidos verzióhoz hasonlóan. Amennyiben van rá eszközünk, próbáljuk ki ezt is! Erre kétféle megközelítést is használhatunk, például az alábbiak szerint kell eljárnunk, ha lokálisan szeretnénk integrálni az iOS projektünket XCodeban. Részletesebben erről itt olvashatunk: https://kotlinlang.org/docs/multiplatform/multiplatform-ios-integration-overview.html
+	
+	- Nyissuk meg az iOS projektet XCodeban! Keressük meg az iosApp foldert, ebben megtaláljuk a projektfájlt: `iosApp.xcodeproj`. Nyissuk ezt meg XCodeban! (pl. jobb klikk > Open In > Open in Associated APplication)
+	- Konfiguráljuk a projektet XCodeban! Jelöljük ki a projektet a projekt navigátorban, a _Targets_ alatt jelöljük ki a main app targetet. A _Build Phases_ taben kattintsunk a "+" gombra, majd válasszuk a _New Run Script Phase_ opciót. Húzzuk ezt be úgy, hogy a _Compile Sources_ fázis előtt legyen. Nyissuk ki az új _Run Script_ fázist, és másoljuk be a következő bash scriptet:
 	```
 	cd "$SRCROOT/.."
 	./gradlew :shared:embedAndSignAppleFrameworkForXcode
 	```
 	Ezután navigáljunk a _Build Settings_ tabre, és a _Build Options_ alatt a _User Script Sandboxing_ opciót állítsuk "No"-ra. Ha ezt nem tesszük meg, nem fog megfelelően lefutni a scriptünk.
-- Válasszunk ki egy szimulátort vagy csatlakoztatott eszközt. Fordítsuk és futtassuk az alkalmazást (Build and Run)!
-
-Futtassuk ezek alapján az alkalmazást, nézzük meg minden platformon! A gomb megnyomása után az alábbihoz hasonlót kell látnunk!
+	- Válasszunk ki egy szimulátort vagy csatlakoztatott eszközt. Fordítsuk és futtassuk az alkalmazást (Build and Run)!
+	
+	
+Futtassuk ezek alapján az alkalmazást, nézzük meg minden elérhető platformon! A gomb megnyomása után az alábbihoz hasonlót kell látnunk!
 
 <p align="center">
 <img src="./assets/run_example.jpg" width="350">
@@ -456,9 +487,12 @@ Futtassuk ezek alapján az alkalmazást, nézzük meg minden platformon! A gomb 
 
 Lássuk most, hogyan tudunk közvetlenül futtatható binárisokat / telepítőket készíteni a projektünkből az egyes platformokra. Minden esetben csupán annyit kell tennünk, hogy kiadjuk a megfelelő Gradle parancsot, majd megkeressük a generált állomány(oka)t a projektünkben. Minden esetben az adott modul `build` folderében fogjuk találni, hiszen ide kerülnek a fordítás során generált fájlok.
 
+!!! note "Hiányzó vagy hiányos build folder"
+	Amennyiben azt tapasztaljuk, hogy sikeres volt a fordítás és mégsem találjuk a kimenetet a `build` folder megfelelő alkönyvtárában, akkor jobb klikk a `build` folderen > Reload from Disk.
+
 Android esetén egy _apk_ állományt szeretnénk előállítani, amit közvetlenül telepíthetünk emulátorra vagy fizikai eszközre is. Ehhez a következő parancsot használhatjuk:
 
-- Parancssorból: `./gradlew :composeApp:assembleDebug` / `./gradlew :composeApp:assembleRelease: Apk előállítása debug / release módban.
+- Parancssorból: `./gradlew :composeApp:assembleDebug` vagy `./gradlew :composeApp:assembleRelease`: Apk előállítása debug vagy release módban.
 - Android Studio Gradle ablakban: `composeApp` → `Tasks` → `build` → `assemble`
 
 A generált apk a következő elérésen található:
@@ -472,7 +506,7 @@ JVM desktop esetén többféleképpen járhatunk el. Az első variáció, hogy e
 
 Ezt a következő módon futtathatjuk. Fontos, hogy ehhez telepítve kell lennie legalább 17-es JRE-nek az adott eszközön.
 
-`java -jar app-name.jar`
+`java -jar <app-name>.jar`
 
 A másik megközelítés, hogy nem Jar fájlt generálunk, hanem a JVM-et kikerülve közvetlenül végrehajtható állományt az adott operációs rendszerre (macOS, linux, windows). Fontos, hogy ezt a fordítást csak arra az OS-re tudjuk megtenni, amelyiken éppen fejlesztjük az adott Kotlin Multiplatform projektet. Ha pl. Windowson fejlesztünk, akkor csak windowsra tudjuk ezt megtenni, linuxra és macOS-re nem. Ha mégis a többire is szeretnénk, akkor célszerű inkább a JVM alapú megoldást választani.
 
@@ -499,7 +533,7 @@ Webassembly esetén .wasm binárisokat, Javascript "glue code"-ot és HTML kódo
 
 A generált fájlokat a `composeApp/build/dist/wasmJs/productionExecutable/` útvonalon találjuk.
 
-Próbáljuk ki a fordításokat minden platformra, nézzük meg a generált állományokat is! Érdekességképpen futtassuk / telepítsük is a generált állományokon keresztül az alkalmazást! Ezt legegyszerűbben és legrövidebben desktopon tehetjük meg, akár JVM, akár közvetlenül generált bináris esetén.
+Próbáljuk ki a fordításokat minden platformra, nézzük meg a generált állományokat is! Érdekességképpen futtassuk / telepítsük is a generált állományokon keresztül az alkalmazást, akár másik eszközön is! Ezt legegyszerűbben és legrövidebben desktopon tehetjük meg, akár JVM, akár közvetlenül generált bináris esetén.
 
 ## Forráskód áttekintése
 
