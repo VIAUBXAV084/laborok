@@ -378,7 +378,7 @@ A Gradle taskokat kétféleképpen is használhatjuk, parancssorból vagy az And
 
 `./gradlew tasks`,
 vagy használhatjuk az `--all` flaget is, amely minden létező taskot listáz (azokat is, amikről szinte biztos, hogy nem kell tudnunk):
-`./gradlew tasks --all
+`./gradlew tasks --all`
 
 Parancssorból részletesebb információt is kaphatunk egy konkrét Gradle taskról az alábbi parancs kiadásával:
 
