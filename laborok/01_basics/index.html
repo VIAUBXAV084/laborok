@@ -1445,7 +1445,7 @@ vagy használhatjuk az <code>--all</code> flaget is, amely minden létező tasko
 <p class="admonition-title">Futtatás iOS-en</p>
 <p>iOS-en való futtatáshoz macOS-re, és azon telepített XCode-ra van szükség. Fontos, hogy ez nem a Kotlin Multiplatform limitációja, hanem tudatos döntés az <em>Apple</em> részéről. Egy XCodeban létrehozott és elindított emulátoron lehet futtatni az alkalmazás iOS-verzióját az Androidos verzióhoz hasonlóan. Amennyiben van rá eszközünk, próbáljuk ki ezt is! Erre kétféle megközelítést is használhatunk, például az alábbiak szerint kell eljárnunk, ha lokálisan szeretnénk integrálni az iOS projektünket XCodeban. Részletesebben erről itt olvashatunk: <a href="https://kotlinlang.org/docs/multiplatform/multiplatform-ios-integration-overview.html">https://kotlinlang.org/docs/multiplatform/multiplatform-ios-integration-overview.html</a></p>
 <ul>
-<li>Nyissuk meg az iOS projektet XCodeban! Keressük meg az iosApp foldert, ebben megtaláljuk a projektfájlt: <code>iosApp.xcodeproj</code>. Nyissuk ezt meg XCodeban! (pl. jobb klikk &gt; Open In &gt; Open in Associated APplication)</li>
+<li>Nyissuk meg az iOS projektet XCodeban! Keressük meg az iosApp foldert, ebben megtaláljuk a projektfájlt: <code>iosApp.xcodeproj</code>. Nyissuk ezt meg XCodeban! (pl. jobb klikk &gt; Open In &gt; Open in Associated Application)</li>
 <li>Konfiguráljuk a projektet XCodeban! Jelöljük ki a projektet a projekt navigátorban, a <em>Targets</em> alatt jelöljük ki a main app targetet. A <em>Build Phases</em> taben kattintsunk a "+" gombra, majd válasszuk a <em>New Run Script Phase</em> opciót. Húzzuk ezt be úgy, hogy a <em>Compile Sources</em> fázis előtt legyen. Nyissuk ki az új <em>Run Script</em> fázist, és másoljuk be a következő bash scriptet:
 <div class="highlight"><pre><span></span><code>cd "$SRCROOT/.."
 ./gradlew :shared:embedAndSignAppleFrameworkForXcode
@@ -1608,8 +1608,8 @@ Vegyük észre, hogy a fejlesztőkörnyezet fordítási hibával jelzi, hogy az 
           </path>
         </svg>
       </span>
-      <span title="2026. február 26. 00:53:04">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2026. február 26. 00:53:04 CET"><span class="timeago" datetime="2026-02-26T00:53:04+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2026. február 26. 00:53:04 CET">2026-02-26</span>
+      <span title="2026. február 26. 00:54:57">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2026. február 26. 00:54:57 CET"><span class="timeago" datetime="2026-02-26T00:54:57+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2026. február 26. 00:54:57 CET">2026-02-26</span>
       </span>
     </span>
 
