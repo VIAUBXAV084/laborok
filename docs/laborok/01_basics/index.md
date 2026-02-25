@@ -273,7 +273,6 @@ Kotlin Multiplatform projektek generálására az ajánlott módszer a fejleszt�
 
 !!!note "Webes generátor használata KMP projekt létrehozásához"
 	Amennyiben az IDE varázsló használata során probléma vagy hibásan generált projektbe ütköznénk (nem jellemző), használhatjuk az alábbi, webes generátort is: https://kmp.jetbrains.com/. 
-	Android Studioban vagy Intellij IDEA-ban is van lehetőség a megfelelő pluginek telepítése után (lásd korábban) KMP projektek létrehozására. Android Studioban például a szokásos módon (File > New > New Project) választhatjuk a Kotlin Multiplatform projekt templatet.
 	
 Hozzuk létre a projektet az alábbiaknak megfelelően:
 
