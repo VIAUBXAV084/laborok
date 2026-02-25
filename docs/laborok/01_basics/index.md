@@ -469,7 +469,7 @@ Webes futtatáshoz:
 !!! info "Futtatás iOS-en"
 	iOS-en való futtatáshoz macOS-re, és azon telepített XCode-ra van szükség. Fontos, hogy ez nem a Kotlin Multiplatform limitációja, hanem tudatos döntés az _Apple_ részéről. Egy XCodeban létrehozott és elindított emulátoron lehet futtatni az alkalmazás iOS-verzióját az Androidos verzióhoz hasonlóan. Amennyiben van rá eszközünk, próbáljuk ki ezt is! Erre kétféle megközelítést is használhatunk, például az alábbiak szerint kell eljárnunk, ha lokálisan szeretnénk integrálni az iOS projektünket XCodeban. Részletesebben erről itt olvashatunk: https://kotlinlang.org/docs/multiplatform/multiplatform-ios-integration-overview.html
 	
-	- Nyissuk meg az iOS projektet XCodeban! Keressük meg az iosApp foldert, ebben megtaláljuk a projektfájlt: `iosApp.xcodeproj`. Nyissuk ezt meg XCodeban! (pl. jobb klikk > Open In > Open in Associated APplication)
+	- Nyissuk meg az iOS projektet XCodeban! Keressük meg az iosApp foldert, ebben megtaláljuk a projektfájlt: `iosApp.xcodeproj`. Nyissuk ezt meg XCodeban! (pl. jobb klikk > Open In > Open in Associated Application)
 	- Konfiguráljuk a projektet XCodeban! Jelöljük ki a projektet a projekt navigátorban, a _Targets_ alatt jelöljük ki a main app targetet. A _Build Phases_ taben kattintsunk a "+" gombra, majd válasszuk a _New Run Script Phase_ opciót. Húzzuk ezt be úgy, hogy a _Compile Sources_ fázis előtt legyen. Nyissuk ki az új _Run Script_ fázist, és másoljuk be a következő bash scriptet:
 	```
 	cd "$SRCROOT/.."
