@@ -447,7 +447,7 @@ Ezután: `adb shell am start -n hu.bme.aut.kmpintroduction/.MainActivity`
 
 Mindezt összevonhatnánk egyetlen custom Gradle taskban is, ez azonban már túlmutat a labor keretein, ezért ezt most nem tesszük meg.
 
-Láthatjuk, hogy a `gradlew` parancsainak futtatásakor a `:<modulnév>:` szintaxissal navigálhatunk a Gradle modulok között. Esetünkben a `:composeApp:installDebug` azt jelenti, hogy a főmodulból keressük meg a `composeApp` modult, és annak az `installDebug` taskját futtassuk Ez egyben arról is ad információt, hol keressük az adott taskot a grafikus felületen: amelyik modul szerepel közvetlenül a task előtt, annak a taskjai között fogjuk megtalálni az adott parancsot.
+Láthatjuk, hogy a `gradlew` parancsainak futtatásakor a `:<modulnév>:` szintaxissal navigálhatunk a Gradle modulok között. Esetünkben a `:composeApp:installDebug` azt jelenti, hogy a főmodulból keressük meg a `composeApp` modult, és annak az `installDebug` taskját futtassuk. Ez egyben arról is ad információt, hol keressük az adott taskot a grafikus felületen: amelyik modul szerepel közvetlenül a task előtt, annak a taskjai között fogjuk megtalálni az adott parancsot.
 
 Desktop esetén a következő módon járunk el:
 
