@@ -1303,7 +1303,7 @@
 <li>A <code>.gradle</code> folder tartalmazza az importálás során letöltött függőségeket és egyéb metaadatokat.</li>
 <li>A <code>.idea</code> folder tartalmazza a projekt lokális IDE beállításait.</li>
 <li>A <code>composeApp</code> gradle almodul tartalmazza a projektünk felhasználói felületéhez tartozó forráskódot és erőforrásfájlokat. A <code>src</code> mappán belül láthatjuk a különböző platformokhoz tartozó Source Seteket: <code>commonMain</code>, <code>iosMain</code>, <code>jvmMain</code> és <code>webMain</code> (illetve <code>commonTest</code> a közös UI kódhoz tartozó teszteknek). Mindegyik modulon belül egy .kt kiterjesztésű fájlt találunk, ezekben található az alkalmazás belépési pontja az adott platformra. A közös UI a commonMain <code>App</code> függvényében van definiálva, ahol Compose Multiplatform segítségével egy gombot jelenítünk meg. Ennél többet jelenleg még nem kell tudnunk róla, a Composeról részletesebben a következő laboron (és a kapcsolódó előadásokon) hallunk majd.</li>
-<li>A  folder a Gradle beállításait és verzióinformációit tartalmazza.</li>
+<li>A  <code>gradle</code> folder a Gradle beállításait és verzióinformációit tartalmazza.</li>
 <li>Az <code>iosApp</code> az iOS alkalmazás XCode projektje, ami közvetlenül megnyitható XCodeban. Swift kódot tartalmazhat, ami az IOS app futtatásához szükséges. Amennyiben nem shared UI-t használnánk az iOS alkalmazáshoz, itt kellene megírni annak UI kódját is.</li>
 <li>A <code>server</code> mappában található a Ktor szerverünkhöz tartozó forráskód, erőforrás állományok és a fordítás közben generált egyéb fájlok (függőségek, classfájlok, bat fájlok stb). Az <code>Application</code> fájlban van definiálva a szerver elindítása és egy default <code>get</code> végpont. Ennél többet jelenleg nem kell tudnunk róla.</li>
 <li>A <code>shared</code> modul szerepe ugyanaz, mint a <code>composeApp</code> volt, viszont ide minden más, a felhasználói felületet nem érintő kód (üzleti logika és adatmodellek) kerül. Ily módon a Kotlin Multiplatform a projekt felépítésének szintjén is elkülöníti a UI-hoz szükséges kódot az alkalmazás többi részétől.</li>
@@ -1608,8 +1608,8 @@ Vegyük észre, hogy a fejlesztőkörnyezet fordítási hibával jelzi, hogy az 
           </path>
         </svg>
       </span>
-      <span title="2026. február 26. 00:40:11">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2026. február 26. 00:40:11 CET"><span class="timeago" datetime="2026-02-26T00:40:11+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2026. február 26. 00:40:11 CET">2026-02-26</span>
+      <span title="2026. február 26. 00:42:42">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2026. február 26. 00:42:42 CET"><span class="timeago" datetime="2026-02-26T00:42:42+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2026. február 26. 00:42:42 CET">2026-02-26</span>
       </span>
     </span>
 
