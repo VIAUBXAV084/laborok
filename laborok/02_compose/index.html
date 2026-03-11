@@ -1,0 +1,2018 @@
+<!DOCTYPE html><html lang="hu" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Ekler Péter, Gazdi László, Pásztor Dániel, Somogyi Norbert Zsolt">
+      
+      
+      
+        <link rel="prev" href="../01_basics/">
+      
+      
+        <link rel="next" href="../../hf/">
+      
+      <link rel="icon" href="../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.14">
+    
+    
+      
+        <title>Labor 2 - Egyszerű felhasználói felület fejlesztése Kotlin Multiplatformon - BMEVIAUBXAV084 - Kotlin Multiplatform alapú szoftverfejlesztés laborfeladatok</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.113286f1.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.a0c5b2b5.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/timeago.css">
+    
+      <link rel="stylesheet" href="../../extra-material-theme.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="aut" data-md-color-primary="red" data-md-color-accent="red">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#labor-2-egyszeru-felhasznaloi-felulet-fejlesztese-kotlin-multiplatformon" class="md-skip">
+          Kihagyás
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Élőfej">
+    <a href="../.." title="BMEVIAUBXAV084 - Kotlin Multiplatform alapú szoftverfejlesztés laborfeladatok" class="md-header__button md-logo" aria-label="BMEVIAUBXAV084 - Kotlin Multiplatform alapú szoftverfejlesztés laborfeladatok" data-md-component="logo">
+      
+  <img src="../../logo-bme-aut.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            BMEVIAUBXAV084 - Kotlin Multiplatform alapú szoftverfejlesztés laborfeladatok
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Labor 2 - Egyszerű felhasználói felület fejlesztése Kotlin Multiplatformon
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="aut" data-md-color-primary="red" data-md-color-accent="red" aria-label="Váltás sötét témára" type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Váltás sötét témára" for="__palette_2" hidden="">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"></path></svg>
+            </label>
+          
+        
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="red" data-md-color-accent="" aria-label="Váltás világos témára" type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Váltás világos témára" for="__palette_1" hidden="">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"></path></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Keresés" placeholder="Keresés" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"></path></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Keresés">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Törlés" aria-label="Törlés" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Keresés inicializálása
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/viaubxav084/laborok" title="Főoldalra ugrás" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    viaubxav084/laborok
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Lapok" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        Tudnivalók
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../01_basics/" class="md-tabs__link md-tabs__link--active">
+        Laborok
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../hf/" class="md-tabs__link">
+        Házi feladat
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigáció" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="BMEVIAUBXAV084 - Kotlin Multiplatform alapú szoftverfejlesztés laborfeladatok" class="md-nav__button md-logo" aria-label="BMEVIAUBXAV084 - Kotlin Multiplatform alapú szoftverfejlesztés laborfeladatok" data-md-component="logo">
+      
+  <img src="../../logo-bme-aut.png" alt="logo">
+
+    </a>
+    BMEVIAUBXAV084 - Kotlin Multiplatform alapú szoftverfejlesztés laborfeladatok
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/viaubxav084/laborok" title="Főoldalra ugrás" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    viaubxav084/laborok
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1">
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+          Tudnivalók
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Tudnivalók
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix="">
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Tárgy ismertető
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tudnivalok/github/GitHub/" class="md-nav__link">
+        Feladatok beadása (GitHub)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tudnivalok/github/GitHub-Actions/" class="md-nav__link">
+        GitHub Actions ismertető
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tudnivalok/github/contributing/" class="md-nav__link">
+        Hozzájárulás az anyaghoz
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked="">
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Laborok
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Laborok
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix="">
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_basics/" class="md-nav__link">
+        1. Labor - Kotlin Multiplatform alapok, környezet megismerése
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Labor 2 - Egyszerű felhasználói felület fejlesztése Kotlin Multiplatformon
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Labor 2 - Egyszerű felhasználói felület fejlesztése Kotlin Multiplatformon
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tartalomjegyzék">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tartalomjegyzék
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#bevezeto" class="md-nav__link">
+    Bevezető
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#elokeszuletek" class="md-nav__link">
+    Előkészületek
+  </a>
+  
+    <nav class="md-nav" aria-label="Előkészületek">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#git-repository-letrehozasa-es-letoltese" class="md-nav__link">
+    Git repository létrehozása és letöltése
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#projekt-letrehozasa" class="md-nav__link">
+    Projekt létrehozása
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fuggosegek-frissitese" class="md-nav__link">
+    Függőségek frissítése
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mvvm-architektura-kialakitasa-1-pont" class="md-nav__link">
+    MVVM architektúra kialakítása (1 pont)
+  </a>
+  
+    <nav class="md-nav" aria-label="MVVM architektúra kialakítása (1 pont)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#model" class="md-nav__link">
+    Model
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#viewmodel" class="md-nav__link">
+    ViewModel
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-felhasznalo-felulet-alapjai-1-pont" class="md-nav__link">
+    A felhasználó felület alapjai (1 pont)
+  </a>
+  
+    <nav class="md-nav" aria-label="A felhasználó felület alapjai (1 pont)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fuggosegek-felvetele" class="md-nav__link">
+    Függőségek felvétele
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#componensek" class="md-nav__link">
+    Componensek
+  </a>
+  
+    <nav class="md-nav" aria-label="Componensek">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#icontextbutton" class="md-nav__link">
+    IconTextButton
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bookcard" class="md-nav__link">
+    BookCard
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#booklistscreen" class="md-nav__link">
+    BookListScreen
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bookdetailsscreen" class="md-nav__link">
+    BookDetailsScreen
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#navigacio-1-pont" class="md-nav__link">
+    Navigáció (1 pont)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#onallo-feladatok" class="md-nav__link">
+    Önálló feladatok
+  </a>
+  
+    <nav class="md-nav" aria-label="Önálló feladatok">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#keresesi-funkcio-1-pont" class="md-nav__link">
+    Keresési funkció (1 pont)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kedvencek-kezelese-1-pont" class="md-nav__link">
+    Kedvencek kezelése (1 pont)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#swipe-to-dismiss-torles-1-pont" class="md-nav__link">
+    Swipe-to-dismiss törlés (1 pont)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#staggered-grid-hasznalata-1-pont" class="md-nav__link">
+    Staggered Grid használata (1 pont)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Házi feladat
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Házi feladat
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix="">
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hf/" class="md-nav__link">
+        Házi feladat információk
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tartalomjegyzék">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tartalomjegyzék
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#bevezeto" class="md-nav__link">
+    Bevezető
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#elokeszuletek" class="md-nav__link">
+    Előkészületek
+  </a>
+  
+    <nav class="md-nav" aria-label="Előkészületek">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#git-repository-letrehozasa-es-letoltese" class="md-nav__link">
+    Git repository létrehozása és letöltése
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#projekt-letrehozasa" class="md-nav__link">
+    Projekt létrehozása
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fuggosegek-frissitese" class="md-nav__link">
+    Függőségek frissítése
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mvvm-architektura-kialakitasa-1-pont" class="md-nav__link">
+    MVVM architektúra kialakítása (1 pont)
+  </a>
+  
+    <nav class="md-nav" aria-label="MVVM architektúra kialakítása (1 pont)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#model" class="md-nav__link">
+    Model
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#viewmodel" class="md-nav__link">
+    ViewModel
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-felhasznalo-felulet-alapjai-1-pont" class="md-nav__link">
+    A felhasználó felület alapjai (1 pont)
+  </a>
+  
+    <nav class="md-nav" aria-label="A felhasználó felület alapjai (1 pont)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fuggosegek-felvetele" class="md-nav__link">
+    Függőségek felvétele
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#componensek" class="md-nav__link">
+    Componensek
+  </a>
+  
+    <nav class="md-nav" aria-label="Componensek">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#icontextbutton" class="md-nav__link">
+    IconTextButton
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bookcard" class="md-nav__link">
+    BookCard
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#booklistscreen" class="md-nav__link">
+    BookListScreen
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bookdetailsscreen" class="md-nav__link">
+    BookDetailsScreen
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#navigacio-1-pont" class="md-nav__link">
+    Navigáció (1 pont)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#onallo-feladatok" class="md-nav__link">
+    Önálló feladatok
+  </a>
+  
+    <nav class="md-nav" aria-label="Önálló feladatok">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#keresesi-funkcio-1-pont" class="md-nav__link">
+    Keresési funkció (1 pont)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kedvencek-kezelese-1-pont" class="md-nav__link">
+    Kedvencek kezelése (1 pont)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#swipe-to-dismiss-torles-1-pont" class="md-nav__link">
+    Swipe-to-dismiss törlés (1 pont)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#staggered-grid-hasznalata-1-pont" class="md-nav__link">
+    Staggered Grid használata (1 pont)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="labor-2-egyszeru-felhasznaloi-felulet-fejlesztese-kotlin-multiplatformon">Labor 2 - Egyszerű felhasználói felület fejlesztése Kotlin Multiplatformon<a class="headerlink" href="#labor-2-egyszeru-felhasznaloi-felulet-fejlesztese-kotlin-multiplatformon" title="Permanent link">¶</a></h1>
+<h2 id="bevezeto">Bevezető<a class="headerlink" href="#bevezeto" title="Permanent link">¶</a></h2>
+<p>A labor során egy könyvek adatait kezelni képes alkalmazást készítünk el desktop, Android, iOS és webassembly platformokra készítünk el Kotlin Multiplatformon technológiával. A felhasználói felület teljes egészében megosztott lesz minden támogatott platformon a Compose Multiplatform használatával. A labor egy része vezetett, a hátralévő részben pedig önálló feladatok megoldásával gyakorolhatjuk a cross-platform felhasználói felület fejlesztésének alapjait.</p>
+<p>Az alkalmazásban fel tudunk venni új könyveket alapvető adataik megadásával, azokat listaszerűen meg tudjuk jeleníteni, illetve szerkeszteni tudjuk őket. Az alkalmazás a vezetett rész végére a következő(höz hasonló) módon fog kinézni desktop platformon:</p>
+<p align="center">
+<a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="./assets/ListScreen.png" data-desc-position="bottom"><img src="./assets/ListScreen.png" width="600"></a>
+</p>
+
+<p>Az első képernyőn tekinthetjük meg a felvett könyveinket.</p>
+<p align="center">
+<a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="./assets/NewEditScreen.png" data-desc-position="bottom"><img src="./assets/NewEditScreen.png" width="600"></a>
+</p>
+
+<p>A második képernyő könyvek felvételéért, illetve meglévő könyvek szerkesztéséért felel.</p>
+<p>Az alkalmazásban az MVVM (de még nem MVI) architektúrát fogjuk használni.</p>
+<h2 id="elokeszuletek">Előkészületek<a class="headerlink" href="#elokeszuletek" title="Permanent link">¶</a></h2>
+<p>A feladatok megoldása során ne felejtsük el követni a <a href="../../tudnivalok/github/GitHub/">feladat beadás folyamatát</a>.</p>
+<h3 id="git-repository-letrehozasa-es-letoltese">Git repository létrehozása és letöltése<a class="headerlink" href="#git-repository-letrehozasa-es-letoltese" title="Permanent link">¶</a></h3>
+<ol>
+<li>
+<p>Moodle-ben keressük meg a laborhoz tartozó meghívó URL-jét és annak segítségével hozzuk létre a saját repositoryt.</p>
+</li>
+<li>
+<p>Várjuk meg, míg elkészül a repository, majd checkout-oljuk ki.</p>
+</li>
+<li>
+<p>Hozzunk létre egy új ágat <code>megoldas</code> néven, és ezen az ágon dolgozzunk.</p>
+</li>
+<li>
+<p>A <code>neptun.txt</code> fájlba írjuk bele a Neptun kódunkat. A fájlban semmi más ne szerepeljen, csak egyetlen sorban a Neptun kód 6 karaktere.</p>
+</li>
+</ol>
+<h2 id="projekt-letrehozasa">Projekt létrehozása<a class="headerlink" href="#projekt-letrehozasa" title="Permanent link">¶</a></h2>
+<p>Hozzuk létre a projektet az alábbiaknak megfelelően:</p>
+<ol>
+<li>Az alkalmazás neve legyen <code>LibraryManager</code></li>
+<li>A package name <code>hu.bme.aut.kmp.librarymanager</code></li>
+<li>Válasszuk ki a projekt lokációját a Git repositorynkban, majd &gt; Next</li>
+<li>A minimum SDK az Android platform SDK minimum verzióját jelenti, hagyhatjuk a defaulton (API 26 "Oreo")</li>
+<li>A <em>Build configuration language</em> <code>Kotlin DSL</code> legyen.</li>
+</ol>
+<p>Ezután kell kiválasztanunk, hogy milyen platformokat szeretnénk támogatni a projektünkben.</p>
+<ol>
+<li>Pipáljuk be mindet: Android, iOS, Desktop és Web</li>
+<li>Kiválaszthatjuk a mobilos és Web platformokhoz, hogy szeretnénk-e megosztani a felhasználói felület kódját. Mindkettőre igent válaszoljunk (Share UI).</li>
+<li>Pipáljuk be a Server és Include Tests opciókat is, ezek értlemszerűen egy szervert Ktor keretrendszerben, illetve default teszt modulokat is generálnak</li>
+<li>Ha minden rendben, &gt; Finish</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Ugyan most nem fogunk backendet fejleszteni, így nem fogjuk használni a <code>server</code> modult, de ha a projekt létrehozásánál ezt nem pipáljuk be, akkor nem készül el a <code>shared</code> modul sem. Ez azért van így, mert korábban a <code>shared</code> modult a kliens és a backend közötti közös kód megosztására használták. Az újabb konvenció szerint azonban már a kliensek közötti kódmegosztást is így oldjuk meg. Ezért az egyszerűság kedvéért most legeneráltatunk mindent, és utólag nem használjuk. Megtehetnénk azt is, hogy a <code>shared</code> modult utólag adjuk hozzá, és kézzel állítjuk be a függőségeket. (New&gt;Module&gt;Kotlin Multiplatform Shared Module)</p>
+</div>
+<h2 id="fuggosegek-frissitese">Függőségek frissítése<a class="headerlink" href="#fuggosegek-frissitese" title="Permanent link">¶</a></h2>
+<div class="admonition info">
+<p class="admonition-title">Gradle függőségek verziószámai</p><p>A projekt több olyan függőséget is használ (pl. navigation, lifecycle viewmodel), amelyek nem az elérhető legfrissebb verziót használják. Erre figyelmeztet is warning formájában az Android Studio. Vigyázat: nem minden függőség esetén célszerű mindig a legfrissebb verziót használni, amennyiben az nem stabil, alfa állapotban van, akkor fordítási, vagy akár futási idejű hibákat is okozhat.</p>
+<p></p>
+</div>
+<h2 id="mvvm-architektura-kialakitasa-1-pont">MVVM architektúra kialakítása (1 pont)<a class="headerlink" href="#mvvm-architektura-kialakitasa-1-pont" title="Permanent link">¶</a></h2>
+<p>Mielőtt nekilátnánk a felhasználói felület elkészítésének, készítsük elő az adatainkat, amiken dolgozni fogunk.</p>
+<p>A következőkben az MVVM architektúrát fogjuk használni. Az MVVM-ről részletesebben a vonatkozó előadás anyagában (is) tájékozódhatunk.</p>
+<p>Az MVVM (Model-View-ViewModel) egy szoftvertervezési architektúra, amelyet elsősorban grafikus felhasználói felületek (GUI) fejlesztésére használnak. Az MVVM célja, hogy elválassza az üzleti logikát a felhasználói felülettől, megkönnyítve ezzel a kód karbantartását, tesztelhetőségét és újrafelhasználhatóságát.</p>
+<p>Az MVVM architektúra három fő komponensből áll:</p>
+<ul>
+<li>Model: Az alkalmazás adatmodellje, amely tartalmazza az üzleti logikát és az adatokat. Ez felelős az adatok kezeléséért és tárolásáért, gyakran egy adatbázisból vagy API-ból nyeri az információkat. Esetünkben ez egy, a könyvek adatait tároló data class lesz.</li>
+<li>View: A felhasználói interfész (UI), amely a képernyőn megjelenő elemeket és azok elrendezését határozza meg. A View nem tartalmaz üzleti logikát, hanem kizárólag a megjelenítésért felelős műveleteket végzi. Esetünkben a Viewk a Composable Screen függvényeink.</li>
+<li>ViewModel: A közvetítő réteg a Model és a View között. A ViewModel tartalmazza az alkalmazás logikáját, kezeli az adatok előkészítését és biztosítja a View számára szükséges adatokat, kezeli a View-hoz tartozó állapotot. Általában valamilyen formában adatkötést (data binding) használunk, amely lehetővé teszi, hogy a View automatikusan frissüljön, amikor a ViewModelben lévő adatok megváltoznak.</li>
+</ul>
+<p align="center">
+<a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="./assets/mvvm.png" data-desc-position="bottom"><img src="./assets/mvvm.png" width="500"></a>
+</p>
+
+<div class="admonition note">
+<p class="admonition-title">ViewModel-ek száma?</p><p>Felmerülhet a kérdés, hogy egy alkalmazáson belül mennyi ViewModel-re van szükségünk. Alapvetően minden View-hoz külön saját ViewModel tartozik, azonban logikailag összetartozó View-k esetén közös ViewModel használható (most mi is így jártunk el).</p>
+<p></p>
+</div>
+<h3 id="model">Model<a class="headerlink" href="#model" title="Permanent link">¶</a></h3>
+<p>A könyveket reprezentáló osztályt a <code>shared</code> modulba készítsük el a <code>commonMain</code> <em>source set</em>-en belül egy <code>model</code> <em>package</em>-be:</p>
+<div class="highlight"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">hu.bme.aut.kmp.librarymanager.model</span>
+
+<span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">Book</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">id</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">title</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">author</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">year</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">isAvailable</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span>
+<span class="p">)</span>
+
+<span class="kd">fun</span><span class="w"> </span><span class="nf">emptyBook</span><span class="p">():</span><span class="w"> </span><span class="n">Book</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Book</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="s">""</span><span class="p">,</span><span class="w"> </span><span class="s">""</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span>
+</code></pre></div>
+<p>Látható, hogy készítettünk egy függvényt is a könnyebb inicializáláshoz.</p>
+<h3 id="viewmodel">ViewModel<a class="headerlink" href="#viewmodel" title="Permanent link">¶</a></h3>
+<p>Ezeket a könyveket egy komplexebb projektben egy <em>repository</em> tárolná, és a <em>ViewModel</em> attól kapná meg. Most az egyszerűség kedvéért a <em>ViewModel</em>-ünk fogja tartalmazni a konyv listánkat. Mivel a <em>ViewModel</em> is a megosztható logikához tartozik, ezt is a <code>shared</code> modulba fogjuk elkészíteni.</p>
+<p>A <em>ViewModel</em>-hez azonban először szükségünk lesz egy függőségre. Vegyük fel a <code>shared</code> modulhoz tartozó <code>build.gradle.kts</code> fájlba az alábbi függőséget: (A verziók már szerepelnek a generált projektben a <code>libs.versions.toml</code> fájlban.):</p>
+<div class="highlight"><pre><span></span><code><span class="n">sourceSets</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">commonMain</span><span class="p">.</span><span class="na">dependencies</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">//viewmodel</span>
+<span class="w">        </span><span class="n">implementation</span><span class="p">(</span><span class="n">libs</span><span class="p">.</span><span class="na">androidx</span><span class="p">.</span><span class="na">lifecycle</span><span class="p">.</span><span class="na">viewmodelCompose</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Ezek után készítsük el egy külön <code>viewmodel</code> <em>package</em>-be a <code>BookViewModel</code>-ünket:</p>
+<div class="highlight"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">hu.bme.aut.kmp.librarymanager.viewmodel</span>
+
+<span class="kd">class</span><span class="w"> </span><span class="nc">BookViewModel</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ViewModel</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">_books</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MutableStateFlow</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Book</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">emptyList</span><span class="p">())</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">books</span><span class="p">:</span><span class="w"> </span><span class="n">StateFlow</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Book</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_books</span><span class="p">.</span><span class="na">asStateFlow</span><span class="p">()</span>
+
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">addBook</span><span class="p">(</span><span class="n">book</span><span class="p">:</span><span class="w"> </span><span class="n">Book</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">_books</span><span class="p">.</span><span class="na">value</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">book</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">updateBook</span><span class="p">(</span><span class="n">book</span><span class="p">:</span><span class="w"> </span><span class="n">Book</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">_books</span><span class="p">.</span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_books</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">map</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">id</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">book</span><span class="p">.</span><span class="na">id</span><span class="p">)</span><span class="w"> </span><span class="n">book</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="nb">it</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="kd">companion</span><span class="w"> </span><span class="kd">object</span><span class="w"> </span><span class="err">{</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">Factory</span><span class="p">:</span><span class="w"> </span><span class="n">ViewModelProvider</span><span class="p">.</span><span class="na">Factory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">viewModelFactory</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">initializer</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">BookViewModel</span><span class="p">()</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Ez a <em>ViewModel</em> fogja tárolni a könyvek kezeléséért felelős képernyőkhöz tartozó állapotot, nevezetesen az alkalmazásban lévő könyvek listáját, és biztosít azok módosítására műveleteket. A listát egy nem módosítható <em>StateFlow</em> segítségével teszi származtatottan elérhetővé a <em>View</em>-k számára, ugyanakkor csak a <em>ViewModel</em>-en belül ez a lista módosítható is (<em>private MutableStateFlow</em>).</p>
+<p>A <em>ViewModel</em>-ek inicializálásához architekturális szempontból a legjobb megoldás, ha <em>Dependency Injection</em>-t használunk. A következő labortól így is fogunk eljárni, azonban most az alapok áttekintéséhez a <code>BookViewModel</code> inicializálását egy saját <em>factory</em> meódura bízzuk.</p>
+<div class="admonition example">
+<p class="admonition-title">BEADANDÓ (1 pont)</p>
+<p>Készíts egy <strong>képernyőképet</strong>, amelyen látszik a <code>BookViewModel</code> kódja, és a neptun kódod valahol kommentként! A kép a megoldásban a repositoryban f1.png néven szerepeljen! </p>
+</div>
+<h2 id="a-felhasznalo-felulet-alapjai-1-pont">A felhasználó felület alapjai (1 pont)<a class="headerlink" href="#a-felhasznalo-felulet-alapjai-1-pont" title="Permanent link">¶</a></h2>
+<p>Készítsük el az említett funkciókkal és felhasználói felülettel az alkalmazást Compose Multiplatform segítségével! A továbbiakban végig a <code>composeApp</code> modulban, a <code>commonMain</code> <em>source set</em>-en belül dolgozzunk.</p>
+<h3 id="fuggosegek-felvetele">Függőségek felvétele<a class="headerlink" href="#fuggosegek-felvetele" title="Permanent link">¶</a></h3>
+<p>Először vegyünk föl még néhány függőséget: </p>
+<ul>
+<li>Navigation3 könyvtár: a navigációhoz</li>
+<li>Serialization plugin: a navigációs elemek szerializálásához</li>
+<li>Material Icons Extended: extra ikonokhoz</li>
+</ul>
+<p>A <code>libs.versions.toml</code> verziókatalógusba:</p>
+<div class="highlight"><pre><span></span><code><span class="k">[versions]</span>
+<span class="n">materialIconsExtended</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"1.7.3"</span>
+<span class="n">multiplatform-nav3-ui</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"1.0.0-alpha06"</span>
+<span class="n">serialization</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"2.3.10"</span>
+<span class="p">...</span>
+
+<span class="k">[libraries]</span>
+<span class="n">jetbrains-navigation3-ui</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">module</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"org.jetbrains.androidx.navigation3:navigation3-ui"</span><span class="p">,</span><span class="w"> </span><span class="n">version</span><span class="p">.</span><span class="n">ref</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"multiplatform-nav3-ui"</span><span class="w"> </span><span class="p">}</span>
+<span class="n">material-icons-extended</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">module</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"org.jetbrains.compose.material:material-icons-extended"</span><span class="p">,</span><span class="w"> </span><span class="n">version</span><span class="p">.</span><span class="n">ref</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"materialIconsExtended"</span><span class="w"> </span><span class="p">}</span>
+<span class="p">...</span>
+
+<span class="k">[plugins]</span>
+<span class="n">kotlinx-serialization</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"org.jetbrains.kotlin.plugin.serialization"</span><span class="p">,</span><span class="w"> </span><span class="n">version</span><span class="p">.</span><span class="n">ref</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"serialization"</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p>Először a plugint tiltsuk le a teljes projektünkben. Ehhez a projekt szintű <code>build.gradle.kts</code> fájl elejére írjuk ezt:</p>
+<div class="highlight"><pre><span></span><code><span class="n">plugins</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">...</span>
+
+<span class="w">    </span><span class="n">alias</span><span class="p">(</span><span class="n">libs</span><span class="p">.</span><span class="na">plugins</span><span class="p">.</span><span class="na">kotlinx</span><span class="p">.</span><span class="na">serialization</span><span class="p">)</span><span class="w"> </span><span class="n">apply</span><span class="w"> </span><span class="kc">false</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Majd engedélyezzük csak a <code>composeApp</code> modulba. Ehhez a modulhoz tartozó <code>build.gradle.kts</code> fájl elejére ezt írjuk:</p>
+<div class="highlight"><pre><span></span><code><span class="n">plugins</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">...</span>
+
+<span class="w">    </span><span class="n">alias</span><span class="p">(</span><span class="n">libs</span><span class="p">.</span><span class="na">plugins</span><span class="p">.</span><span class="na">kotlinx</span><span class="p">.</span><span class="na">serialization</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Ugyanebben a fájlban vegyük föl a két könyvtár függőséget is: </p>
+<div class="highlight"><pre><span></span><code><span class="n">sourceSets</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="w">    </span><span class="n">commonMain</span><span class="p">.</span><span class="na">dependencies</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">...</span>
+
+<span class="w">        </span><span class="c1">//material icons extended</span>
+<span class="w">        </span><span class="n">implementation</span><span class="p">(</span><span class="n">libs</span><span class="p">.</span><span class="na">material</span><span class="p">.</span><span class="na">icons</span><span class="p">.</span><span class="na">extended</span><span class="p">)</span>
+<span class="w">        </span><span class="c1">//navigation3</span>
+<span class="w">        </span><span class="n">implementation</span><span class="p">(</span><span class="n">libs</span><span class="p">.</span><span class="na">jetbrains</span><span class="p">.</span><span class="na">navigation3</span><span class="p">.</span><span class="na">ui</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Ha ezzel megvagyunk, szinkronizáljuk a projektünket a fenti <code>Sync Now</code> gombbal.</p>
+<p>Most már elérhetőek a könyvtáraink.</p>
+<h3 id="componensek">Componensek<a class="headerlink" href="#componensek" title="Permanent link">¶</a></h3>
+<p>Az alkalmazásunkban használni fogunk néhány elemi építőelemet. Ezeket amennyire lehet, újrafelhasználható formában fogjuk megvalósítani egy <code>components</code> <em>package</em>-be.</p>
+<h4 id="icontextbutton">IconTextButton<a class="headerlink" href="#icontextbutton" title="Permanent link">¶</a></h4>
+<p>Először készísünk el egy olyan gombot, ami egy ikont és egy szöveget képes megjeleníteni egymás mellett:</p>
+<p><code>IconTextButton.kt</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">hu.bme.aut.kmp.librarymanager.components</span>
+
+<span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">IconTextButton</span><span class="p">(</span>
+<span class="w">    </span><span class="n">onClick</span><span class="p">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">,</span>
+<span class="w">    </span><span class="n">text</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span>
+<span class="w">    </span><span class="n">leadingIcon</span><span class="p">:</span><span class="w"> </span><span class="n">ImageVector</span><span class="p">,</span>
+<span class="w">    </span><span class="n">modifier</span><span class="p">:</span><span class="w"> </span><span class="n">Modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">,</span>
+<span class="w">    </span><span class="n">colors</span><span class="p">:</span><span class="w"> </span><span class="n">ButtonColors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ButtonDefaults</span><span class="p">.</span><span class="na">buttonColors</span><span class="p">(),</span>
+<span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Button</span><span class="p">(</span>
+<span class="w">        </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">modifier</span><span class="p">,</span>
+<span class="w">        </span><span class="n">onClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">onClick</span><span class="p">,</span>
+<span class="w">        </span><span class="n">shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RoundedCornerShape</span><span class="p">(</span><span class="m">8.</span><span class="n">dp</span><span class="p">),</span>
+<span class="w">        </span><span class="n">colors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">colors</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Row</span><span class="p">(</span>
+<span class="w">            </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="m">4.</span><span class="n">dp</span><span class="p">),</span>
+<span class="w">            </span><span class="n">verticalAlignment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Alignment</span><span class="p">.</span><span class="na">CenterVertically</span>
+<span class="w">        </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">Icon</span><span class="p">(</span>
+<span class="w">                </span><span class="n">imageVector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">leadingIcon</span><span class="p">,</span>
+<span class="w">                </span><span class="n">contentDescription</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">text</span><span class="p">,</span>
+<span class="w">                </span><span class="n">tint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">colors</span><span class="p">.</span><span class="na">contentColor</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">            </span><span class="n">Spacer</span><span class="p">(</span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">.</span><span class="na">size</span><span class="p">(</span><span class="m">8.</span><span class="n">dp</span><span class="p">))</span>
+<span class="w">            </span><span class="n">Text</span><span class="p">(</span>
+<span class="w">                </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">text</span><span class="p">,</span>
+<span class="w">                </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">colors</span><span class="p">.</span><span class="na">contentColor</span><span class="p">,</span>
+<span class="w">                </span><span class="n">style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaterialTheme</span><span class="p">.</span><span class="na">typography</span><span class="p">.</span><span class="na">titleLarge</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Látható, hogy a gombunk több paramétert vesz át:</p>
+<ul>
+<li><code>onClick: () -&gt; Unit</code>: Eseménykezelő a gomb megnyomásának kezelésére</li>
+<li><code>text: String</code>: a gombon megjelenő szöveg</li>
+<li><code>leadingIcon: ImageVector</code>: a gombon megjelenő ikon</li>
+<li><code>modifier: Modifier</code>: <em>modifier</em> az általános beállításokhoz</li>
+<li><code>colors: ButtonColors</code>: a gomb színei</li>
+</ul>
+<p>Készítsünk ehhez a <em>Composable</em>-höz egy előnézetet is, hogy rögtön lássuk, hogyan néz ki. ezt megtehetjük közvetlenül itt alul:</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Preview</span><span class="p">(</span><span class="n">showBackground</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span>
+<span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">IconTextButtonPreview</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">IconTextButton</span><span class="p">(</span>
+<span class="w">        </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">(),</span>
+<span class="w">        </span><span class="n">onClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">        </span><span class="n">leadingIcon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Icons</span><span class="p">.</span><span class="na">Default</span><span class="p">.</span><span class="na">Edit</span><span class="p">,</span>
+<span class="w">        </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Edit"</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Ha buildeljük a projektünket, már meg is jelenik a <em>preview</em>.</p>
+<h4 id="bookcard">BookCard<a class="headerlink" href="#bookcard" title="Permanent link">¶</a></h4>
+<p>Készítsük el az egy könyv megjelenítéséért felelős <em>Composable</em> elemünket! Bár esetünkben erre csak a listázó képernyőn lesz szükségünk, ezt is egy újrafelhasználható <em>@Composable</em>-ként valósítjuk meg, mert később új képernyőkön szükségünk lehet rá.</p>
+<p>Hozzunk létre egy <code>BookCard.kt</code> fájlt a <code>components</code> <em>package</em>-en belül az alábbi tartalommal:</p>
+<div class="highlight"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">hu.bme.aut.kmp.librarymanager.components</span>
+
+<span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">BookCard</span><span class="p">(</span>
+<span class="w">    </span><span class="n">book</span><span class="p">:</span><span class="w"> </span><span class="n">Book</span><span class="p">,</span>
+<span class="w">    </span><span class="n">onEditButtonClick</span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="kt">Int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span>
+<span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">Card</span><span class="p">(</span>
+<span class="w">        </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span>
+<span class="w">            </span><span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">()</span>
+<span class="w">            </span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="m">8.</span><span class="n">dp</span><span class="p">),</span>
+<span class="w">        </span><span class="n">elevation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CardDefaults</span><span class="p">.</span><span class="na">cardElevation</span><span class="p">(</span><span class="n">defaultElevation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">6.</span><span class="n">dp</span><span class="p">),</span>
+<span class="w">        </span><span class="n">shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RoundedCornerShape</span><span class="p">(</span><span class="m">8.</span><span class="n">dp</span><span class="p">),</span>
+<span class="w">        </span><span class="n">colors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CardDefaults</span><span class="p">.</span><span class="na">cardColors</span><span class="p">(</span>
+<span class="w">            </span><span class="n">containerColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">book</span><span class="p">.</span><span class="na">isAvailable</span><span class="p">)</span>
+<span class="w">                </span><span class="n">Color</span><span class="p">(</span><span class="n">red</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">162</span><span class="p">,</span><span class="w"> </span><span class="n">green</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">203</span><span class="p">,</span><span class="w"> </span><span class="n">blue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">139</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">255</span><span class="p">)</span>
+<span class="w">            </span><span class="k">else</span>
+<span class="w">                </span><span class="n">Color</span><span class="p">(</span><span class="n">red</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">234</span><span class="p">,</span><span class="w"> </span><span class="n">green</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">123</span><span class="p">,</span><span class="w"> </span><span class="n">blue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">123</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">255</span><span class="p">)</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Column</span><span class="p">(</span>
+<span class="w">            </span><span class="n">Modifier</span>
+<span class="w">                </span><span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">()</span>
+<span class="w">                </span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="m">16.</span><span class="n">dp</span><span class="p">)</span>
+<span class="w">        </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">Row</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">Icon</span><span class="p">(</span>
+<span class="w">                    </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span>
+<span class="w">                        </span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="m">8.</span><span class="n">dp</span><span class="p">)</span>
+<span class="w">                        </span><span class="p">.</span><span class="na">size</span><span class="p">(</span><span class="m">32.</span><span class="n">dp</span><span class="p">),</span>
+<span class="w">                    </span><span class="n">imageVector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Icons</span><span class="p">.</span><span class="na">Filled</span><span class="p">.</span><span class="na">KeyboardArrowUp</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">tint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaterialTheme</span><span class="p">.</span><span class="na">colorScheme</span><span class="p">.</span><span class="na">onPrimary</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">contentDescription</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Less"</span>
+<span class="w">                </span><span class="p">)</span>
+
+<span class="w">                </span><span class="n">Column</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">Text</span><span class="p">(</span>
+<span class="w">                        </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">book</span><span class="p">.</span><span class="na">title</span><span class="p">,</span>
+<span class="w">                        </span><span class="n">style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaterialTheme</span><span class="p">.</span><span class="na">typography</span><span class="p">.</span><span class="na">headlineLarge</span><span class="p">,</span>
+<span class="w">                        </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaterialTheme</span><span class="p">.</span><span class="na">colorScheme</span><span class="p">.</span><span class="na">onPrimary</span>
+<span class="w">                    </span><span class="p">)</span>
+
+<span class="w">                    </span><span class="n">Spacer</span><span class="p">(</span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="m">8.</span><span class="n">dp</span><span class="p">))</span>
+<span class="w">                    </span><span class="n">Text</span><span class="p">(</span>
+<span class="w">                        </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Author: </span><span class="si">${</span><span class="n">book</span><span class="p">.</span><span class="na">author</span><span class="si">}</span><span class="s">"</span><span class="p">,</span>
+<span class="w">                        </span><span class="n">style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaterialTheme</span><span class="p">.</span><span class="na">typography</span><span class="p">.</span><span class="na">bodyLarge</span>
+<span class="w">                    </span><span class="p">)</span>
+<span class="w">                    </span><span class="n">Text</span><span class="p">(</span>
+<span class="w">                        </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Year of Publish: </span><span class="si">${</span><span class="n">book</span><span class="p">.</span><span class="na">year</span><span class="si">}</span><span class="s">"</span><span class="p">,</span>
+<span class="w">                        </span><span class="n">style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaterialTheme</span><span class="p">.</span><span class="na">typography</span><span class="p">.</span><span class="na">bodyLarge</span>
+<span class="w">                    </span><span class="p">)</span>
+
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span><span class="n">Spacer</span><span class="p">(</span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="m">16.</span><span class="n">dp</span><span class="p">))</span>
+<span class="w">            </span><span class="n">IconTextButton</span><span class="p">(</span>
+<span class="w">                </span><span class="n">onClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">onEditButtonClick</span><span class="p">(</span><span class="n">book</span><span class="p">.</span><span class="na">id</span><span class="p">)</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">(),</span>
+<span class="w">                </span><span class="n">colors</span><span class="w"> </span><span class="o">=</span>
+<span class="w">                    </span><span class="n">ButtonDefaults</span><span class="p">.</span><span class="na">buttonColors</span><span class="p">(</span>
+<span class="w">                        </span><span class="n">containerColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaterialTheme</span><span class="p">.</span><span class="na">colorScheme</span><span class="p">.</span><span class="na">primary</span><span class="p">,</span>
+<span class="w">                        </span><span class="n">contentColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaterialTheme</span><span class="p">.</span><span class="na">colorScheme</span><span class="p">.</span><span class="na">onPrimary</span>
+<span class="w">                    </span><span class="p">),</span>
+<span class="w">                </span><span class="n">leadingIcon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Icons</span><span class="p">.</span><span class="na">Default</span><span class="p">.</span><span class="na">Edit</span><span class="p">,</span>
+<span class="w">                </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Edit"</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>A <em>composable</em> elemünk átveszi paraméterként a könyvet, amelynek az adatait megjeleníti, illetve egy callback metódust is, amelyet a szerkesztő gomb onClick eseményén használ fel.</p>
+<p>Figyeljük meg, hogy hogyan változik a kártya háttérszíne a könyv elérhetőségétől függően!</p>
+<div class="admonition note">
+<p class="admonition-title">Szöveges erőforrások kezelése</p><p>Valós alkalmazásokban soha ne használjunk beégetett stringeket, azokat mindig szöveges erőforrásként kezeljük a projektünkben. Androidhoz hasonlóan Kotlin Multiplatform projektekben is lehetőségünk van erre, bár némivel bonyolultabban kell eljárnunk. Az egyszerűség kedvéért a labor során ezzel nem foglalkozunk, azonban részletesebben pl. itt olvashatunk róla: <a href="https://medium.com/@mohaberabi98/localization-in-compose-multiplatform-a53dccf49327">https://medium.com/@mohaberabi98/localization-in-compose-multiplatform-a53dccf49327</a></p>
+<p>A követendő lépések nagyvonalakban:</p>
+<ol>
+<li>Platform-specifikus erőforrások beállítása (android, iOS)</li>
+<li>Lokalizált sztring erőforrások használata a közös kódban</li>
+<li>Lokalizáció platform-specifikus kezelése</li>
+</ol>
+<p></p>
+</div>
+<p>Készítsük el az előnézeteket is. Ezúttal kettőt készítünk különböző paraméterezéssel, hogy meg tudjuk nézni a kártyánk különböző állapotait:</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Preview</span>
+<span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">BookCardAvailablePreview</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">book</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Book</span><span class="p">(</span>
+<span class="w">        </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span>
+<span class="w">        </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"The Lord of the Rings"</span><span class="p">,</span>
+<span class="w">        </span><span class="n">author</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"J.R.R. Tolkien"</span><span class="p">,</span>
+<span class="w">        </span><span class="n">year</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1954</span><span class="p">,</span>
+<span class="w">        </span><span class="n">isAvailable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="w">    </span><span class="n">BookCard</span><span class="p">(</span>
+<span class="w">        </span><span class="n">book</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">book</span><span class="p">,</span>
+<span class="w">        </span><span class="n">onEditButtonClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{})</span>
+<span class="p">}</span>
+
+<span class="nd">@Preview</span>
+<span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">BookCardTakenPreview</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">book</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Book</span><span class="p">(</span>
+<span class="w">        </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span>
+<span class="w">        </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"The Lord of the Rings"</span><span class="p">,</span>
+<span class="w">        </span><span class="n">author</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"J.R.R. Tolkien"</span><span class="p">,</span>
+<span class="w">        </span><span class="n">year</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1954</span><span class="p">,</span>
+<span class="w">        </span><span class="n">isAvailable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="w">    </span><span class="n">BookCard</span><span class="p">(</span>
+<span class="w">        </span><span class="n">book</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">book</span><span class="p">,</span>
+<span class="w">        </span><span class="n">onEditButtonClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{})</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Egészítsük ki a <code>BookCard</code>-unkat, hogy a kis nyilacska ikon megnyomására a szerzői és megjelenési adatok eltűnjenek vagy megjelenjenek!</p>
+<p>Ehhez először is vegyünk fel egy állapotot a függvényünk elejére:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nv">expanded</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">remember</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">mutableStateOf</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+
+<span class="n">Card</span><span class="p">(</span>
+<span class="w">    </span><span class="p">...</span>
+</code></pre></div>
+<p>Majd az ikonunk megnyomásának hatására változtassuk meg az állapotát. Szintén itt tudjuk beállítani az állapontnak megfelelő ikont és leírást is:</p>
+<div class="highlight"><pre><span></span><code><span class="n">Icon</span><span class="p">(</span>
+<span class="w">    </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span>
+<span class="w">        </span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="m">8.</span><span class="n">dp</span><span class="p">)</span>
+<span class="w">        </span><span class="p">.</span><span class="na">clickable</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">expanded</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">!</span><span class="n">expanded</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="p">.</span><span class="na">size</span><span class="p">(</span><span class="m">32.</span><span class="n">dp</span><span class="p">),</span>
+<span class="w">    </span><span class="n">imageVector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">expanded</span><span class="p">)</span>
+<span class="w">        </span><span class="n">Icons</span><span class="p">.</span><span class="na">Filled</span><span class="p">.</span><span class="na">KeyboardArrowUp</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">Icons</span><span class="p">.</span><span class="na">Filled</span><span class="p">.</span><span class="na">KeyboardArrowDown</span><span class="p">,</span>
+<span class="w">    </span><span class="n">tint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaterialTheme</span><span class="p">.</span><span class="na">colorScheme</span><span class="p">.</span><span class="na">onPrimary</span><span class="p">,</span>
+<span class="w">    </span><span class="n">contentDescription</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">expanded</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="s">"Less"</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="s">"More"</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>A megfelelő sorok megjelenítését pedig kössük az <code>expanded</code> állapothoz:</p>
+<div class="highlight"><pre><span></span><code><span class="n">Card</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="w">    </span><span class="n">Column</span>
+<span class="w">        </span><span class="p">...</span>
+<span class="w">        </span><span class="n">Row</span>
+<span class="w">            </span><span class="p">...</span>
+<span class="w">            </span><span class="n">Column</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">Text</span><span class="p">(</span>
+<span class="w">                    </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">book</span><span class="p">.</span><span class="na">title</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaterialTheme</span><span class="p">.</span><span class="na">typography</span><span class="p">.</span><span class="na">headlineLarge</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaterialTheme</span><span class="p">.</span><span class="na">colorScheme</span><span class="p">.</span><span class="na">onPrimary</span>
+<span class="w">                </span><span class="p">)</span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">expanded</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">Spacer</span><span class="p">(</span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="m">8.</span><span class="n">dp</span><span class="p">))</span>
+<span class="w">                    </span><span class="n">Text</span><span class="p">(</span>
+<span class="w">                        </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Author: </span><span class="si">${</span><span class="n">book</span><span class="p">.</span><span class="na">author</span><span class="si">}</span><span class="s">"</span><span class="p">,</span>
+<span class="w">                        </span><span class="n">style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaterialTheme</span><span class="p">.</span><span class="na">typography</span><span class="p">.</span><span class="na">bodyLarge</span>
+<span class="w">                    </span><span class="p">)</span>
+<span class="w">                    </span><span class="n">Text</span><span class="p">(</span>
+<span class="w">                        </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Year of Publish: </span><span class="si">${</span><span class="n">book</span><span class="p">.</span><span class="na">year</span><span class="si">}</span><span class="s">"</span><span class="p">,</span>
+<span class="w">                        </span><span class="n">style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaterialTheme</span><span class="p">.</span><span class="na">typography</span><span class="p">.</span><span class="na">bodyLarge</span>
+<span class="w">                    </span><span class="p">)</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">...</span>
+</code></pre></div>
+<p>Végül pedig animáljuk meg a <em>column</em> méretváltozását:</p>
+<div class="highlight"><pre><span></span><code><span class="n">Card</span>
+<span class="w">    </span><span class="p">...</span>
+<span class="w">    </span><span class="n">Column</span><span class="p">(</span>
+<span class="w">        </span><span class="n">Modifier</span>
+<span class="w">            </span><span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">()</span>
+<span class="w">            </span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="m">16.</span><span class="n">dp</span><span class="p">)</span>
+<span class="w">            </span><span class="p">.</span><span class="na">animateContentSize</span><span class="p">()</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="p">...</span>
+</code></pre></div>
+<details class="success">
+<summary>BookCard.kt</summary>
+<div class="highlight"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">hu.bme.aut.kmp.librarymanager.components</span>
+
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.animation.animateContentSize</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.foundation.clickable</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.foundation.layout.Column</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.foundation.layout.Row</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.foundation.layout.Spacer</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.foundation.layout.fillMaxWidth</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.foundation.layout.height</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.foundation.layout.padding</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.foundation.layout.size</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.foundation.shape.RoundedCornerShape</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material.icons.Icons</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material.icons.filled.Edit</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material.icons.filled.KeyboardArrowDown</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material.icons.filled.KeyboardArrowUp</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material3.ButtonDefaults</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material3.Card</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material3.CardDefaults</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material3.Icon</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material3.MaterialTheme</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.material3.Text</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.runtime.Composable</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.runtime.getValue</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.runtime.mutableStateOf</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.runtime.remember</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.runtime.setValue</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.ui.Modifier</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.ui.graphics.Color</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.ui.tooling.preview.Preview</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">androidx.compose.ui.unit.dp</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">hu.bme.aut.kmp.librarymanager.model.Book</span>
+
+<span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">BookCard</span><span class="p">(</span>
+<span class="w">    </span><span class="n">book</span><span class="p">:</span><span class="w"> </span><span class="n">Book</span><span class="p">,</span>
+<span class="w">    </span><span class="n">onEditButtonClick</span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="kt">Int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span>
+<span class="p">)</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nv">expanded</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">remember</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">mutableStateOf</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">Card</span><span class="p">(</span>
+<span class="w">        </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span>
+<span class="w">            </span><span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">()</span>
+<span class="w">            </span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="m">8.</span><span class="n">dp</span><span class="p">),</span>
+<span class="w">        </span><span class="n">elevation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CardDefaults</span><span class="p">.</span><span class="na">cardElevation</span><span class="p">(</span><span class="n">defaultElevation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">6.</span><span class="n">dp</span><span class="p">),</span>
+<span class="w">        </span><span class="n">shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RoundedCornerShape</span><span class="p">(</span><span class="m">8.</span><span class="n">dp</span><span class="p">),</span>
+<span class="w">        </span><span class="n">colors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CardDefaults</span><span class="p">.</span><span class="na">cardColors</span><span class="p">(</span>
+<span class="w">            </span><span class="n">containerColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">book</span><span class="p">.</span><span class="na">isAvailable</span><span class="p">)</span>
+<span class="w">                </span><span class="n">Color</span><span class="p">(</span><span class="n">red</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">162</span><span class="p">,</span><span class="w"> </span><span class="n">green</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">203</span><span class="p">,</span><span class="w"> </span><span class="n">blue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">139</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">255</span><span class="p">)</span>
+<span class="w">            </span><span class="k">else</span>
+<span class="w">                </span><span class="n">Color</span><span class="p">(</span><span class="n">red</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">234</span><span class="p">,</span><span class="w"> </span><span class="n">green</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">123</span><span class="p">,</span><span class="w"> </span><span class="n">blue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">123</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">255</span><span class="p">)</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Column</span><span class="p">(</span>
+<span class="w">            </span><span class="n">Modifier</span>
+<span class="w">                </span><span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">()</span>
+<span class="w">                </span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="m">16.</span><span class="n">dp</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="na">animateContentSize</span><span class="p">()</span>
+<span class="w">        </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">Row</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">Icon</span><span class="p">(</span>
+<span class="w">                    </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span>
+<span class="w">                        </span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="m">8.</span><span class="n">dp</span><span class="p">)</span>
+<span class="w">                        </span><span class="p">.</span><span class="na">clickable</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">expanded</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">!</span><span class="n">expanded</span><span class="w"> </span><span class="p">}</span>
+<span class="w">                        </span><span class="p">.</span><span class="na">size</span><span class="p">(</span><span class="m">32.</span><span class="n">dp</span><span class="p">),</span>
+<span class="w">                    </span><span class="n">imageVector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">expanded</span><span class="p">)</span>
+<span class="w">                        </span><span class="n">Icons</span><span class="p">.</span><span class="na">Filled</span><span class="p">.</span><span class="na">KeyboardArrowUp</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">Icons</span><span class="p">.</span><span class="na">Filled</span><span class="p">.</span><span class="na">KeyboardArrowDown</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">tint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaterialTheme</span><span class="p">.</span><span class="na">colorScheme</span><span class="p">.</span><span class="na">onPrimary</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">contentDescription</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">expanded</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="s">"Less"</span>
+<span class="w">                    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="s">"More"</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                </span><span class="p">)</span>
+
+<span class="w">                </span><span class="n">Column</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">Text</span><span class="p">(</span>
+<span class="w">                        </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">book</span><span class="p">.</span><span class="na">title</span><span class="p">,</span>
+<span class="w">                        </span><span class="n">style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaterialTheme</span><span class="p">.</span><span class="na">typography</span><span class="p">.</span><span class="na">headlineLarge</span><span class="p">,</span>
+<span class="w">                        </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaterialTheme</span><span class="p">.</span><span class="na">colorScheme</span><span class="p">.</span><span class="na">onPrimary</span>
+<span class="w">                    </span><span class="p">)</span>
+<span class="w">                    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">expanded</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="n">Spacer</span><span class="p">(</span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="m">8.</span><span class="n">dp</span><span class="p">))</span>
+<span class="w">                        </span><span class="n">Text</span><span class="p">(</span>
+<span class="w">                            </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Author: </span><span class="si">${</span><span class="n">book</span><span class="p">.</span><span class="na">author</span><span class="si">}</span><span class="s">"</span><span class="p">,</span>
+<span class="w">                            </span><span class="n">style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaterialTheme</span><span class="p">.</span><span class="na">typography</span><span class="p">.</span><span class="na">bodyLarge</span>
+<span class="w">                        </span><span class="p">)</span>
+<span class="w">                        </span><span class="n">Text</span><span class="p">(</span>
+<span class="w">                            </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Year of Publish: </span><span class="si">${</span><span class="n">book</span><span class="p">.</span><span class="na">year</span><span class="si">}</span><span class="s">"</span><span class="p">,</span>
+<span class="w">                            </span><span class="n">style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaterialTheme</span><span class="p">.</span><span class="na">typography</span><span class="p">.</span><span class="na">bodyLarge</span>
+<span class="w">                        </span><span class="p">)</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span><span class="n">Spacer</span><span class="p">(</span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="m">16.</span><span class="n">dp</span><span class="p">))</span>
+<span class="w">            </span><span class="n">IconTextButton</span><span class="p">(</span>
+<span class="w">                </span><span class="n">onClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">onEditButtonClick</span><span class="p">(</span><span class="n">book</span><span class="p">.</span><span class="na">id</span><span class="p">)</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">(),</span>
+<span class="w">                </span><span class="n">colors</span><span class="w"> </span><span class="o">=</span>
+<span class="w">                    </span><span class="n">ButtonDefaults</span><span class="p">.</span><span class="na">buttonColors</span><span class="p">(</span>
+<span class="w">                        </span><span class="n">containerColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaterialTheme</span><span class="p">.</span><span class="na">colorScheme</span><span class="p">.</span><span class="na">primary</span><span class="p">,</span>
+<span class="w">                        </span><span class="n">contentColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaterialTheme</span><span class="p">.</span><span class="na">colorScheme</span><span class="p">.</span><span class="na">onPrimary</span>
+<span class="w">                    </span><span class="p">),</span>
+<span class="w">                </span><span class="n">leadingIcon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Icons</span><span class="p">.</span><span class="na">Default</span><span class="p">.</span><span class="na">Edit</span><span class="p">,</span>
+<span class="w">                </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Edit"</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nd">@Preview</span>
+<span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">BookCardAvailablePreview</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">book</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Book</span><span class="p">(</span>
+<span class="w">        </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span>
+<span class="w">        </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"The Lord of the Rings"</span><span class="p">,</span>
+<span class="w">        </span><span class="n">author</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"J.R.R. Tolkien"</span><span class="p">,</span>
+<span class="w">        </span><span class="n">year</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1954</span><span class="p">,</span>
+<span class="w">        </span><span class="n">isAvailable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="w">    </span><span class="n">BookCard</span><span class="p">(</span>
+<span class="w">        </span><span class="n">book</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">book</span><span class="p">,</span>
+<span class="w">        </span><span class="n">onEditButtonClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{})</span>
+<span class="p">}</span>
+
+<span class="nd">@Preview</span>
+<span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">BookCardTakenPreview</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">book</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Book</span><span class="p">(</span>
+<span class="w">        </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span>
+<span class="w">        </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"The Lord of the Rings"</span><span class="p">,</span>
+<span class="w">        </span><span class="n">author</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"J.R.R. Tolkien"</span><span class="p">,</span>
+<span class="w">        </span><span class="n">year</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1954</span><span class="p">,</span>
+<span class="w">        </span><span class="n">isAvailable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="w">    </span><span class="n">BookCard</span><span class="p">(</span>
+<span class="w">        </span><span class="n">book</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">book</span><span class="p">,</span>
+<span class="w">        </span><span class="n">onEditButtonClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{})</span>
+<span class="p">}</span>
+</code></pre></div>
+</details>
+<p>Miután elkészültünk az újrafelhasználható komponensekkel, már össze tudjuk rakni a képernyőinket. Ebből ezúttal kettő lesz: egy a listához, egy a részletek megjelenítéséhez. Ezeket a <code>commonMain</code> <em>sourceSet</em>-be, egy <code>screen</code> <em>package</em>-be készítsük el.</p>
+<h3 id="booklistscreen">BookListScreen<a class="headerlink" href="#booklistscreen" title="Permanent link">¶</a></h3>
+<p>Az első képernyőnk a <code>BookListScreen</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">hu.bme.aut.kmp.librarymanager.screen</span>
+
+<span class="nd">@OptIn</span><span class="p">(</span><span class="n">ExperimentalMaterial3Api</span><span class="o">::</span><span class="n">class</span><span class="p">)</span>
+<span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">BookListScreen</span><span class="p">(</span>
+<span class="w">    </span><span class="n">modifier</span><span class="p">:</span><span class="w"> </span><span class="n">Modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">,</span>
+<span class="w">    </span><span class="n">viewModel</span><span class="p">:</span><span class="w"> </span><span class="n">BookViewModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">viewModel</span><span class="p">(</span><span class="n">factory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BookViewModel</span><span class="p">.</span><span class="na">Factory</span><span class="p">),</span>
+<span class="w">    </span><span class="n">onFabClick</span><span class="p">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">,</span>
+<span class="w">    </span><span class="n">onEditButtonClick</span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="kt">Int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span>
+<span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">books</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">viewModel</span><span class="p">.</span><span class="na">books</span><span class="p">.</span><span class="na">collectAsState</span><span class="p">()</span>
+
+<span class="w">    </span><span class="n">Scaffold</span><span class="p">(</span>
+<span class="w">        </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">modifier</span><span class="p">,</span>
+<span class="w">        </span><span class="n">topBar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">TopAppBar</span><span class="p">(</span>
+<span class="w">                </span><span class="n">colors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TopAppBarDefaults</span><span class="p">.</span><span class="na">topAppBarColors</span><span class="p">(</span>
+<span class="w">                    </span><span class="n">containerColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaterialTheme</span><span class="p">.</span><span class="na">colorScheme</span><span class="p">.</span><span class="na">primary</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">titleContentColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaterialTheme</span><span class="p">.</span><span class="na">colorScheme</span><span class="p">.</span><span class="na">onPrimary</span>
+<span class="w">                </span><span class="p">),</span>
+<span class="w">                </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Text</span><span class="p">(</span><span class="s">"Library"</span><span class="p">)</span><span class="w"> </span><span class="p">})</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="n">floatingActionButton</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">FloatingActionButton</span><span class="p">(</span>
+<span class="w">                </span><span class="n">onClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">onFabClick</span><span class="p">,</span>
+<span class="w">                </span><span class="n">containerColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaterialTheme</span><span class="p">.</span><span class="na">colorScheme</span><span class="p">.</span><span class="na">primary</span>
+<span class="w">            </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">Icon</span><span class="p">(</span><span class="n">Icons</span><span class="p">.</span><span class="na">Default</span><span class="p">.</span><span class="na">Add</span><span class="p">,</span><span class="w"> </span><span class="n">contentDescription</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Add Book"</span><span class="p">,</span><span class="w"> </span><span class="n">tint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Color</span><span class="p">.</span><span class="na">White</span><span class="p">)</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">padding</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">        </span><span class="n">LazyColumn</span><span class="p">(</span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="n">padding</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">items</span><span class="p">(</span><span class="n">books</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">book</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">                </span><span class="n">BookCard</span><span class="p">(</span>
+<span class="w">                    </span><span class="n">book</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">onEditButtonClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">onEditButtonClick</span>
+<span class="w">                </span><span class="p">)</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nd">@Preview</span><span class="p">(</span><span class="n">showSystemUi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span>
+<span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">BookListScreenPreview</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">BookListScreen</span><span class="p">(</span>
+<span class="w">        </span><span class="n">onFabClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">        </span><span class="n">onEditButtonClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{})</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Figyeljük meg a következőket:</p>
+<ul>
+<li>A képernyőnk a következő paramétereket veszi át:<ul>
+<li><code>modifier: Modifier</code>: <em>modifier</em> a megjelenítés testreszabásához.</li>
+<li><code>viewModel: BookViewModel</code>: a könyvlistát tartalmazó <em>ViewModel</em>.</li>
+<li><code>onFabClick: () -&gt; Unit</code>: <em>callback</em> függvény a <em>FloatingActionButton</em>-re való kattintáshoz. Mivel itt navigációs eseményt szeretnénk végrehajtani, ezt az eseménykezelőt továbbadjuk felfelé.</li>
+<li><code>onEditButtonClick: (Int) -&gt; Unit</code>: <em>callback</em> függvény a szerkesztés gombra való kattintáshoz. Mivel itt navigációs eseményt szeretnénk végrehajtani, ezt az eseménykezelőt a paraméterrel együtt továbbadjuk felfelé.</li>
+</ul>
+</li>
+<li>A <code>Scaffold</code> <em>topBar</em> paraméterével jelenítjük meg a képernyő tetején az alkalmazás fejlécét. Ezen jelenleg a <em>Library</em> felirat szerepel.</li>
+<li>A könyvek listáját kompozíciókor a <em>ViewModel</em>-től kérjük el. A <em>collectAsStateWithLifecycle</em> segítségével megfigyeljük a <em>StateFlow</em> változásait, így automatikusan értesülünk róla, ha megváltozik a könyvlista.</li>
+<li>Új könyv felvételéhez egy <code>FloatingActionButton</code>-t használunk, amelynek <em>onClick</em> eseményében továbbhívjuk a paraméterként kapott eseménykezelőt.</li>
+<li>LazyColumn segítségével jelenítjük meg a könyvek listáját, ahol felhasználjuk az előbb elkészített <code>BookCard</code> <em>Composable</em> elemünket. A gomb eseménykezelőjét itt is csak átadjuk.</li>
+</ul>
+<p>Az előnézetben már láthatjuk is a teljes képernyőnket.</p>
+<h3 id="bookdetailsscreen">BookDetailsScreen<a class="headerlink" href="#bookdetailsscreen" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">hu.bme.aut.kmp.librarymanager.screen</span>
+
+<span class="nd">@OptIn</span><span class="p">(</span><span class="n">ExperimentalMaterial3Api</span><span class="o">::</span><span class="n">class</span><span class="p">)</span>
+<span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">BookDetailsScreen</span><span class="p">(</span>
+<span class="w">    </span><span class="n">modifier</span><span class="p">:</span><span class="w"> </span><span class="n">Modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">,</span>
+<span class="w">    </span><span class="n">viewModel</span><span class="p">:</span><span class="w"> </span><span class="n">BookViewModel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">viewModel</span><span class="p">(</span><span class="n">factory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BookViewModel</span><span class="p">.</span><span class="na">Factory</span><span class="p">),</span>
+<span class="w">    </span><span class="n">bookId</span><span class="p">:</span><span class="w"> </span><span class="kt">Int?</span><span class="p">,</span>
+<span class="w">    </span><span class="n">onBackClick</span><span class="p">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span>
+<span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">book</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">remember</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">mutableStateOf</span><span class="p">(</span><span class="n">emptyBook</span><span class="p">())</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">bookId</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">LaunchedEffect</span><span class="p">(</span><span class="n">bookId</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">viewModel</span><span class="p">.</span><span class="na">books</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">find</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">id</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">bookId</span><span class="w"> </span><span class="p">}</span><span class="o">?.</span><span class="na">let</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">book</span><span class="p">.</span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">it</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">Scaffold</span><span class="p">(</span>
+<span class="w">        </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">modifier</span><span class="p">,</span>
+<span class="w">        </span><span class="n">topBar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">TopAppBar</span><span class="p">(</span>
+<span class="w">                </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Text</span><span class="p">(</span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">bookId</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="s">"New Book"</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s">"Edit Book"</span><span class="p">)</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                </span><span class="n">navigationIcon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">IconButton</span><span class="p">(</span><span class="n">onClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">onBackClick</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="n">Icon</span><span class="p">(</span><span class="n">Icons</span><span class="p">.</span><span class="na">AutoMirrored</span><span class="p">.</span><span class="na">Filled</span><span class="p">.</span><span class="na">ArrowBack</span><span class="p">,</span><span class="w"> </span><span class="n">contentDescription</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Back"</span><span class="p">)</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">padding</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">        </span><span class="n">Column</span><span class="p">(</span>
+<span class="w">            </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span>
+<span class="w">                </span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="n">padding</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="na">fillMaxSize</span><span class="p">()</span>
+<span class="w">                </span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="m">16.</span><span class="n">dp</span><span class="p">),</span>
+<span class="w">            </span><span class="n">verticalArrangement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Arrangement</span><span class="p">.</span><span class="na">spacedBy</span><span class="p">(</span><span class="m">16.</span><span class="n">dp</span><span class="p">)</span>
+<span class="w">        </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// Title Field</span>
+<span class="w">            </span><span class="n">OutlinedTextField</span><span class="p">(</span>
+<span class="w">                </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">book</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">title</span><span class="p">,</span>
+<span class="w">                </span><span class="n">onValueChange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">book</span><span class="p">.</span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">book</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">copy</span><span class="p">(</span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">it</span><span class="p">)</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Text</span><span class="p">(</span><span class="s">"Title"</span><span class="p">)</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">(),</span>
+<span class="w">                </span><span class="n">singleLine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">                </span><span class="n">leadingIcon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Icon</span><span class="p">(</span><span class="n">Icons</span><span class="p">.</span><span class="na">Default</span><span class="p">.</span><span class="na">Home</span><span class="p">,</span><span class="w"> </span><span class="n">contentDescription</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Title"</span><span class="p">)</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                </span><span class="n">keyboardOptions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">KeyboardOptions</span><span class="p">(</span><span class="n">imeAction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ImeAction</span><span class="p">.</span><span class="na">Next</span><span class="p">)</span>
+<span class="w">            </span><span class="p">)</span>
+
+<span class="w">            </span><span class="c1">// Author Field</span>
+<span class="w">            </span><span class="n">OutlinedTextField</span><span class="p">(</span>
+<span class="w">                </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">book</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">author</span><span class="p">,</span>
+<span class="w">                </span><span class="n">onValueChange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">book</span><span class="p">.</span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">book</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">copy</span><span class="p">(</span><span class="n">author</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">it</span><span class="p">)</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Text</span><span class="p">(</span><span class="s">"Author"</span><span class="p">)</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">(),</span>
+<span class="w">                </span><span class="n">singleLine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">                </span><span class="n">leadingIcon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Icon</span><span class="p">(</span><span class="n">Icons</span><span class="p">.</span><span class="na">Default</span><span class="p">.</span><span class="na">Person</span><span class="p">,</span><span class="w"> </span><span class="n">contentDescription</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Author"</span><span class="p">)</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                </span><span class="n">keyboardOptions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">KeyboardOptions</span><span class="p">(</span><span class="n">imeAction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ImeAction</span><span class="p">.</span><span class="na">Next</span><span class="p">)</span>
+<span class="w">            </span><span class="p">)</span>
+
+<span class="w">            </span><span class="c1">// Year Field</span>
+<span class="w">            </span><span class="n">OutlinedTextField</span><span class="p">(</span>
+<span class="w">                </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">book</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">year</span><span class="p">.</span><span class="na">toString</span><span class="p">(),</span>
+<span class="w">                </span><span class="n">onValueChange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">book</span><span class="p">.</span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">book</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">copy</span><span class="p">(</span><span class="n">year</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">toIntOrNull</span><span class="p">()</span><span class="w"> </span><span class="o">?:</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Text</span><span class="p">(</span><span class="s">"Year of Publish"</span><span class="p">)</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">(),</span>
+<span class="w">                </span><span class="n">singleLine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">                </span><span class="n">leadingIcon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Icon</span><span class="p">(</span><span class="n">Icons</span><span class="p">.</span><span class="na">Default</span><span class="p">.</span><span class="na">DateRange</span><span class="p">,</span><span class="w"> </span><span class="n">contentDescription</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Year"</span><span class="p">)</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                </span><span class="n">keyboardOptions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">KeyboardOptions</span><span class="p">(</span>
+<span class="w">                    </span><span class="n">imeAction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ImeAction</span><span class="p">.</span><span class="na">Next</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">keyboardType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">KeyboardType</span><span class="p">.</span><span class="na">Number</span>
+<span class="w">                </span><span class="p">)</span>
+<span class="w">            </span><span class="p">)</span>
+
+<span class="w">            </span><span class="c1">// Availability Checkbox</span>
+<span class="w">            </span><span class="n">Row</span><span class="p">(</span>
+<span class="w">                </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">(),</span>
+<span class="w">                </span><span class="n">verticalAlignment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Alignment</span><span class="p">.</span><span class="na">CenterVertically</span>
+<span class="w">            </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">Text</span><span class="p">(</span>
+<span class="w">                    </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Available"</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaterialTheme</span><span class="p">.</span><span class="na">typography</span><span class="p">.</span><span class="na">bodyLarge</span>
+<span class="w">                </span><span class="p">)</span>
+<span class="w">                </span><span class="n">Spacer</span><span class="p">(</span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span><span class="p">.</span><span class="na">size</span><span class="p">(</span><span class="m">8.</span><span class="n">dp</span><span class="p">))</span>
+<span class="w">                </span><span class="n">Checkbox</span><span class="p">(</span>
+<span class="w">                    </span><span class="n">checked</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">book</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">isAvailable</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">onCheckedChange</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">book</span><span class="p">.</span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">book</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">copy</span><span class="p">(</span><span class="n">isAvailable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">it</span><span class="p">)</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                    </span><span class="n">colors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CheckboxDefaults</span><span class="p">.</span><span class="na">colors</span><span class="p">(</span>
+<span class="w">                        </span><span class="n">checkedBoxColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Color</span><span class="p">.</span><span class="na">Green</span><span class="p">,</span>
+<span class="w">                        </span><span class="n">uncheckedBorderColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Color</span><span class="p">.</span><span class="na">Red</span>
+<span class="w">                    </span><span class="p">)</span>
+<span class="w">                </span><span class="p">)</span>
+<span class="w">            </span><span class="p">}</span>
+
+<span class="w">            </span><span class="c1">// Save Button</span>
+<span class="w">            </span><span class="n">IconTextButton</span><span class="p">(</span>
+<span class="w">                </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span>
+<span class="w">                    </span><span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">()</span>
+<span class="w">                    </span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="n">top</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">16.</span><span class="n">dp</span><span class="p">),</span>
+<span class="w">                </span><span class="n">onClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">bookId</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="n">viewModel</span><span class="p">.</span><span class="na">addBook</span><span class="p">(</span><span class="n">book</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">copy</span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">viewModel</span><span class="p">.</span><span class="na">books</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">size</span><span class="p">))</span>
+<span class="w">                    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                        </span><span class="n">viewModel</span><span class="p">.</span><span class="na">updateBook</span><span class="p">(</span><span class="n">book</span><span class="p">.</span><span class="na">value</span><span class="p">)</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                    </span><span class="n">onBackClick</span><span class="p">()</span>
+<span class="w">                </span><span class="p">},</span>
+<span class="w">                </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">"Save"</span><span class="p">,</span>
+<span class="w">                </span><span class="n">leadingIcon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Icons</span><span class="p">.</span><span class="na">Default</span><span class="p">.</span><span class="na">Save</span><span class="p">,</span>
+<span class="w">                </span><span class="n">colors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ButtonDefaults</span><span class="p">.</span><span class="na">buttonColors</span><span class="p">(</span><span class="n">containerColor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MaterialTheme</span><span class="p">.</span><span class="na">colorScheme</span><span class="p">.</span><span class="na">primary</span><span class="p">)</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nd">@Preview</span>
+<span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">BookDetailsScreenNewPreview</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">BookDetailsScreen</span><span class="p">(</span>
+<span class="w">        </span><span class="n">bookId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">        </span><span class="n">onBackClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="nd">@Preview</span>
+<span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">BookDetailsScreenEditPreview</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">BookDetailsScreen</span><span class="p">(</span>
+<span class="w">        </span><span class="n">bookId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span>
+<span class="w">        </span><span class="n">onBackClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Figyeljük meg a következőket:</p>
+<ul>
+<li>A képernyőnk a következő paramétereket veszi át:<ul>
+<li><code>modifier: Modifier</code>: <em>modifier</em> a megjelenítés testreszabásához.</li>
+<li><code>viewModel: BookViewModel</code>: a könyvlistát tartalmazó <em>ViewModel</em>.</li>
+<li><code>bookId: Int?</code>: a megjeleníteni kívánt könyv azonosítója. Amennyiben <em>null</em>, nem kell könyvet megjelenítenünk, hiszen űj könyv hozzáadása történik.</li>
+<li><code>onBackClick: () -&gt; Unit</code>: <em>callback</em> függvény a vissza gombra való kattintáshoz. Mivel itt navigációs eseményt szeretnénk végrehajtani, ezt az eseménykezelőt továbbadjuk a hívónak. </li>
+</ul>
+</li>
+<li>A képernyőhöz tartozó, éppen szerkesztendő / létrehozott könyv adatait a Compose <em>remember</em> mechanizmusa segítségével jegyezzük meg rekompozíció esetén.</li>
+<li>Amennyiben a kapott könyv azonosító létező könyvhöz tartozik (nem <em>null</em>), <code>LaunchedEffect</code> használatával inicializáljuk a szerkesztendő könyvet, ahol a <em>ViewModel</em>-től kérjük le a megadott azonosítóhoz tartozó könyv adatait.</li>
+<li>A <code>Scaffold</code> <em>topBar</em>-jára elhelyezünk egy visszafelé vezető gombot (nyilat) is, amely megnyomása esetén a navigációs <em>callback</em>-et hívjuk.</li>
+<li>A <em>topBar</em>-on megjelenő felirat attól függően változik, hogy szerkesztünk vagy őj könyvet veszünk fel.</li>
+<li>A mentés gombra kattintva megvizsgáljuk, hogy szerkesztés módban voltunk-e vagy új könyvet vettünk fel, és ennek megfelelően hívjuk meg a <em>ViewModel</em> megfelelő metódusát a könyv módosítására vagy új könyv felvételére.</li>
+</ul>
+<p>Ezzel elkészültünk mind a két képernyővel, már csak össze kell kötnünk őket egy navigációval.</p>
+<div class="admonition example">
+<p class="admonition-title">BEADANDÓ (1 pont)</p>
+<p>Készíts egy <strong>képernyőképet</strong>, amelyen látszik a <code>BookListScreen</code> <strong>előnézete és kódja</strong>, valamint a neptun kódod valahol kommentként! A kép a megoldásban a repositoryban f2_1.png néven szerepeljen!</p>
+<p>Készíts egy <strong>képernyőképet</strong>, amelyen látszik a <code>BookDetailsScreen</code> <strong>előnézete és kódja</strong>, valamint a neptun kódod valahol kommentként! A kép a megoldásban a repositoryban f2_2.png néven szerepeljen! </p>
+</div>
+<h2 id="navigacio-1-pont">Navigáció (1 pont)<a class="headerlink" href="#navigacio-1-pont" title="Permanent link">¶</a></h2>
+<p>A navigációhoz tartozó fájlokat a <code>commonMain</code> <em>sourceSet</em>-be, egy <code>navigation</code> nevű <em>package</em>-be készítsük el.</p>
+<p>Az útvonalak áttekinthető kezeléséért először is gyűjtsük össze a navigációs állomásokat egy <code>Screen</code> nevű <em>sealed interface</em>-be:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">sealed</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nc">Screen</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">NavKey</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nd">@Serializable</span>
+<span class="w">    </span><span class="kd">data</span><span class="w"> </span><span class="kd">object</span><span class="w"> </span><span class="nc">BookListScreenDestination</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Screen</span>
+
+<span class="w">    </span><span class="nd">@Serializable</span>
+<span class="w">    </span><span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">BookDetailsScreenDestination</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">bookId</span><span class="p">:</span><span class="w"> </span><span class="kt">Int?</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Screen</span>
+
+<span class="w">    </span><span class="kd">companion</span><span class="w"> </span><span class="kd">object</span><span class="w"> </span><span class="err">{</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SavedStateConfiguration</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">serializersModule</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SerializersModule</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">polymorphic</span><span class="p">(</span><span class="n">NavKey</span><span class="o">::</span><span class="n">class</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">subclass</span><span class="p">(</span>
+<span class="w">                        </span><span class="n">BookListScreenDestination</span><span class="o">::</span><span class="n">class</span><span class="p">,</span>
+<span class="w">                        </span><span class="n">BookListScreenDestination</span><span class="p">.</span><span class="na">serializer</span><span class="p">()</span>
+<span class="w">                    </span><span class="p">)</span>
+<span class="w">                    </span><span class="n">subclass</span><span class="p">(</span>
+<span class="w">                        </span><span class="n">BookDetailsScreenDestination</span><span class="o">::</span><span class="n">class</span><span class="p">,</span>
+<span class="w">                        </span><span class="n">BookDetailsScreenDestination</span><span class="p">.</span><span class="na">serializer</span><span class="p">()</span>
+<span class="w">                    </span><span class="p">)</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Sealed interface</p>
+<p>A Kotlin sealed interface-ei olyan interface-ek, amiket megvalósító osztályokból korlátozott az öröklés, és fordítási időben minden leszármazott osztálya ismert. Ezeket az osztályokat az enumokhoz hasonló módon tudjuk alkalmazni. Jelen esetben a BookDetailsScreenDestination valójában nem a Screen közvetlen leszármazottja, hanem anonim leszármazott osztálya, mivel a könyv id paraméterként történő kezelését is tartalmazza.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">@Serializable</p>
+<p>A @Serializable annotáció a navigációs állomások <em>backStack</em>-ben történő tárolhatósága és menthetősége miatt szükséges.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Polimorfizmus</p>
+<p>Androidon a Navigation 3 a reflection alapú szerializálásra támaszkodik, de ez nem érhető el nem JVM platformok, például iOS esetén. Ennek a korlátozásnak a kiküszöbölésére a könyvtár két túlterhelést tartalmaz a rememberNavBackStack() függvényhez:</p>
+<ul>
+<li>Az első túlterhelés csak egy NavKey referenciák halmazát fogadja el, és egy reflexió alapú szerializálót igényel.</li>
+<li>A második túlterhelés egy SavedStateConfiguration paramétert is fogad el, amely lehetővé teszi egy SerializersModule megadását és a nyílt polimorfizmus kezelését minden platformon.</li>
+</ul>
+</div>
+<p>Fiugyeljük meg, hogyan veszi át a paramétert a <code>BookListScreenDestination</code>!</p>
+<p>Miután megvagyunk az útvonalak kigyűjtésével, megvalósíthatjuk magát a navigációt is. Ehhez egy saját <code>AppNavigation</code> függvényt fogunk készíteni:</p>
+<div class="highlight"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">hu.bme.aut.kmp.librarymanager.navigation</span>
+
+<span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">AppNavigation</span><span class="p">(</span>
+<span class="w">    </span><span class="n">modifier</span><span class="p">:</span><span class="w"> </span><span class="n">Modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span>
+<span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">backStack</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rememberNavBackStack</span><span class="p">(</span>
+<span class="w">        </span><span class="n">configuration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Screen</span><span class="p">.</span><span class="na">config</span><span class="p">,</span>
+<span class="w">        </span><span class="n">Screen</span><span class="p">.</span><span class="na">BookListScreenDestination</span>
+<span class="w">    </span><span class="p">)</span>
+
+<span class="w">    </span><span class="n">NavDisplay</span><span class="p">(</span>
+<span class="w">        </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">modifier</span><span class="p">,</span>
+<span class="w">        </span><span class="n">backStack</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">backStack</span><span class="p">,</span>
+<span class="w">        </span><span class="n">onBack</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">backStack</span><span class="p">.</span><span class="na">removeLastOrNull</span><span class="p">()</span><span class="w"> </span><span class="p">},</span>
+<span class="w">        </span><span class="n">entryProvider</span><span class="w"> </span><span class="o">=</span>
+<span class="w">            </span><span class="n">entryProvider</span><span class="w"> </span><span class="p">{</span>
+
+<span class="w">                </span><span class="n">entry</span><span class="o">&lt;</span><span class="n">Screen</span><span class="p">.</span><span class="na">BookListScreenDestination</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">BookListScreen</span><span class="p">(</span>
+<span class="w">                        </span><span class="n">onFabClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">backStack</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">Screen</span><span class="p">.</span><span class="na">BookDetailsScreenDestination</span><span class="p">())</span><span class="w"> </span><span class="p">},</span>
+<span class="w">                        </span><span class="n">onEditButtonClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                            </span><span class="n">backStack</span><span class="p">.</span><span class="na">add</span><span class="p">(</span>
+<span class="w">                                </span><span class="n">Screen</span><span class="p">.</span><span class="na">BookDetailsScreenDestination</span><span class="p">(</span>
+<span class="w">                                    </span><span class="n">bookId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">it</span>
+<span class="w">                                </span><span class="p">)</span>
+<span class="w">                            </span><span class="p">)</span>
+<span class="w">                        </span><span class="p">})</span>
+<span class="w">                </span><span class="p">}</span>
+
+<span class="w">                </span><span class="n">entry</span><span class="o">&lt;</span><span class="n">Screen</span><span class="p">.</span><span class="na">BookDetailsScreenDestination</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">key</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">                    </span><span class="n">BookDetailsScreen</span><span class="p">(</span>
+<span class="w">                        </span><span class="n">bookId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">key</span><span class="p">.</span><span class="na">bookId</span><span class="p">,</span>
+<span class="w">                        </span><span class="n">onBackClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">backStack</span><span class="p">.</span><span class="na">removeLastOrNull</span><span class="p">()</span><span class="w"> </span><span class="p">}</span>
+<span class="w">                    </span><span class="p">)</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Itt először is létrehozzuk a <em>backStack</em>-et, amibe a kezdőképernyőnk, a <code>Screen.BookListScreenDestination</code> kerül.</p>
+<p>Ez után pedig a <code>NavDisplay</code>-el megjelenítjük az oldalainkat. A <code>NavDisplay</code> a következő paramétereket veszi át:</p>
+<ul>
+<li><code>modifier</code>: <em>modifier</em> a megjelenítés testreszabásához.</li>
+<li><code>backStack</code>: az alkalmazás navigaciós állomásait tartalmazó <em>backStack</em>. Mindig a tetején lévő állomás által meghatározott képernyő látható.</li>
+<li><code>onBack</code>: az alapértelmezett <em>vissza</em> navigációs esemény</li>
+<li><code>entryProvider</code>: az a <em>lambda</em> függvény, ami a összerendeli a navigációs kulcsokat és a megjelenítendő <em>composable</em> függvényeket.</li>
+</ul>
+<p>Figyeljük meg, hogy hogyan adjuk át könyv azonosítóját a <code>BookListScreen</code> <em>onEditButtonClick</em> paraméterében, és hogyan vesszük át a <code>BookDetailsScreen</code>-nél!</p>
+<p>Ahhoz, hogy működjön az alkalmazásunk, már csak annyit kell tennünk, hogy megjelenítjük az <code>AppNavigation</code>-ünket. Tegyük is ezt meg az <code>App()</code> <em>composable</em> függvényünkben:</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="nd">@Preview</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">App</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">MaterialTheme</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">AppNavigation</span><span class="p">(</span>
+<span class="w">            </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Modifier</span>
+<span class="w">                </span><span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">()</span>
+<span class="w">                </span><span class="p">.</span><span class="na">safeDrawingPadding</span><span class="p">()</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Próbáljuk ki az alkalmazást!</p>
+<p>Egészítsük még ki az alkalmazást képernyők között animációval. Ehhez használjuk a <code>NavDisplay</code> paramétereit:</p>
+<div class="highlight"><pre><span></span><code><span class="n">NavDisplay</span><span class="p">(</span>
+<span class="w">    </span><span class="n">modifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">modifier</span><span class="p">,</span>
+<span class="w">    </span><span class="n">backStack</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">backStack</span><span class="p">,</span>
+<span class="w">    </span><span class="n">onBack</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">backStack</span><span class="p">.</span><span class="na">removeLastOrNull</span><span class="p">()</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="n">transitionSpec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">slideInHorizontally</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">fadeIn</span><span class="p">()</span><span class="w"> </span><span class="n">togetherWith</span><span class="w"> </span><span class="n">slideOutHorizontally</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">-</span><span class="nb">it</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">fadeOut</span><span class="p">()</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="n">popTransitionSpec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">slideInHorizontally</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">-</span><span class="nb">it</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">fadeIn</span><span class="p">()</span><span class="w"> </span><span class="n">togetherWith</span><span class="w"> </span><span class="n">slideOutHorizontally</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">fadeOut</span><span class="p">()</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="n">entryProvider</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="p">...</span>
+</code></pre></div>
+<div class="admonition example">
+<p class="admonition-title">BEADANDÓ (1 pont)</p>
+<p>Készíts egy <strong>képernyőképet</strong>, amelyen a listázó nézet látszik tetszőleges platformon, rajta legalább 2 felvett könyvvel! Az egyik könyv címe legyen a Neptun kódunk. A kép a megoldásban a repositoryban f3_1.png néven szerepeljen! </p>
+<p>Készíts egy <strong>képernyőképet</strong>, amelyen a részletező képernyő látszik tetszőleges platformon és minden beviteli vezérlő ki van töltve valamilyen értékkel! A címhez tartozó mező értéke legyen a Neptun kódunk.  A kép a megoldásban a repositoryban f3_2.png néven szerepeljen! </p>
+</div>
+<h2 id="onallo-feladatok">Önálló feladatok<a class="headerlink" href="#onallo-feladatok" title="Permanent link">¶</a></h2>
+<p>A következőkben önállóan dolgozunk. Minden felsorolt feladat 1 pontot ér, tehát nem szükséges az összes feladatot megoldani 4-es vagy 5-ös érdemjegyért. Szándékosan több feladat szerepel annak érdekében, hogy gyakorlási lehetőséget biztosítson és bemutasson több olyan elemet is, amely a laboron eddig nem szerepelt.</p>
+<h3 id="keresesi-funkcio-1-pont">Keresési funkció (1 pont)<a class="headerlink" href="#keresesi-funkcio-1-pont" title="Permanent link">¶</a></h3>
+<p>Valósítsunk meg keresési funkciót (tartalmazott kifejezés, nem pontos egyezés) a listázó képernyőn! Bővítsük ki a könyvlistát egy keresőmezővel a képernyő tetején a lista előtt, ami alapján szűrhető a könyvek listája cím vagy szerző alapján. Azt, hogy mi alapján keresünk, szintén a felhasználó adhassa meg egy alkalmas vezérlő használatával (pl. DropDownMenu, MultiChoiceButtonRow)!</p>
+<details class="tip">
+<summary>Segítség</summary>
+<p>A megoldás menete a következő:</p>
+<ol>
+<li>A <code>BookListScreen</code>-hez adjunk hozzá pl. egy <code>OutlinedTextField</code>-et!</li>
+<li>A keresés fajtájának kiválasztásához használhatunk pl. <code>ExposedDropdownMenuBox</code>-ot, vagy <code>MultiChoiceSegmentedButtonRow</code>-t! Ezek használatához a material3-at meg kell adnunk függőségként a Gradle konfigurációs fájlunkban.</li>
+<li>A <code>BookViewModel</code>-ben vegyünk fel egy <code>searchQuery</code>-t (mi legyen a típusa?).</li>
+<li>A books listát szűrjük a <code>searchQuery</code> alapján!</li>
+</ol>
+</details>
+<div class="admonition example">
+<p class="admonition-title">BEADANDÓ (1 pont)</p>
+<p>Készíts egy <strong>képernyőképet</strong>, amelyen látszik a keresőmező és a keresés fajtáját kiválasztó vezérlő és az <strong>ahhoz tartozó kód</strong>! A könyvlistában pontosan azok a könyvek jelenjenek meg, amelyek teljesítik a keresési feltételt, és legyen legalább 1 ilyen! A kép a megoldásban a repositoryban f4.png néven szerepeljen! </p>
+</div>
+<h3 id="kedvencek-kezelese-1-pont">Kedvencek kezelése (1 pont)<a class="headerlink" href="#kedvencek-kezelese-1-pont" title="Permanent link">¶</a></h3>
+<p>Bővítsük ki a könyveket egy "kedvenc" funkcióval, és hozzunk létre egy külön képernyőt a kedvencek megjelenítéséhez! A könyveket lehessen kedvenc-nek jelölni, a listázó nézetről legyen lehetőség átnavigálni a kedvenceket megjelenítő képernyőre, ahol listázva láthatjuk őket! A kedvencnek jelöléshez és a navigáláshoz is tetszőleges UI megoldás elfogadható, tetszőleges vezérlőket használhatunk.</p>
+<details class="tip">
+<summary>Segítség</summary>
+<p>A megoldás menete a következő:</p>
+<ol>
+<li>Bővítsük ki a <code>Book</code> adatmodellünket egy <code>isFavorite: Boolean</code> mezővel.</li>
+<li>A <code>BookViewModel</code>-ben implementáljuk a kedvenc állapot váltását és a kedvencnek jelölt könyvek lekérdezését!</li>
+<li>Vegyük fel a megfelelő UI elemeket a listázó képernyőnkre (pl. csillag ikon a könyvön, ami színt vált ha megnyomják, kedvencekre navigáló gomb a képernyő alján stb).</li>
+<li>Készítsünk egy új képernyőt, ami mindig pontosan a kedvencnek jelölt könyveket mutatja! Itt felhasználhatjuk a korábban készített <code>BookCard</code> *Composable</li>
+<li></li>
+<li>
+<ul>
+<li>elemünket.</li>
+</ul>
+</li>
+<li>Bővítsük ki a navigációt, hogy a kedvencek képernyőre megfelelően navigálhassunk a listázó képernyőről!</li>
+</ol>
+</details>
+<div class="admonition example">
+<p class="admonition-title">BEADANDÓ (1 pont)</p>
+<p>Készíts egy <strong>képernyőképet</strong>, amelyen látszik a listázó nézeten legalább 2 könyv, amely közül az egyik kedvencnek van jelölve, a másik pedig nem! A kép a megoldásban a repositoryban f5_1.png néven szerepeljen! </p>
+<p>Készíts egy <strong>képernyőképet</strong>, amelyen látszik a kedvencek képernyő, ahol pontosan a kedvencnek jelölt könyvek vannak megjelenítve! A kép a megoldásban a repositoryban f5_2.png néven szerepeljen! </p>
+</div>
+<h3 id="swipe-to-dismiss-torles-1-pont">Swipe-to-dismiss törlés (1 pont)<a class="headerlink" href="#swipe-to-dismiss-torles-1-pont" title="Permanent link">¶</a></h3>
+<p>Oldjuk meg, hogy könyveken való <em>Swipeolással</em> (oldalra tetszőlegesen választott irányban) lehessen törölni az adott könyvet a listából a listanézet képernyőn!</p>
+<details class="tip">
+<summary>Segítség</summary>
+<p>A megoldás menete a következő:</p>
+<ol>
+<li>Módosítsuk a <code>BookCard</code> <em>Composable</em>-t, csomagoljuk be egy <code>SwipeToDismiss</code> <em>Composable</em>-be!</li>
+<li>Vegyünk át a <code>BookCard</code>-ban egy <em>callback</em> metódust paraméterként, hívjuk meg ezt, ha <em>swipe</em> történt!</li>
+<li>Módosítsuk a <code>BookViewModel</code>-t, hogy lehessen könyvet törölni is!</li>
+<li>A <code>BookCard</code> <em>Composable</em> használatakor a listázó képernyőn paraméterként a <em>Swipe</em>-on hívott <em>callback</em> metódusnak adjunk át egy lambda kifejezést, amely meghívja a <code>BookViewModel</code> megfelelő törlő metódusát!</li>
+</ol>
+</details>
+<div class="admonition example">
+<p class="admonition-title">BEADANDÓ (1 pont)</p>
+<p>Készíts egy <strong>képernyőképet</strong>, amelyen látszik a <code>SwipeToDismiss</code> elem a törlés közben és az <strong>ahhoz tartozó kód</strong>. A kép a megoldásban a repositoryban f6.png néven szerepeljen! </p>
+</div>
+<h3 id="staggered-grid-hasznalata-1-pont">Staggered Grid használata (1 pont)<a class="headerlink" href="#staggered-grid-hasznalata-1-pont" title="Permanent link">¶</a></h3>
+<p>Jelenítsük meg a könyveket a listázó képernyőn Pinterest-szerű, eltérő magasságú kártyákkal, 2 oszlopban! Amennyiben egy könyvnek a címe legalább 20 karakter hosszú, akkor a könyvhöz tartozó Card magassága legyen 50%-al nagyobb, mint a 20-nál kevesebb karaktert tartalmazó című könyveknek!</p>
+<details class="tip">
+<summary>Segítség</summary>
+<p>A megoldás menete a következő:</p>
+<ol>
+<li><code>LazyColumn</code> helyett használjunk <code>LazyVerticalStaggeredGrid</code>-et! Az oszlopok számát állítsuk fix 2-re!</li>
+<li>A <code>BookCard</code>-ok magassága (<em>Modifier.height</em>) függjön a könyv címének hosszától! Használhatunk fix dp értékeket (pl. 150.dp és 100.dp).</li>
+</ol>
+</details>
+<div class="admonition example">
+<p class="admonition-title">BEADANDÓ (1 pont)</p>
+<p>Készíts egy <strong>képernyőképet</strong>, amelyen látszik listázó nézeten a 2 oszlopos, eltérő magasságú megjelenítés és az <strong>ahhoz tartozó kód</strong>! A kép a megoldásban a repositoryban f7.png néven szerepeljen! </p>
+</div>
+
+    <hr>
+  <div class="md-source-file">
+    <span class="md-source-file__fact"> <span class="md-icon" title="Utolsó frissítés"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z">
+          </path>
+        </svg>
+      </span>
+      <span title="2026. március 11. 12:03:10">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2026. március 11. 12:03:10 CET"><span class="timeago" datetime="2026-03-11T12:03:10+01:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2026. március 11. 12:03:10 CET">2026-03-11</span>
+      </span>
+    </span>
+
+    
+
+    <span class="md-source-file__fact">
+      <span class="md-icon" title="Szerzők">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z">
+          </path>
+        </svg>
+      </span>
+      <span>Szerzők</span>
+      <nav><a href="https://github.com/gazdilaci" target="_blank" rel="noopener noreferrer" class="md-author" title="@gazdilaci">
+          <img src="https://avatars.githubusercontent.com/u/23335752?v=4?size=72" alt="@gazdilaci">
+        </a></nav>      
+    </span>
+  </div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden="">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"></path></svg>
+            Vissza a tetejére
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © BME VIK AUT
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.instant", "navigation.top", "search.suggest", "content.code.copy"], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "V\u00e1g\u00f3lapra m\u00e1solva", "clipboard.copy": "M\u00e1sol\u00e1s v\u00e1g\u00f3lapra", "search.result.more.one": "1 tov\u00e1bbi tal\u00e1lat az oldalon", "search.result.more.other": "# tov\u00e1bbi tal\u00e1lat az oldalon", "search.result.none": "Nincs tal\u00e1lat", "search.result.one": "1 egyez\u0151 dokumentum", "search.result.other": "# egyez\u0151 dokumentum", "search.result.placeholder": "Keres\u00e9shez \u00edrj ide valamit", "search.result.term.missing": "\u00dcres", "select.version": "Verzi\u00f3v\u00e1lt\u00e1s"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.2a6f1dda.min.js"></script>
+      
+        <script src="../../js/timeago.min.js"></script>
+      
+        <script src="../../js/timeago_mkdocs_material.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
