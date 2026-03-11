@@ -87,5 +87,6 @@ nav:
       - tudnivalok/github/contributing.md
   - "Laborok":
       - laborok/01_basics/index.md
+      - laborok/02_compose/index.md
   - "Házi feladat":
       - hf/index.md
