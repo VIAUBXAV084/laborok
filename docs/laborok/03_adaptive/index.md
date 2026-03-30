@@ -11,7 +11,7 @@ A labor során egy apróhirdetés alkalmazást fogunk készíteni Android, Windo
 - [`Koin`](https://insert-koin.io/docs/reference/koin-mp/kmp/)   
 - [`Coil`](https://github.com/coil-kt/coil)
 - [`Ktor`](https://ktor.io/docs/client-create-multiplatform-application.html)
-- [`Adaptive Layout`](https://developer.android.com/develop/ui/compose/layouts/adaptive/list-detail)
+- [`Scene Strategies`](https://developer.android.com/guide/navigation/navigation-3/scenes)
 - [`Adaptive Navigation`](https://developer.android.com/develop/ui/compose/layouts/adaptive/build-adaptive-navigation)
 
 
@@ -57,9 +57,6 @@ A feladatok megoldása során ne felejtsük el követni a [feladat beadás folya
 
 4. A `neptun.txt` fájlba írjuk bele a Neptun kódunkat. A fájlban semmi más ne szerepeljen, csak egyetlen sorban a Neptun kód 6 karaktere.
 
-5. Indítsuk el az Android Studio-t vagy az Intellij-t, majd nyissuk meg a kapott kezdőprojektet.
-
-6. Ellenőrizzük, hogy a létrejött projekt lefordul és futtatható mobil és desktop platformokon.
 
 ## Projekt létrehozása
 
