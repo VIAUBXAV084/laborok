@@ -1156,21 +1156,6 @@ val productModule = module {
 }
 ```
 
-Majd indítsuk is el őket az `initKoin` függvényben:
-
-`initKoin.kt`:
-
-```kotlin
-package hu.bme.aut.kmp.vikted.domain.di
-
-import org.koin.core.context.startKoin
-
-fun initKoin () {
-    startKoin {
-        modules(repositoryModule, productModule)
-    }
-}
-```
 
 Már csak a navigációt kell megoldanunk ahhoz, hogy látható legyen a listánk és a részletes nézetünk.
 
@@ -1282,29 +1267,41 @@ fun AppNavigation(
 }
 ```
 
-Ha ezekkel megvagyunk, az alkalmazásunk már futtatható. Illesszük be az `App` függvényünkbe az `AppNavigation`-t a *koin* inicializálása után.
+Ha ezekkel megvagyunk, az alkalmazásunk már futtatható. Illesszük be az `App` függvényünkbe az `AppNavigation`-t a *koin* inicializálása után. A `KoinApplication` composable wrapper függvény elvégzi az inicializálást a megadott konfiguráció alapján.
 
 `App.kt`:
 
 ```kotlin
 package hu.bme.aut.kmp.vikted
 
+
+import hu.bme.aut.kmp.vikted.domain.di.productModule
+import hu.bme.aut.kmp.vikted.domain.di.repositoryModule
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import hu.bme.aut.kmp.vikted.domain.di.initKoin
-import hu.bme.aut.kmp.vikted.navigation.AppNavigation
+import hu.bme.vikted.navigation.AppNavigation
+import org.koin.compose.KoinApplication
+import org.koin.dsl.koinConfiguration
+
 
 @Composable
 @Preview
 fun App() {
-    initKoin()
-
-    MaterialTheme {
-        AppNavigation(modifier = Modifier.safeDrawingPadding())
-    }
+	KoinApplication(
+		configuration = koinConfiguration(declaration = {
+			modules(
+				productModule,
+				repositoryModule
+			)
+		})
+	){
+		MaterialTheme {
+			AppNavigation(modifier = Modifier.safeDrawingPadding())
+		}
+	}
 }
 ```
 
