@@ -138,6 +138,7 @@ compose-multiplatform-adaptive = "1.3.0-alpha06"
 serialization = "2.3.20"
 koin = "4.2.0"
 coil = "3.4.0"
+kotlinx-browser = "0.5.0"
 ...
 
 [libraries]
@@ -154,6 +155,7 @@ coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref 
 coil-network-ktor = { group = "io.coil-kt.coil3", name = "coil-network-ktor3", version.ref = "coil" }
 ktor-client-android = { group = "io.ktor", name = "ktor-client-android", version.ref = "ktor" }
 ktor-client-java = { group = "io.ktor", name = "ktor-client-java", version.ref = "ktor" }
+kotlinx-browser = { module = "org.jetbrains.kotlinx:kotlinx-browser", version.ref = "kotlinx-browser" }
 ...
 
 [plugins]
@@ -231,6 +233,10 @@ sourceSets {
         // Ktor client dependency required for desktop
         implementation(libs.ktor.client.java)
     }
+	webMain.dependencies {
+		//Browser
+		implementation(libs.kotlinx.browser)
+	}
 }
 ```
 
