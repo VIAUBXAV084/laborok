@@ -2972,17 +2972,26 @@ val profileModule = module {
 }
 ```
 
-`initKoin.kt`:
+`App.kt`:
 
 ```kotlin
-package hu.bme.aut.kmp.vikted.domain.di
-
-import org.koin.core.context.startKoin
-
-fun initKoin () {
-    startKoin {
-        modules(repositoryModule, authenticationModule, productModule, profileModule)
-    }
+@Composable
+@Preview
+fun App() {
+	KoinApplication(
+		configuration = koinConfiguration(declaration = {
+			modules(
+				productModule,
+				repositoryModule,
+				authenticationModule,
+				profileModule
+			)
+		})
+	){
+		MaterialTheme {
+			AppNavigation(modifier = Modifier.safeDrawingPadding())
+		}
+	}
 }
 ```
 
