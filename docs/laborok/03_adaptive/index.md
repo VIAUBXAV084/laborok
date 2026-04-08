@@ -138,6 +138,7 @@ compose-multiplatform-adaptive = "1.3.0-alpha06"
 serialization = "2.3.20"
 koin = "4.2.0"
 coil = "3.4.0"
+kotlinx-browser = "0.5.0"
 ...
 
 [libraries]
@@ -154,6 +155,7 @@ coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref 
 coil-network-ktor = { group = "io.coil-kt.coil3", name = "coil-network-ktor3", version.ref = "coil" }
 ktor-client-android = { group = "io.ktor", name = "ktor-client-android", version.ref = "ktor" }
 ktor-client-java = { group = "io.ktor", name = "ktor-client-java", version.ref = "ktor" }
+kotlinx-browser = { module = "org.jetbrains.kotlinx:kotlinx-browser", version.ref = "kotlinx-browser" }
 ...
 
 [plugins]
@@ -231,6 +233,10 @@ sourceSets {
         // Ktor client dependency required for desktop
         implementation(libs.ktor.client.java)
     }
+	webMain.dependencies {
+		//Browser
+		implementation(libs.kotlinx.browser)
+	}
 }
 ```
 
@@ -1156,21 +1162,6 @@ val productModule = module {
 }
 ```
 
-Majd indítsuk is el őket az `initKoin` függvényben:
-
-`initKoin.kt`:
-
-```kotlin
-package hu.bme.aut.kmp.vikted.domain.di
-
-import org.koin.core.context.startKoin
-
-fun initKoin () {
-    startKoin {
-        modules(repositoryModule, productModule)
-    }
-}
-```
 
 Már csak a navigációt kell megoldanunk ahhoz, hogy látható legyen a listánk és a részletes nézetünk.
 
@@ -1282,29 +1273,41 @@ fun AppNavigation(
 }
 ```
 
-Ha ezekkel megvagyunk, az alkalmazásunk már futtatható. Illesszük be az `App` függvényünkbe az `AppNavigation`-t a *koin* inicializálása után.
+Ha ezekkel megvagyunk, az alkalmazásunk már futtatható. Illesszük be az `App` függvényünkbe az `AppNavigation`-t a *koin* inicializálása után. A `KoinApplication` composable wrapper függvény elvégzi az inicializálást a megadott konfiguráció alapján.
 
 `App.kt`:
 
 ```kotlin
 package hu.bme.aut.kmp.vikted
 
+
+import hu.bme.aut.kmp.vikted.domain.di.productModule
+import hu.bme.aut.kmp.vikted.domain.di.repositoryModule
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import hu.bme.aut.kmp.vikted.domain.di.initKoin
-import hu.bme.aut.kmp.vikted.navigation.AppNavigation
+import hu.bme.vikted.navigation.AppNavigation
+import org.koin.compose.KoinApplication
+import org.koin.dsl.koinConfiguration
+
 
 @Composable
 @Preview
 fun App() {
-    initKoin()
-
-    MaterialTheme {
-        AppNavigation(modifier = Modifier.safeDrawingPadding())
-    }
+	KoinApplication(
+		configuration = koinConfiguration(declaration = {
+			modules(
+				productModule,
+				repositoryModule
+			)
+		})
+	){
+		MaterialTheme {
+			AppNavigation(modifier = Modifier.safeDrawingPadding())
+		}
+	}
 }
 ```
 
@@ -2760,13 +2763,25 @@ val authenticationModule = module {
 }
 ```
 
-`initKoin.kt`:
+`App.kt`:
 
 ```kotlin
-fun initKoin () {
-    startKoin {
-        modules(repositoryModule, authenticationModule, productModule)
-    }
+@Composable
+@Preview
+fun App() {
+	KoinApplication(
+		configuration = koinConfiguration(declaration = {
+			modules(
+				productModule,
+				repositoryModule,
+				authenticationModule
+			)
+		})
+	){
+		MaterialTheme {
+			AppNavigation(modifier = Modifier.safeDrawingPadding())
+		}
+	}
 }
 ```
 
@@ -2957,17 +2972,26 @@ val profileModule = module {
 }
 ```
 
-`initKoin.kt`:
+`App.kt`:
 
 ```kotlin
-package hu.bme.aut.kmp.vikted.domain.di
-
-import org.koin.core.context.startKoin
-
-fun initKoin () {
-    startKoin {
-        modules(repositoryModule, authenticationModule, productModule, profileModule)
-    }
+@Composable
+@Preview
+fun App() {
+	KoinApplication(
+		configuration = koinConfiguration(declaration = {
+			modules(
+				productModule,
+				repositoryModule,
+				authenticationModule,
+				profileModule
+			)
+		})
+	){
+		MaterialTheme {
+			AppNavigation(modifier = Modifier.safeDrawingPadding())
+		}
+	}
 }
 ```
 
