@@ -2763,13 +2763,25 @@ val authenticationModule = module {
 }
 ```
 
-`initKoin.kt`:
+`App.kt`:
 
 ```kotlin
-fun initKoin () {
-    startKoin {
-        modules(repositoryModule, authenticationModule, productModule)
-    }
+@Composable
+@Preview
+fun App() {
+	KoinApplication(
+		configuration = koinConfiguration(declaration = {
+			modules(
+				productModule,
+				repositoryModule,
+				authenticationModule
+			)
+		})
+	){
+		MaterialTheme {
+			AppNavigation(modifier = Modifier.safeDrawingPadding())
+		}
+	}
 }
 ```
 
