@@ -1678,7 +1678,7 @@
 <h2 id="a-domain-reteg">A domain réteg<a class="headerlink" href="#a-domain-reteg" title="Permanent link">¶</a></h2>
 <div class="admonition info">
 <p class="admonition-title">Domain réteg</p>
-<p>A domain rétegben a projekt "technológiafüggetlen" része található, amelybe még nem vegyülnek a konkrét adattárolási technológiával vagy megjelenítéssel kapcsolatos részletek. Ezzel a közbülső réteggel az alkalmazásunk komponensei lazábban csatolttá válnak, és megkönnyítik, hogy kevés módosítással lecseréljük akár az adattárolásért felelős technológiánkat, akár a megjelenítést. Az itt megvalósított üzleti logika műveletek nem függenek közvetlen sem az adattárolástól, csak a reposiory komponensektől, és mivel a tennivalók független domainmodelljével dolgoznak, a megjelenítéstől is függetlenek. </p>
+<p>A domain rétegben a projekt "technológiafüggetlen" része található, amelybe még nem vegyülnek a konkrét adattárolási technológiával vagy megjelenítéssel kapcsolatos részletek. Ezzel a közbülső réteggel az alkalmazásunk komponensei lazábban csatolttá válnak, és megkönnyítik, hogy kevés módosítással lecseréljük akár az adattárolásért felelős technológiánkat, akár a megjelenítést. Az itt megvalósított üzleti logika műveletek nem függenek közvetlen sem az adattárolástól, csak a repository komponensektől, és mivel a tennivalók független domainmodelljével dolgoznak, a megjelenítéstől is függetlenek. </p>
 <p>Jelen esetben nem lesz komplex üzleti logikánk, így ez a réteg gyakorlatilag kimarad, csak a függőséginjektálás és a modellek kerülnek bele.</p>
 </div>
 <p>Először vegyük fel az adat osztályainkat. Mivel a teljes alkalmazáson belül ugyan azt az adat struktúrát fogjuk használni, ezért kerüljenek ezek <code>shared</code> modulban a <code>hu.bme.aut.kmp.vikted.domain.model</code> <em>package</em>-be. Természetesen amennyiben az adattároláshoz vagy a megjelenítéshez más struktúrára lenne szükségünk, azokban a rétegekben is vehetünk fel model osztályokat, majd átkonvertálhatjuk őket a megfelelő formátumra. </p>
@@ -1706,7 +1706,7 @@
 <h2 id="adateleresi-reteg">Adatelérési réteg<a class="headerlink" href="#adateleresi-reteg" title="Permanent link">¶</a></h2>
 <div class="admonition info">
 <p class="admonition-title">Repository minta</p>
-<p>A Repository minta lényege, hogy az adatelérést absztracháljuk, vagyis leválasztjuk a konkrét megvalósításról, így növelve a kód karbantarthatóságát, tesztelhetőségét és fliexibilitását. Ezzel mind a konkrét adatelérésünk mind az üzleti logikánk fükketlenné válik és nem függenek egymástól.</p>
+<p>A Repository minta lényege, hogy az adatelérést absztraháljuk, vagyis leválasztjuk a konkrét megvalósításról, így növelve a kód karbantarthatóságát, tesztelhetőségét és fliexibilitását. Ezzel mind a konkrét adatelérésünk mind az üzleti logikánk függetlenné válik és nem függenek egymástól.</p>
 <p>Jelen helyzetben ezt úgy valósítjuk meg, hogy definiálunk egy <em>interface</em>-t, amin keresztül az adatainkat elérjük, majd ennek egy implementációja fogja végezni a valós adatmanipulációt.</p>
 </div>
 <p>Ez után készítsük el az adatelérési réteget a <code>shared</code> modulban a <code>hu.bme.aut.kmp.vikted.data</code> <em>package</em>-be. Itt a <em>Repository</em> mintát fogjuk követni. A termékekkel kapcsolatos <em>repository</em> kerüljön a <code>product</code> <em>package</em>-be:</p>
@@ -1919,7 +1919,7 @@
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<p><code>ProductSearchViewModel</code> egy privát <em>MutableStateFlow</em>-ban tartalmazza az imént létrehozott <code>ProductSearchScreenState</code> állapotot, és azt egy megfigyelhető formában a <em>View</em> rendelkezésére bocsájtja. Ezen kívül az init blokkban elvégzi az adatok belöltését a repository-ból.</p>
+<p><code>ProductSearchViewModel</code> egy privát <em>MutableStateFlow</em>-ban tartalmazza az imént létrehozott <code>ProductSearchScreenState</code> állapotot, és azt egy megfigyelhető formában a <em>View</em> rendelkezésére bocsájtja. Ezen kívül az init blokkban elvégzi az adatok betöltését a repository-ból.</p>
 <h4 id="view">View<a class="headerlink" href="#view" title="Permanent link">¶</a></h4>
 <p>A Model és a ViewModel után már elkészíthetjük a View-t is.</p>
 <h5 id="termek-kartya">Termék kártya<a class="headerlink" href="#termek-kartya" title="Permanent link">¶</a></h5>
@@ -2161,7 +2161,7 @@
 <p>A <code>ProductListScreen</code> átveszi az <code>onListItemClick</code> <em>callback</em>-et is, mivel egy termékre kattintásnál navigációnak kell történnie, amit "felülről" vezérelnek.</p>
 <p>Figyeljük meg, hogy hogyan használjuk az erőforrásainkat, hogyan hivatkozunk a <em>values/strings.xml</em> fájlban lévő szöveges erőforrásra.</p>
 <h3 id="a-reszletes-kepernyo">A részletes képernyő<a class="headerlink" href="#a-reszletes-kepernyo" title="Permanent link">¶</a></h3>
-<p>A lista képernyő után készítsük el a részletes <em>screen</em>-t is a <code>feature.product.details</code> <em>package</em>-ben. (Ne felejtsük el szétválasztani a <em>shared</em> és a <em>composeApp</em> mudulok között a megfelelő állományokat.) Ez jóval egyszerűbb lesz, hiszen csak a megkapott <code>selectedProduct</code> adatait kell megjelenítenie.</p>
+<p>A lista képernyő után készítsük el a részletes <em>screen</em>-t is a <code>feature.product.details</code> <em>package</em>-ben. (Ne felejtsük el szétválasztani a <em>shared</em> és a <em>composeApp</em> mudulok között a megfelelő állományokat.) Ez jóval egyszerűbb lesz, hiszen csak a kiválasztott termék adatait kell megjelenítenie.</p>
 <h4 id="model_1">Model<a class="headerlink" href="#model_1" title="Permanent link">¶</a></h4>
 <p>Itt az állapotunk hasonló lesz az előzőhöz, három állapotot különböztetünk meg.</p>
 <p><code>ProductDetailsScreenState.kt</code>:</p>
@@ -2438,7 +2438,7 @@
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>Figyeljük meg, hogy hogyan valósítottuk meg a vásárlás gombot a képernyő alján! Egy <em>Surface</em>-t helyeztünk el, amire kattintáskor egy <em>Snackbar</em> üzenet jelenik meg. Fontos megjegyezni, hogy a <em>Snackbar</em> nem érhető el a UI szálról, így egy külön korutinnal kell megoldanunk a használatát.</p>
+<p>Figyeljük meg, hogy hogyan valósítottuk meg a vásárlás gombot a képernyő alján! Egy <em>Surface</em>-t helyeztünk el, amire kattintáskor egy <em>Snackbar</em> üzenet jelenik meg. Fontos megjegyezni, hogy a <em>Snackbar</em> suspendable függvénnyel indítható el, így egy külön korutinnal kell megoldanunk a használatát.</p>
 <h3 id="fuggoseginjektalas">Függőséginjektálás<a class="headerlink" href="#fuggoseginjektalas" title="Permanent link">¶</a></h3>
 <p>Ezzel elkészültünk a terméklista felülettel. Ahhoz, hogy tesztelni tudjuk, meg kell oldanunk a <em>repository</em> és a <em>viewmodel</em> példányosítását. Bízzuk ezt a <em>Koin</em>-ra. Készítsük el a <code>shared</code> modulban a  <code>domain.di</code> <em>package</em>-ben az alábbi modulokat:</p>
 <p><code>RepositoryModule.kt</code>:</p>
@@ -2916,8 +2916,8 @@
 <span class="w">    </span><span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">ChangeDescriptionValue</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">text</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ProductCreateScreenEvent</span><span class="p">()</span>
 <span class="w">    </span><span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">ChangePrice</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">price</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ProductCreateScreenEvent</span><span class="p">()</span>
 <span class="w">    </span><span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">ImageSelected</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">imageUrl</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ProductCreateScreenEvent</span><span class="p">()</span>
-<span class="w">    </span><span class="kd">object</span><span class="w"> </span><span class="nc">AddImageButtonClicked</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ProductCreateScreenEvent</span><span class="p">()</span>
-<span class="w">    </span><span class="kd">object</span><span class="w"> </span><span class="nc">SaveProduct</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ProductCreateScreenEvent</span><span class="p">()</span>
+<span class="w">    </span><span class="kd">data</span><span class="w"> </span><span class="kd">object</span><span class="w"> </span><span class="nc">AddImageButtonClicked</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ProductCreateScreenEvent</span><span class="p">()</span>
+<span class="w">    </span><span class="kd">data</span><span class="w"> </span><span class="kd">object</span><span class="w"> </span><span class="nc">SaveProduct</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ProductCreateScreenEvent</span><span class="p">()</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>Eseményként viszont jóval több dolgot küldhetünk, mint korábban. Minden változás a névben, leírásban vagy árban eseményként fog érkezni a <em>ViewModel</em>-be, ahogyan a kiválasztott kép is. Ezeken kívül a felületen lévő két gomb megnyomására is eseményeket küldünk.</p>
@@ -3135,7 +3135,7 @@
 <span class="nd">@Composable</span>
 <span class="kd">expect</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">ImagePicker</span><span class="p">(</span><span class="n">onResult</span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="kt">Any?</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">)</span>
 </code></pre></div>
-<p>A fuggvényt elláttuk az <strong>expect</strong> kulcsszóval, ami az jelenti, hogy ennek a függvénynek kell, hogy legyen aktuális megvalósítása a célzott platformokon. Készítsük is el ezeket!</p>
+<p>A függvényt elláttuk az <strong>expect</strong> kulcsszóval, ami az jelenti, hogy ennek a függvénynek kell, hogy legyen aktuális megvalósítása a célzott platformokon. Készítsük is el ezeket!</p>
 <p>Először nézzük az Androidos változatot. Navigáljunk el az <code>androidMain</code> <em>sourceSet</em>-ben ugyanúgy a <code>hu.bme.aut.kmp.vikted.presentation.components</code> <em>package</em>-be, és adjuk hozzá az <code>ImagePicker.android.kt</code> fájlt.</p>
 <p><code>ImagePicker.android.kt</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">hu.bme.aut.kmp.vikted.components</span>
@@ -3247,12 +3247,12 @@
 <p>Próbáljuk ki az alkalmazást! Most már új elem felvételénél képet is csatolhatunk. Azt is megfigyelhetjük, hogy a <em>Coil</em> használatával a képek ugyan úgy megjelennek a háttértárakról, mint eddig a hálózatról.</p>
 <div class="admonition example">
 <p class="admonition-title">BEADANDÓ (1 pont)</p>
-<p>Készíts <strong>két képernyőképet</strong>, amelyen látszik az elkészített új termék hozzáadása felület <strong>egy- illetve kétpanelos</strong> változatban! A képernyőképen az <strong>új termék neve legyen a saját neptun-kódod</strong>! </p>
-<p>A képeket a megoldásban a repository-ba f2a.png és f2b.png néven töltsd föl!</p>
+<p>Készíts <strong>egy képernyőképet</strong>, amelyen látszik az elkészített új termék hozzáadása felület! A képernyőképen az <strong>új termék neve legyen a saját neptun-kódod</strong>! </p>
+<p>A képeket a megoldásban a repository-ba f2.png néven töltsd föl!</p>
 <p>A képernyőkép szükséges feltétele a pontszám megszerzésének.</p>
 </div>
 <h2 id="a-felhasznalokezeles-megvalositasa-1-pont">A felhasználókezelés megvalósítása (1 pont)<a class="headerlink" href="#a-felhasznalokezeles-megvalositasa-1-pont" title="Permanent link">¶</a></h2>
-<p>Az alkalmazásunk jelenleg csak egy felhasználót támogat. Ha a memória adatbázist lecserélnénk hálózat alapúra, akkor sem tudnánk felhasználóhoz kötni a hirdetéseket. Valósítsunk meg tehát egy egyszerű authentikációt és a hozzá valófelületet a korábbiakhoz hasonlóan, majd ezt illesszük be a navigációba.</p>
+<p>Az alkalmazásunk jelenleg csak egy felhasználót támogat. Ha a memória adatbázist lecserélnénk hálózat alapúra, akkor sem tudnánk felhasználóhoz kötni a hirdetéseket. Valósítsunk meg tehát egy egyszerű authentikációt és a hozzá való felületet a korábbiakhoz hasonlóan, majd ezt illesszük be a navigációba.</p>
 <h3 id="repository">Repository<a class="headerlink" href="#repository" title="Permanent link">¶</a></h3>
 <p>A termékek kezeléséhez hasonlóan készítsük el az authentikációt megvalósító osztályokat is a <code>data.authentication</code> <em>package</em>-ben.</p>
 <p><code>IAuthenticationRepository.kt</code>:</p>
@@ -3364,10 +3364,10 @@
 <span class="w">    </span><span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">EmailChanged</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">email</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">AuthenticationEvent</span><span class="p">()</span>
 <span class="w">    </span><span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">PasswordChanged</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">password</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">AuthenticationEvent</span><span class="p">()</span>
 <span class="w">    </span><span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">ConfirmPasswordChanged</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">password</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">AuthenticationEvent</span><span class="p">()</span>
-<span class="w">    </span><span class="kd">object</span><span class="w"> </span><span class="nc">PasswordVisibilityChanged</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">AuthenticationEvent</span><span class="p">()</span>
-<span class="w">    </span><span class="kd">object</span><span class="w"> </span><span class="nc">ConfirmPasswordVisibilityChanged</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">AuthenticationEvent</span><span class="p">()</span>
-<span class="w">    </span><span class="kd">object</span><span class="w"> </span><span class="nc">LoginButtonClicked</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">AuthenticationEvent</span><span class="p">()</span>
-<span class="w">    </span><span class="kd">object</span><span class="w"> </span><span class="nc">SignUpButtonClicked</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">AuthenticationEvent</span><span class="p">()</span>
+<span class="w">    </span><span class="kd">data</span><span class="w"> </span><span class="kd">object</span><span class="w"> </span><span class="nc">PasswordVisibilityChanged</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">AuthenticationEvent</span><span class="p">()</span>
+<span class="w">    </span><span class="kd">data</span><span class="w"> </span><span class="kd">object</span><span class="w"> </span><span class="nc">ConfirmPasswordVisibilityChanged</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">AuthenticationEvent</span><span class="p">()</span>
+<span class="w">    </span><span class="kd">data</span><span class="w"> </span><span class="kd">object</span><span class="w"> </span><span class="nc">LoginButtonClicked</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">AuthenticationEvent</span><span class="p">()</span>
+<span class="w">    </span><span class="kd">data</span><span class="w"> </span><span class="kd">object</span><span class="w"> </span><span class="nc">SignUpButtonClicked</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">AuthenticationEvent</span><span class="p">()</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>Az események között a beviteli mezők értékének változása, a láthatósági ikonok megnyomása, valamint a bejelentkezés és a regisztráció gombok megnyomása szerepel.</p>
@@ -3425,18 +3425,21 @@
 <span class="w">                </span><span class="n">_state</span><span class="p">.</span><span class="na">update</span><span class="w"> </span><span class="p">{</span>
 <span class="w">                    </span><span class="nb">it</span><span class="p">.</span><span class="na">copy</span><span class="p">(</span>
 <span class="w">                        </span><span class="n">confirmPassword</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newPassword</span><span class="p">,</span>
-<span class="w">                        </span><span class="n">isConfirmPasswordError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">!</span><span class="n">isPasswordValid</span><span class="p">(</span><span class="n">newPassword</span><span class="p">)</span>
+<span class="w">                        </span><span class="n">isConfirmPasswordError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">!</span><span class="n">isPasswordValid</span><span class="p">(</span><span class="n">newPassword</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="n">arePasswordsMatch</span><span class="p">(</span>
+<span class="w">                            </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_state</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">password</span><span class="p">,</span>
+<span class="w">                            </span><span class="n">confirmPassword</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newPassword</span>
+<span class="w">                        </span><span class="p">)</span>
 <span class="w">                    </span><span class="p">)</span>
 <span class="w">                </span><span class="p">}</span>
 <span class="w">            </span><span class="p">}</span>
 
 
 <span class="w">            </span><span class="n">AuthenticationEvent</span><span class="p">.</span><span class="na">ConfirmPasswordVisibilityChanged</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="n">_state</span><span class="p">.</span><span class="na">update</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">copy</span><span class="p">(</span><span class="n">isConfirmPasswordVisible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">!</span><span class="n">_state</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">isConfirmPasswordVisible</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<span class="w">                </span><span class="n">_state</span><span class="p">.</span><span class="na">update</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">copy</span><span class="p">(</span><span class="n">isConfirmPasswordVisible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">!</span><span class="nb">it</span><span class="p">.</span><span class="na">isConfirmPasswordVisible</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
 <span class="w">            </span><span class="p">}</span>
 
 <span class="w">            </span><span class="n">AuthenticationEvent</span><span class="p">.</span><span class="na">PasswordVisibilityChanged</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="n">_state</span><span class="p">.</span><span class="na">update</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">copy</span><span class="p">(</span><span class="n">isPasswordVisible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">!</span><span class="n">_state</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">isPasswordVisible</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<span class="w">                </span><span class="n">_state</span><span class="p">.</span><span class="na">update</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">copy</span><span class="p">(</span><span class="n">isPasswordVisible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">!</span><span class="nb">it</span><span class="p">.</span><span class="na">isPasswordVisible</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
 <span class="w">            </span><span class="p">}</span>
 
 <span class="w">            </span><span class="n">AuthenticationEvent</span><span class="p">.</span><span class="na">LoginButtonClicked</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">onSignIn</span><span class="p">()</span>
@@ -3470,7 +3473,8 @@
 <span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">onSignUp</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="n">viewModelScope</span><span class="p">.</span><span class="na">launch</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">isPasswordValid</span><span class="p">(</span><span class="n">_state</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">password</span><span class="p">)</span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">isEmailValid</span><span class="p">(</span><span class="n">_state</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">email</span><span class="p">)</span>
+<span class="w">                    </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">isPasswordValid</span><span class="p">(</span><span class="n">_state</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">password</span><span class="p">)</span>
 <span class="w">                    </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">arePasswordsMatch</span><span class="p">(</span>
 <span class="w">                        </span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_state</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">password</span><span class="p">,</span>
 <span class="w">                        </span><span class="n">confirmPassword</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_state</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">confirmPassword</span>
@@ -3478,15 +3482,6 @@
 <span class="w">                </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">                    </span><span class="n">authenticationRepository</span><span class="p">.</span><span class="na">signUp</span><span class="p">(</span><span class="n">_state</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">email</span><span class="p">,</span><span class="w"> </span><span class="n">_state</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">password</span><span class="p">)</span>
 <span class="w">                    </span><span class="n">_uiEvent</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">UiEvent</span><span class="p">.</span><span class="na">Success</span><span class="p">)</span>
-<span class="w">                </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">isEmailValid</span><span class="p">(</span><span class="n">_state</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">email</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                    </span><span class="n">_state</span><span class="p">.</span><span class="na">update</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">copy</span><span class="p">(</span><span class="n">isEmailError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
-<span class="w">                </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                    </span><span class="n">_state</span><span class="p">.</span><span class="na">update</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                        </span><span class="nb">it</span><span class="p">.</span><span class="na">copy</span><span class="p">(</span>
-<span class="w">                            </span><span class="n">isPasswordError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">                            </span><span class="n">isConfirmPasswordError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
-<span class="w">                        </span><span class="p">)</span>
-<span class="w">                    </span><span class="p">}</span>
 <span class="w">                </span><span class="p">}</span>
 <span class="w">            </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">:</span><span class="w"> </span><span class="n">Exception</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">                </span><span class="n">_uiEvent</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">UiEvent</span><span class="p">.</span><span class="na">Failure</span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="na">message</span><span class="p">.</span><span class="na">toString</span><span class="p">()))</span>
@@ -3507,14 +3502,14 @@
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>A bejelentkezési folyamatnál szükségünk lesz egy eddig nem használt módszerre. A felhasználó a felületen rákattint a <em>Bejelentkezés</em> gombra, az esemény elmegy a <em>VoewModel</em>-hez, ami meghívja a <em>Repository</em> megfelelő függvényét. Ez eddig is hasonló módon történt, most viszont szükségünk van arra is, hogy a <em>Repository</em> által visszadott választ megjelenítsük a feületen. </p>
+<p>A bejelentkezési folyamatnál szükségünk lesz egy eddig nem használt módszerre. A felhasználó a felületen rákattint a <em>Bejelentkezés</em> gombra, az esemény elmegy a <em>ViewModel</em>-hez, ami meghívja a <em>Repository</em> megfelelő függvényét. Ez eddig is hasonló módon történt, most viszont szükségünk van arra is, hogy a <em>Repository</em> által visszadott választ megjelenítsük a felületen. </p>
 <p>Attól függően, hogy a bejelentkezés sikeres volt-e vagy nem, vagy el kell navigálnunk a felületről vagy hibaüzenetet kell mutatnunk. Erre nem jó módszer az állapot frissítése, mert az nem csak egy pillanatnyi eseményt vált ki. Ezért tehát azt csináljuk, hogy a válasz hatására létrehozunk egy <em>UIEvent</em> eseményt, aminek <em>Success</em> vagy <em>Failure</em> példánya lehet. Ezt az eseményt egy <em>Channel</em>-re küldjük, amit az állapothoz hasonlóan egy <em>Flow</em>-ban a felület rendelkezésére bocsájtunk.</p>
 <p>Készítsük is el ezt a <code>UiEvent</code> osztályt a <code>util</code> <em>package</em>-ben (shared modul).</p>
 <p><code>UiEvent.kt</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">hu.bme.aut.kmp.vikted.util</span>
 
 <span class="kd">sealed</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">UiEvent</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">object</span><span class="w"> </span><span class="nc">Success</span><span class="p">:</span><span class="w"> </span><span class="n">UiEvent</span><span class="p">()</span>
+<span class="w">    </span><span class="kd">data</span><span class="w"> </span><span class="kd">object</span><span class="w"> </span><span class="nc">Success</span><span class="p">:</span><span class="w"> </span><span class="n">UiEvent</span><span class="p">()</span>
 
 <span class="w">    </span><span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">Failure</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">message</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">):</span><span class="w"> </span><span class="n">UiEvent</span><span class="p">()</span>
 <span class="p">}</span>
@@ -3922,7 +3917,7 @@
 <div class="highlight"><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="nn">hu.bme.aut.kmp.vikted.feature.profile</span>
 
 <span class="kd">sealed</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">ProfileScreenEvent</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">object</span><span class="w"> </span><span class="nc">LogoutButtonClicked</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ProfileScreenEvent</span><span class="p">()</span>
+<span class="w">    </span><span class="kd">data</span><span class="w"> </span><span class="kd">object</span><span class="w"> </span><span class="nc">LogoutButtonClicked</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ProfileScreenEvent</span><span class="p">()</span>
 <span class="p">}</span>
 </code></pre></div>
 <h4 id="viewmodel_4">ViewModel<a class="headerlink" href="#viewmodel_4" title="Permanent link">¶</a></h4>
@@ -3952,7 +3947,7 @@
 <span class="w">            </span><span class="nb">it</span><span class="p">.</span><span class="na">copy</span><span class="p">(</span>
 <span class="w">                </span><span class="n">hasUser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">authenticationRepository</span><span class="p">.</span><span class="na">hasUser</span><span class="p">,</span>
 <span class="w">                </span><span class="n">userId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">authenticationRepository</span><span class="p">.</span><span class="na">currentUserId</span>
-<span class="w">                </span><span class="p">)</span>
+<span class="w">            </span><span class="p">)</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 
@@ -4230,7 +4225,7 @@
 <span class="k">import</span><span class="w"> </span><span class="nn">vikted.composeapp.generated.resources.nav_label_search</span>
 
 <span class="kd">enum</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">NavigationItems</span><span class="p">(</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">title</span><span class="p">:</span><span class="w">  </span><span class="n">StringResource</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">title</span><span class="p">:</span><span class="w"> </span><span class="n">StringResource</span><span class="p">,</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">destination</span><span class="p">:</span><span class="w"> </span><span class="n">Screen</span><span class="p">,</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">icon</span><span class="p">:</span><span class="w"> </span><span class="n">ImageVector</span>
 <span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -4357,8 +4352,8 @@
           </path>
         </svg>
       </span>
-      <span title="2026. március 31. 00:36:27">
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2026. március 31. 00:36:27 CEST"><span class="timeago" datetime="2026-03-31T00:36:27+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2026. március 31. 00:36:27 CEST">2026-03-31</span>
+      <span title="2026. április 16. 18:27:53">
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2026. április 16. 18:27:53 CEST"><span class="timeago" datetime="2026-04-16T18:27:53+02:00" locale="hu"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2026. április 16. 18:27:53 CEST">2026-04-16</span>
       </span>
     </span>
 
