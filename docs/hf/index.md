@@ -10,8 +10,7 @@ A házi feladattal kapcsolatos formai követelmények a következők. Kotlin Mul
 -	Legalább 3 érdemi képernyővel / oldallal rendelkezik
 -	Tartalmaz aszinkron kommunikációt (adatbáziskezelés vagy hálózati kommunikáció)
 -	Tartalmaz platform-specifikus funkciót
--	Használ dependency injectiont
--	Használja az MVVM vagy MVI mintát
+-	Használja az MVVM vagy MVI mintát, vagy a Decompose könyvtárat
 
 ## Beadás módja
 
@@ -22,10 +21,18 @@ A házi feladat beadásának platformja a laborokhoz hasonlóan a Github Classro
 
 ### Specifikáció
 
-A specifikáció beadás határideje a **április 26. 23:59**.
-A specifikáció elkészítése közben a "**spec**" branchen dolgozz. Erre az ágra akárhány kommitot tehetsz.
-Sablont a README.md fájl tartalmaz, azt kell kiegészíteni, és feltölteni a repóba a megadott határidőig.
-A beadás akkor teljes, ha a "spec" branch-en megtalálható a README.md fájlban a specifikáció. A beadást egy pull request jelzi, amely pull requestet valamelyik oktatóhoz kell rendelned. A specifikáció elkészítése előfeltétele a házi feladat elfogadásának.
+A specifikáció beadás határideje a **május 10. 23:59**.
+A specifikáció elkészítése közben a "**spec**" branchen dolgozzunk. Erre az ágra akárhány kommitot tehetünk. 
+A szöveges specifikáció pdf formátumú, melyben választ kapunk az alábbi kérdésekre. A specifikáció nem része az értékelésnek, csupán a jelentkezéshez kell, a végső pontba nem számít bele.
+
+-	A feladat rövid, néhány mondatos bemutatása
+-	Milyen platformokat támogat
+-	Milyen képernyői lesznek
+-	Milyen funkciói lesznek
+-	Milyen fontosabb technológiákat használ
+-	Milyen architektúrát használ
+
+A beadás akkor teljes, ha a "spec" branch-en megtalálható a specifikáció pdf formátumban. A beadást egy pull request jelzi. A specifikáció elkészítése előfeltétele a házi feladat elfogadásának.
 
 ### Házi feladat
 
