@@ -17,7 +17,7 @@ A labor során egy kártya-alapú, tanuláshoz használható kvíz alkalmazást 
 <img src="./assets/5.png" width="240">
 </p>
 
-A labor csak a megértéshez szükséges minimális magyarázatokat tartalmazza, részletesebben a vonatkozó előadásokban (5. és 6.) tájékozódhatunk.
+A labor csak a megértéshez szükséges minimális magyarázatokat tartalmazza, részletesebben a vonatkozó előadásban (is) tájékozódhatunk.
 
 ## Előkészületek
 
