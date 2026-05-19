@@ -90,5 +90,6 @@ nav:
       - laborok/02_compose/index.md
       - laborok/03_adaptive/index.md
       - laborok/04_decompose/index.md
+      - laborok/05_networkdb/index.md
   - "Házi feladat":
       - hf/index.md
